@@ -33,15 +33,6 @@
                                            data-original-title="不可重复" value="{{ isset($association['aname']) ? $association['aname'] : '' }}">
                                 </div>
                             </div>
-							<div class="form-group">
-                                <label class="col-sm-3 control-label">社长名称 <span class="asterisk">*</span></label>
-
-                                <div class="col-sm-6">
-                                    <input type="text"  data-toggle="tooltip" name="leader"
-                                           data-trigger="hover" class="form-control tooltips"
-                                           data-original-title="" value="{{ isset($association['leader']) ? $association['leader'] : '' }}">
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">社长手机号码 <span class="asterisk">*</span></label>
 
@@ -84,14 +75,9 @@
                                 <div class="col-sm-6">
                                     <select class="form-control input-sm" name="label" id="label">
                                         <option value="">请选择</option>
-                                        <option value="体育竞技">体育竞技</option>
-                                        <option value="文化艺术">文化艺术</option>
-                                        <option value="爱心公益">爱心公益</option>
-                                        <option value="社会实践">社会实践</option>
-                                        <option value="学术科研">学术科研</option>
-                                        <option value="兴趣爱好">兴趣爱好</option>
-                                        <option value="舞蹈">舞蹈</option>
-                                        <option value="其他">其他</option>
+                                        @foreach($labels as $label)
+                                        <option value="{{ $label->label }}">{{ $label->label }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -111,7 +97,7 @@
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                    <button class="btn btn-primary">保存</button>
+                                    <button class="btn btn-primary" id="create_association">保存</button>
                                 </div>
                             </div>
                         </div><!-- panel-footer -->
