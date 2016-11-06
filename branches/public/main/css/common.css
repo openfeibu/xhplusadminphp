@@ -1,0 +1,258 @@
+html,body{ width: 100%; height: 100%;}
+body,header,section,footer,div,p,img,h1,h2,h3,ul,li,dd,dt,dl,span,a,b,input,form{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    border: none;
+    *border: 0;
+    list-style: none;
+    background: none;
+    font-family:"微软雅黑",Arial,Helvetica,sans-serif;
+    font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased;
+    font-weight: normal;
+    font-style: normal;
+}
+body{ max-width:640px; font-size:26px; font-family:Arial,'微软雅黑'; margin:0 auto; color: #fff; background: #fff;}
+input:focus {outline: none;}
+textarea:focus {outline: none;}
+a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0); border-radius: 0;}/* 1.去除android atton/input标签被点击时产生的边框 2.去除ios a标签被点击时产生的半透明灰色背景 */
+a:focus { -moz-outline-style: none; } /* IE不支持 */
+a:focus { outline: none; } /*很多网站都会加的属性*/
+a{text-decoration:none; }
+a:hover{text-decoration:none;}
+a,button,input{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-modify:read-only;
+    -moz-user-modify:read-only;
+    user-modify:read-only;}
+ul{
+    list-style:none;
+}
+.right{ float: right}
+.left{ float: left;}
+img{
+    font-size: 0;
+}
+.mR0{ margin-right: 0 !important;}
+
+header,section,footer{ width: 640px; overflow: hidden; position: relative;}
+
+.cj{ width: 640px; height: 100%; background: url("../images/cj_bg.png") center no-repeat; background-size: 100% 100%; position: relative;}
+.cj_bg{  background-image: url("../images/cj_bg2.png");}
+.cj_content{
+    width: 405px;
+    height: 419px;
+    background: url("../images/cj_content.png") center no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50% , -50%);
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+}
+.cj_block{ overflow: hidden; height: 100%;}
+.cj_block li{ width: 97px; height: 97px; float: left; margin-bottom: 6px; margin-right: 4.5px; text-align: center; font-size: 26px; font-weight: bold; color: #fff; line-height: 25px ; position: relative;}
+.cj_block li.active{ /*background: rgba(158,0,93,.6);*/ background: rgba(0,113,188,.6);}
+.cj_block li span{
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+}
+.cj_font_center{ width: 100%; text-align: center; color: #fff; position: absolute; top: 78%;}
+
+.cj_btn-wrap{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+    width: 403px;
+    height: 226px;
+    border-radius: 30px;
+    background: #fff;
+    z-index: 999;
+    text-align: center;
+    color: #0071bc;
+}
+.cj_btn_font{
+    margin: 35px 0 50px;
+}
+.cj_btn_a a{
+    display: inline-block;
+    width: 153px;
+    height: 51px;
+    line-height: 51px;
+    text-align: center;
+    color: #0071bc;
+    border: 1px solid #0071bc;
+    border-radius: 15px;
+    margin: 0 15px;
+}
+.cj_btn_a a.active{
+    background: #0071bc;
+    color: #fff;
+}
+
+.cj_grade,.cj_Count,.cj_thanks{
+    display: none;
+}
+
+.spoil{ padding: 0 50px; margin-top: 48%;}
+.spoil_font{ font-size: 38px; text-align: center; }
+.spoil form{
+    font-size: 35px;
+    margin-top: 70px;
+    font-weight: normal;
+}
+.spoil form p { overflow: hidden; text-align: center; margin-top: 25px;}
+.spoil form label{ font-family: "Arial", "Helvetica", "sans-serif", "宋体"; display: inline-block; }
+.spoil form .spoil_text{
+    width: 290px;
+    border-bottom: 1px solid #fff;
+    font-size: 38px;
+    color: #fff;
+    padding: 0 10px;
+    font-family: "Arial", "Helvetica", "sans-serif", "å®‹ä½“";
+    display: inline-block;
+}
+.spoil_submit{
+    width: 224px;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 38px;
+    color: #fc1823;
+    cursor: pointer;
+    margin-top: 35px;
+    height: 60px;
+}
+.spoil_footer{
+    font-size: 25px;
+    color: #fff;
+    font-family: "Arial", "Helvetica", "sans-serif", "å®‹ä½“";
+    margin-top: 35px;
+    line-height: 40px;
+    position: absolute;
+    bottom: 20px;
+}
+.spoil_footer p{text-indent: 3em; font-family: "Arial", "Helvetica", "sans-serif", "宋体";}
+
+.cj_bg .cj_content,.cj_bg .cj_font_center{ display: none;}
+.cj_bg .spoil{ display: block !important;}
+
+
+.store { width: 640px; height: 100%; position: relative; background: #e6e6e6;}
+.store_banner{ width: 100%; overflow: hidden; height: 265px; background: #4497ce}
+.store_container{ width: 100%;}
+.store_content{ width: 100%;}
+.store_header{ width: 100%; overflow: hidden;}
+.store_grade,.store_record{ width: 50%; float: left; height: 85px; line-height: 85px; text-align: center;}
+.store_grade a,.store_record a{ display: block; width: 100%; height: 100%; font-size: 26px; color: #808080;}
+.store_grade span,.store_record span{ color: #0071bc; margin-left: 20px;}
+.store_grade{ background: #fff url("../images/grade_icon.png") 65px 32px no-repeat}
+.store_record{ background: #fff url("../images/record_icon.png") 65px 32px no-repeat}
+
+.store_center{}
+.store_block-wrap{ overflow: hidden; margin-top: 12px; width: 320px; float: left; height: 258px;}
+.store_block-wrap a{ display: block; width: 100%; height: 100%;}
+.store_block_left,.store_block_right{  width: 313px; background: #fff; height: 258px; position: relative;}
+.store_block_left{ float: left; }
+.store_block_right{ float: right;}
+.store_block-wrap .active{ background: #0071bc;}
+.store_img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+    z-index: 9;
+}
+.store_font{ position: absolute; bottom: 10px; right: 10px; overflow: hidden; height: 28px; z-index: 19;}
+.store_span-one{ float: left; font-size: 20px; color: #808080;}
+.store_span-two{ float: left; font-size: 24px; width: 45px; height: 26px; line-height: 26px; padding: 0 5px; margin: 0 7px; border-radius: 7px; background: #0071bc; color: #fff;}
+.store_font i{ float: left; width: 28px; height: 27px; background: url("../images/grade_icon.png") center no-repeat;}
+
+.store_block-wrap .active .store_span-one{ color: #fff;}
+.store_block-wrap .active .store_span-two{ color: #0071bc;  background: #fff;}
+.store_block-wrap .active .store_font i{ background-image: url("../images/grade_icon2.png");}
+
+
+.sign{ width: 640px; height: 100%; position: relative;}
+.sign_window{ width: 640px; height: 100%; background: rgba(0,104,183,.8); position: fixed; top: 0; z-index: 999;}
+.sign_window_block{ width: 424px; height: 348px; background: url("../images/window.png") center no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+}
+.sign_close{ width: 38px; height: 38px; background: url("../images/close.png") center no-repeat; cursor: pointer; position: absolute; top: 20px; right: 20px;}
+
+
+.sign_container{ width: 640px; height: 100%; background: url("../images/sign_bg.png") center no-repeat; background-size: 100% 100%;}
+.sign_header{ width: 100%; height: 170px; background: #0071bc; position: relative;}
+.sign_header_circle{ width: 155px; height: 155px; border-radius: 100%; background: #fff; border: 7px solid #0071bc; position: absolute; top : 55px; left: 55px;}
+.sign_header_font{ font-size: 26px; color: #fff; line-height: 40px; position: absolute; top: 80px; left: 240px}
+.sign_header_btn{ width: 105px; height: 25px; line-height: 25px; position: absolute; right: 7px; bottom: 10px; text-align: center}
+.sign_header_btn a{ display: block; width: 105px; height: 25px; color: #0071bc; background: #4f9dd1; font-size: 20px; border-radius: 20px;}
+
+.sign_footer{ position: absolute; bottom: 0; left: 0; width: 640px; height: 156px; background: #0071bc;}
+.sign_footer_btn{ display: block; width: 241px; height: 64px; background: #fff; border-radius: 25px; color: #0071bc; line-height: 64px; text-align: center; font-size: 32px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate( -50% , -50%);
+    -moz-transform: translate( -50% , -50%);
+    -ms-transform: translate( -50% , -50%);
+    -o-transform: translate( -50% , -50%);
+}
+
+.sign_content{ width: 640px; height: 100%; background: rgba(0,161,233,.6); overflow: hidden;}
+.sign_content_block{ height: 295px; width: 100%; background: url(../images/sign_block.png) center no-repeat; font-size: 90px; text-align: center; line-height: 400px; margin-top: 100px;}
+.sign_content_hint{ background: #0071bc; height: 36px; width: 203px; border-radius: 5px; text-align: center; line-height: 36px; font-size: 20px; font-size: 20px; position: absolute; left: 0; top: 0;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -o-transform: translateX(0);
+    -ms-transform: translateX(0);
+}
+.sign_content_line{ margin-left: 40px ; width: 2351px; margin-top: 126px; height: 46px; background: url("../images/sign_line.png") 0 center no-repeat; position: relative;}
+.sign_r{ width: 41px; height: 90px; position: absolute; top: -7px;background: url("../images/sign_r.png") center no-repeat;
+    -webkit-transition: left .5s;
+    -moz-transition: left .5s;
+    -ms-transition: left .5s;
+    -o-transition: left .5s;
+    transition: left .5s;
+    left: 68px;
+}
+.sign_content_line2{ width: 100%; margin-top: 30px; height: 46px; background: url("../images/sign_line2.png") -2256px center no-repeat; position: relative;}
+
+/*74*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
