@@ -56,7 +56,8 @@ class AssociationController extends BaseController
         });
         $association = $request->session()->get("association");
 		$request->session()->put("association","");
-        return view('admin.association.create',compact('association'));
+		$labels = $this->associationRepositoryEloquent->getAccusationLabel();
+        return view('admin.association.create',compact('association','labels'));
 	}
 	
 	public function edit(Request $request)
@@ -93,9 +94,14 @@ class AssociationController extends BaseController
 	
 	public function store(Request $request){
 		$user = User::where('mobile_no',$request->leader_mobile)->first();
+		
+		if(empty(Input::file("background_url")) || empty($request->label) || empty($request->aname || empty(Input::file("avatar_url")) || empty($request->introduction))){
+			echo "<script>alert('信息还没填写完整');history.go(-1);</script>";
+		}
+
 		if($user){
 			$userInfo = UserInfo::where('uid',$user->uid)->first();
-			/* if(!empty($userInfo->realname)){ */
+			if(!empty($userInfo->realname)){
 				if(empty($request->aid)){
 					$url = $this->imagesService->upload(Input::file("avatar_url"),$request);
 					$background_url = $this->imagesService->upload(Input::file("background_url"),$request);
@@ -104,7 +110,7 @@ class AssociationController extends BaseController
 					$association->aname = $request->aname;
 					$association->avatar_url = $url;
 					$association->leader_uid = $userInfo->uid;
-					$association->leader = $request->leader;
+					$association->leader = $userInfo->realname;
 					$association->background_url = $background_url;
 					$association->label = $request->label;
 					$association->member_number = 1;
@@ -128,7 +134,7 @@ class AssociationController extends BaseController
 						"avatar_url" => $request->avatar_url,
 						"background_url" => $request->background_url,
 						"leader_uid" => $userInfo->uid,
-						"leader" => $request->leader,
+						"leader" => $request->$userInfo->realname,
 						"label" => $request->label,
 						"introduction" => $request->introduction,
 						"superior" => $request->superior,
@@ -138,10 +144,10 @@ class AssociationController extends BaseController
 			        $this->adminRecordService->record($record);	
 				}
 				header("Location:/admin/association");
-			/* }else{
+			}else{
 				Toastr::error("社长还未实名，请先实名再创建社团");
 				return redirect(route('admin.association.create'));
-			} */
+			}
 		}else{
 			Toastr::error("手机号码不是社长注册的号码");
 			return redirect(route('admin.association.create'));
