@@ -6,6 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AssociationRepository;
 use App\Association;
+use App\Association_label;
 
 /**
  * Class AdminUserRepositoryEloquent
@@ -35,6 +36,9 @@ class AssociationRepositoryEloquent extends BaseRepository implements Associatio
 
     public function createAssociation(){
         
+    }
+    public function getAccusationLabel(){
+        return Association_label::get();
     }
 
 }
