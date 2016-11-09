@@ -44,11 +44,14 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
      */
     public function getDeviceTokenByUserID($user_id)
     {
-        return DeviceToken::select(DB::raw('device_token.uid, device_token.platform, device_token.device_token'))
+        return DeviceToken::select(DB::raw('device_token.uid, device_token.platform, device_token.device_token,device_token.push_server'))
                           ->join('user', 'device_token.uid', '=', 'user.uid')
                           ->where('device_token.uid', '=', $user_id)
                           ->orderBy('device_token.created_at', 'desc')
                           ->first();
     }
-
+	public function getUserByUserID($user_id)
+	{
+		return User::find($user_id);
+	}
 }
