@@ -11,13 +11,16 @@ class MessageService
 	protected $request;
 
 	protected $messageRepository;
-
+	protected $pushService;
+	
 	function __construct(Request $request,
+						 PushService $pushService,
 						 MessageRepository $messageRepository
 						 )
 	{
 		$this->request = $request;
 		$this->messageRepository = $messageRepository;
+		$this->pushService = $pushService;
 	}
 
 	/**
@@ -37,7 +40,12 @@ class MessageService
 	{
 		$this->messageRepository->createMessageSingleOne($user_id, '1', $type, $name, $content);
 		//将纸条推送到设备
-
+		$data = [
+			'refresh' => 1,
+			'target' => 'message',
+			'data' => $content 
+		];
+		$this->pushService->PushUserTokenDevice($type, json_encode($data), $user_id,2);
 		return true;
 	}
 
