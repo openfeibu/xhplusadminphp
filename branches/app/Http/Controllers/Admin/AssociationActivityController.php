@@ -60,10 +60,10 @@ class AssociationActivityController extends BaseController
 	}
 	
 	public function destroy(Request $request){
-		$result = $this->associationActivityRepositoryEloquent->delete($request->id);
 		$associationActivity = $this->associationActivityRepositoryEloquent->find($request->id);
 		$record = "社团活动管理，删除社团活动,活动内容为：".$associationActivity->content;
         $this->adminRecordService->record($record);
+		$result = $this->associationActivityRepositoryEloquent->delete($request->id);
 		return response()->json($result ? ['status' => 1] : ['status' => 0]);
 	}
 	
