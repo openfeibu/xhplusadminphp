@@ -96,7 +96,7 @@ class AssociationController extends BaseController
 		$user = User::where('mobile_no',$request->leader_mobile)->first();
 		
 		if(empty(Input::file("background_url")) || empty($request->label) || empty($request->aname || empty(Input::file("avatar_url")) || empty($request->introduction))){
-			echo "<script>alert('信息还没填写完整');history.go(-1);</script>";
+			echo "<script>alert('信息还没填写完整');history.go(-1);</script>";exit;
 		}
 
 		if($user){
