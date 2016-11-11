@@ -4,6 +4,7 @@
     <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.config.js') }}"></script>
     <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.all.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/lang/zh-cn/zh-cn.js') }}"></script>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> Dashboard <span>系统设置</span></h2>
     </div>
@@ -36,7 +37,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">鸡汤标题<span class="asterisk">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text"  data-toggle="tooltip" name="title"
+                                    <input type="text" id="chickenSoup_title"  data-toggle="tooltip" name="title"
                                            data-trigger="hover" class="form-control tooltips"
                                            data-original-title="" value="{{ isset($chickenSoup['title']) ? $chickenSoup['title'] : '' }}">
                                 </div>
@@ -46,7 +47,7 @@
                                 <label class="col-sm-3 control-label">鸡汤背景图 <span class="asterisk">*</span></label>
 
                                 <div class="col-sm-6">
-                                    <input type="file"  data-toggle="tooltip" name="background_url"
+                                    <input type="file" id="background_url"  data-toggle="tooltip" name="background_url"
                                            data-trigger="hover" class="form-control tooltips"
                                            data-original-title="" value="{{ isset($chickenSoup['background_url']) ? $chickenSoup['background_url'] : '' }}">
                                 </div>
@@ -72,7 +73,8 @@
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                    <button class="btn btn-primary">保存</button>
+                                    <input type="button" value="保存" class="btn btn-primary" id="submit_btn">
+                                    <!-- <button class="btn-primary" id="">保存</button> -->
                                      <a class="btn btn-primary" href="{{ route('admin.paper.chickenSoup') }}" >取消</a>
                                 </div>
                             </div>
@@ -202,4 +204,18 @@
             }
         </script>
     </div>
+    <script>
+        $('#submit_btn').on('click',function(){
+            if($('#chickenSoup_title').val() == ""){
+                alert("鸡汤标题不能为空！");
+            }else if($('#background_url').val() == ""){
+                alert("鸡汤背景图片不能为空");
+            }else if($('#editor').html() == ""){
+                alert("鸡汤内容不能为空");
+            }else{
+                $(this).attr('type','submit');
+            }
+        });
+        
+    </script>
 @endsection
