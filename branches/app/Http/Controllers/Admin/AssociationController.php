@@ -155,4 +155,17 @@ class AssociationController extends BaseController
 		
 	}
 
+	public function sort(Request $request){
+		$max_sort = $this->associationRepositoryEloquent->getMaxSort()->max_sort;
+		$updateAssociationSort = $this->associationRepositoryEloquent->updateAssociationSort($max_sort,$request->id);
+		if($updateAssociationSort){
+			Toastr::success("置顶成功");
+			return redirect(route('admin.association.index'));
+		}else{
+			Toastr::error("置顶失败，请重试");
+			return redirect(route('admin.association.index'));
+		}
+
+	}
+
 }
