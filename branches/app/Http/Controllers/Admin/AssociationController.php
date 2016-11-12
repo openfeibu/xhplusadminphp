@@ -101,7 +101,7 @@ class AssociationController extends BaseController
 
 		if($user){
 			$userInfo = UserInfo::where('uid',$user->uid)->first();
-			if(!empty($userInfo->realname)){
+			/* if(!empty($userInfo->realname)){ */
 				if(empty($request->aid)){
 					$url = $this->imagesService->upload(Input::file("avatar_url"),$request);
 					$background_url = $this->imagesService->upload(Input::file("background_url"),$request);
@@ -144,10 +144,10 @@ class AssociationController extends BaseController
 			        $this->adminRecordService->record($record);	
 				}
 				header("Location:/admin/association");
-			}else{
+			/* }else{
 				Toastr::error("社长还未实名，请先实名再创建社团");
 				return redirect(route('admin.association.create'));
-			}
+			} */
 		}else{
 			Toastr::error("手机号码不是社长注册的号码");
 			return redirect(route('admin.association.create'));
