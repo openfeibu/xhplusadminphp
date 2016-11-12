@@ -63,7 +63,7 @@
                                         <td>{{ $comment->tid }}</td>
                                         <td  style="width:150px;height: 70px;display: -webkit-box; -webkit-box-orient ;text-overflow: ellipsis;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">{{ base64_decode($comment->topic_content) }}</td>
                                         <td>{{ $comment->type }}</td>
-                                        <td>{{ $comment->content }}</td>
+                                        <td style="width:150px;height: 70px;display: -webkit-box; -webkit-box-orient ;text-overflow: ellipsis;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">{{ base64_decode($comment->content) }}</td>
                                         <td>{{ $comment->favourites_count}}</td>
                                         <td>{{ $comment->created_at }}</td>
                                         <td style="width:150px">
