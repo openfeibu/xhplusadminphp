@@ -185,6 +185,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::DELETE('association/destroy/{id}',['as' => 'admin.association.destroy' ,'uses' => 'AssociationController@destroy' ]);
 	Route::post('association/destroy_all',['as' => 'admin.association.destroy_all' ,'uses' => 'AssociationController@destroy_all' ]);
 	Route::post('association/store',['as' => 'admin.association.store' ,'uses' => 'AssociationController@store' ]);
+	Route::get('association/sort',['as' => 'admin.association.sort' ,'uses' => 'AssociationController@sort' ]);
 
 	Route::get('association_info',['as' => 'admin.association_info.index' ,'uses' => 'AssociationInfoController@index' ]);
 	Route::get('association_info/create',['as' => 'admin.association_info.create' ,'uses' => 'AssociationInfoController@create' ]);
