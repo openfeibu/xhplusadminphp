@@ -64,7 +64,9 @@
                                         <td>{{ $association->introduction }}</td>
                                         <td>{{ $association->superior }}</td>
                                         <td>{{ $association->created_at }}</td>
-                                        <td style="width:150px">
+                                        <td style="width:200px">
+                                            <a href="{{ route('admin.association.sort',['id'=>$association->aid]) }}"
+                                               class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i> 置顶</a>
                                             <a href="{{ route('admin.association.edit',['id'=>$association->aid]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
                                             <a class="btn btn-danger btn-xs realname-delete"
