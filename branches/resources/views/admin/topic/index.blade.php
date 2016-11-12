@@ -62,7 +62,7 @@
 										<td>{{ $topic->uid }}</td>
                                         <td>{{ $topic->nickname }}</td>
                                         <td>{{ $topic->type }}</td>
-                                        <td>{{ $topic->content }}</td>
+                                        <td style="width:150px;height: 70px;display: -webkit-box; -webkit-box-orient ;text-overflow: ellipsis;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">{{ base64_decode($topic->content) }}</td>
                                         <td>{{ $topic->view_num }}</td>
                                         <td>{{ $topic->comment_num }}</td>
                                         <td>{{ $topic->favourites_count}}</td>
