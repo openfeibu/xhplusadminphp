@@ -35,7 +35,7 @@
     <div class="leftpanel">
 
         <div class="logopanel">
-            <h1><span>[</span> Rbac <span>]</span></h1>
+            <h1><span>[</span> 校汇管理后台 <span>]</span></h1>
         </div><!-- logopanel -->
 
         <div class="leftpanelinner">
@@ -59,7 +59,7 @@
                 </ul>
             </div>
 
-            <h5 class="sidebartitle">Navigation</h5>
+            <h5 class="sidebartitle">管理菜单</h5>
             <ul class="nav nav-pills nav-stacked nav-bracket">
 
                 @inject('permissionPresenter','App\Presenters\PermissionPresenter')
@@ -78,9 +78,9 @@
 
             <a class="menutoggle"><i class="fa fa-bars"></i></a>
 
-            <form class="searchform" action="index.html" method="post">
+            <!-- <form class="searchform" action="index.html" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="Search here..."/>
-            </form>
+            </form> -->
 
             <div class="header-right">
                 <ul class="headermenu">
