@@ -121,7 +121,7 @@ class RealnameController extends BaseController
 		]);		
 		$content = "你的实名已经通过,开启你的玩转任务之旅吧,如果还未显示实名成功，请注销再次登录";
 		$this->messageService->SystemMessage2SingleOne($request->uid, $content);
-		$this->pushService->PushUserAccount("校汇实名通知", "您好，你的实名已经通过,开启你的玩转任务之旅吧,如果还未显示实名成功，请注销再次登录", $request->uid);
+		$this->pushService->PushUserTokenDevice("校汇实名通知", $content, $request->uid);
 
    		$record = "用户实名管理，通过实名用户,用户id为：".$request->uid;
    		$this->adminRecordService->record($record);
@@ -145,7 +145,7 @@ class RealnameController extends BaseController
 		if($deleted_real){
 			$content = "你的实名不通过，原因是：".$request->beizhu;
 			$this->messageService->SystemMessage2SingleOne($request->uid, $content);
-			$this->pushService->PushUserAccount("校汇实名通知", "你的实名不通过，原因是：".$request->beizhu, $request->uid);
+			$this->pushService->PushUserTokenDevice("校汇实名通知", $content, $request->uid);
 			$record = "用户实名管理，驳回实名用户,用户id为：".$request->uid."原因是:".$request->beizhu;
    			$this->adminRecordService->record($record);
 			return redirect('admin/user/real');
