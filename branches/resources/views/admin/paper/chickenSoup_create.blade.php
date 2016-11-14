@@ -45,12 +45,18 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">鸡汤背景图 <span class="asterisk">*</span></label>
-
+								
                                 <div class="col-sm-6">
+	                                @if(isset($chickenSoup['background_url']))
+	                                <img src="{{$chickenSoup['background_url']}}" style="width:200px;margin-bottom: 20px;">
+		                            <input type="hidden" name="old_background_url" value="{{$chickenSoup['background_url']}}">
+		                            @endif
                                     <input type="file" id="background_url"  data-toggle="tooltip" name="background_url"
                                            data-trigger="hover" class="form-control tooltips"
-                                           data-original-title="" value="{{ isset($chickenSoup['background_url']) ? $chickenSoup['background_url'] : '' }}">
+                                           data-original-title="" >
+                                           
                                 </div>
+                                
                             </div>
 
                             <!-- <div class="form-group">
@@ -208,7 +214,7 @@
         $('#submit_btn').on('click',function(){
             if($('#chickenSoup_title').val() == ""){
                 alert("鸡汤标题不能为空！");
-            }else if($('#background_url').val() == ""){
+            }else if($('#background_url').val() == "" &&　$('#old_background_url').val() == ""　){
                 alert("鸡汤背景图片不能为空");
             }else if($('#editor').html() == ""){
                 alert("鸡汤内容不能为空");
