@@ -120,7 +120,12 @@ class ChickenSoupController extends Controller
         }else{
             $uid = 0;
         }
-        $url = $this->imagesService->upload(Input::file("background_url"),$request);
+        if(Input::file("background_url")){
+	        $url = $this->imagesService->upload(Input::file("background_url"),$request);
+        }
+        else{
+		    $url = Input::get("old_background_url") ? Input::get("old_background_url") : '';
+        }
         if(!empty($request->id)){
             $chickenSoup = $this->chickenSoupRepositoryEloquent->getChickenSoupOne($request->id);
 
@@ -146,8 +151,9 @@ class ChickenSoupController extends Controller
             }
 
         }
-        echo "<script>alert('发表成功');history.go(-1);</script>";
-        //return redirect(route('admin.paper.chickenSoup'));
+        $id = !empty($request->id) ? $request->id : $chickenSoup->id;
+
+        return redirect(route('admin.chickenSoup.edit',$id));
     }
 
     public function authorLogin(){
