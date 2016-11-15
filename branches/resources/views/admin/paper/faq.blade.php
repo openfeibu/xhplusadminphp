@@ -50,7 +50,9 @@
 
                             <div class="form-group">
                                 <div class="col-sm-12 col-md-12">
-                                  
+                                    <script id="editor" name="editor" type="text/plain" style="width:830px;height:500px;">
+                                       <?php echo stripslashes($paper['papers']); ?><!-- {{$paper['papers']}} -->
+                                    </script>
                                 </div>
                             </div>
 
