@@ -64,7 +64,7 @@
                                             </div>
                                         </td>
                                          <td>{{ $applyWallet->apply_id }}</td>
-                                         <td><a href="{{ route('admin.user.wallet_account',$applyWallet->uid) }}" target="_blank" title="点击查看钱包明细">{{ $applyWallet->nickname }}</a></td>
+                                         <td><a href="{{ route('admin.user.edit',$applyWallet->uid) }}" target="_blank" >{{ $applyWallet->nickname }}</a> <a href="{{ route('admin.user.wallet_account',$applyWallet->uid) }}" target="_blank" title="点击查看钱包明细">（钱包明细）</a></td>
                                          <td>{{ $applyWallet->realname }}</td>
 										 <td>{{ $applyWallet->out_trade_no }}</td>
 										 <td>{{ $applyWallet->alipay }}</td>
