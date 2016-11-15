@@ -60,6 +60,13 @@ class ApplyWalletController extends BaseController
 		$applyWallets = $this->applyWalletRepositoryEloquent->scopeQuery(function($query){
 			return $query->orderBy('apply_id','desc');
 		})->paginate(config('admin_config.page'));
+		foreach( $applyWallets as $key => $applyWallet )
+		{
+			$user = $this->userRepositoryEloquent->getUserOne($applyWallet->uid,['nickname']);
+			$user_info = $this->userRepositoryEloquent->getUserInfo($applyWallet->uid,['realname']);
+			$applyWallet->nickname = $user->nickname;
+			$applyWallet->realname = $user_info->realname;
+		}	
 
         return view('admin.applyWallet.index', compact('applyWallets'));
 	}
@@ -84,7 +91,6 @@ class ApplyWalletController extends BaseController
 	{		
 		$applyWallet = $this->applyWalletRepositoryEloquent->find($id,$columns = ['uid','out_trade_no','status','fee']);
 
-		
 		if($applyWallet->status != 'wait')
 		{
 			Toastr::error('请勿重复操作提现申请');

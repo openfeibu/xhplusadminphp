@@ -9,6 +9,7 @@ use App\User;
 use App\UserInfo;
 use Breadcrumbs, Toastr;
 use App\Repositories\UserRepositoryEloquent;
+use App\Repositories\WalletAccountRepositoryEloquent;
 use App\Services\AdminRecordService;
 
 class UserController extends BaseController
@@ -17,7 +18,8 @@ class UserController extends BaseController
 	protected $adminRecordService;
 		
     public function __construct(UserRepositoryEloquent $userRepositoryEloquent,
-    							AdminRecordService $adminRecordService)
+    							AdminRecordService $adminRecordService,
+    							WalletAccountRepositoryEloquent $walletAccountRepositoryEloquent)
     {
         parent::__construct();
         Breadcrumbs::setView('admin._partials.breadcrumbs');
@@ -26,6 +28,7 @@ class UserController extends BaseController
             $breadcrumbs->push('用户管理', route('admin.user.index'));
         });
        	$this->userRepositoryEloquent = $userRepositoryEloquent;
+       	$this->walletAccountRepositoryEloquent = $walletAccountRepositoryEloquent;
        	$this->adminRecordService = $adminRecordService;
     }
     
@@ -126,5 +129,10 @@ class UserController extends BaseController
 		}
 		header("Location:/admin/user");
 	}
-
+	public function walletAccount (Request $request)
+	{
+		$user = $this->userRepositoryEloquent->getUserOne($request->uid,['nickname']);
+		$accounts = $this->walletAccountRepositoryEloquent->getWalletAccount($request->uid);
+		return view('admin.user.wallet_account',compact('user','accounts'));
+	}
 }
