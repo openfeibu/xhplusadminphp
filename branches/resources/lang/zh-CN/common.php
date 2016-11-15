@@ -15,6 +15,7 @@ return [
 		'1' => '支付宝支付', 
 		'2' => '微信支付',
 		'3' => '余额支付',
+		'4' => '系统返现',
 	],
 	'trade_type' => [
 		'ReleaseTask' => '发布任务',
@@ -24,6 +25,7 @@ return [
 		'CancelTask'  => '取消任务',
 		'Shopping'	  => '购物',	
 		'TelecomOrder' => '电信套餐',
+		'FreeOrder' => '首单返现',
 	],
 	// user   wallet 字段
 	'wallet_type' => [
@@ -52,6 +54,10 @@ return [
 		'cashed' => '已提现',
 		'cashfail' => '提现失败',
 	],
+	'task_type' => [
+		'personal' => '个人',
+		'business' => '商家',
+	],
 	//任务状态
 	'task_status' => [
 		'waitpay' => '待支付',
@@ -61,6 +67,13 @@ return [
 		'accepted' => '已接单',
 		'finish' => '待结算',
 		'completed' => '已结算',
+	],
+	//社团成员等级
+	'association_level' => [
+		'0' => '成员',
+		'1' => '会长',
+		'2' => '管理员',
+		'3' => '管理员',
 	],
 	//申请状态 
 	'apply_status' => [
