@@ -40,6 +40,8 @@
                                         </span>
                                     </th>
                                     <th>标识</th>
+                                    <th>用户昵称</th>
+                                    <th>用户姓名</th>
                                     <th>交易订单号</th>
                                     <th>支付宝账号</th> 
 									<th>支付宝姓名</th>								
@@ -62,6 +64,8 @@
                                             </div>
                                         </td>
                                          <td>{{ $applyWallet->apply_id }}</td>
+                                         <td><a href="{{ route('admin.user.wallet_account',$applyWallet->uid) }}" target="_blank" title="点击查看钱包明细">{{ $applyWallet->nickname }}</a></td>
+                                         <td>{{ $applyWallet->realname }}</td>
 										 <td>{{ $applyWallet->out_trade_no }}</td>
 										 <td>{{ $applyWallet->alipay }}</td>
 										 <td>{{ $applyWallet->alipay_name }}</td>	
