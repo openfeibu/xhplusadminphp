@@ -6,6 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\UserRepository;
 use App\User;
+use App\UserInfo;
 use App\DeviceToken;
 use DB;
 
@@ -30,11 +31,15 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return $users;
     }
 	
-    public function getUserOne($id){
-        $user = User::where('uid',$id)->first();
+    public function getUserOne($id,$column = ['*']){
+        $user = User::where('uid',$id)->first($column);
         return $user;
     }
-
+	public function getUserInfo($id,$column = ['*']){
+        $user_info = UserInfo::where('uid',$id)->first($column);
+        return $user_info;
+    }
+    
 	public function getUserWallet($id){
         $user = User::select(DB::raw('wallet'))->where('uid',$id)->first();
         return $user->wallet;
