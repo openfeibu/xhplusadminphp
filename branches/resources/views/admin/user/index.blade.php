@@ -47,7 +47,8 @@
                                     <th>最近登录ip</th>
                                     <th>是否封号</th>
                                     <th>总积分</th>  
-                                    <th>今日积分</th>                                 
+                                    <th>今日积分</th>   
+                                    <th>钱包余额(元)</th>                                
                                     <th>提交时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -82,8 +83,10 @@
                                         </td>
                                         <td>{{ $user->integral }}</td>
                                         <td>{{ $user->today_integral }}</td>
+                                        <td> <a href="{{ route('admin.user.wallet_account',$user->uid) }}" target="_blank">{{ $user->wallet }}</a></td>
                                         <td>{{ $user->created_at }}</td>
                                         <td style="width:150px">
+	                                       
                                             <a href="{{ route('admin.user.edit',['id'=>$user->uid]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
                                             <a class="btn btn-danger btn-xs realname-delete"
