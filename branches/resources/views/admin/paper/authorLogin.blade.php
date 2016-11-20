@@ -44,7 +44,7 @@
 </body>
 <script>
     var ran = "../../../../images/book"+parseInt(Math.random()*7)+".jpg";
-    $('body').css({"background-image":"url("+ran+")","background-size":"100% auto","overflow-x":"hidden"});
+    $('body').css({"background-image":"url("+ran+")","background-size":"cover","overflow-x":"hidden","background-repeat":"no-repeat"});
 </script>
 <script>
 	$('#author_submit').on('click',function(){

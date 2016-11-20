@@ -23,7 +23,7 @@
         .status_btn_pass{margin-left: 10px;}
         .status_btn_delete{background: #E91717;}
 
-        .footer{width: 100%;margin:0 auto;text-align: center;color: #fff;margin-top: 30px;}
+        .footer{width: 100%;margin:0 auto;text-align: center;color: #fff;margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -107,9 +107,8 @@
 <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 <script>
     $(document).ready(function(){  
-        
         var ran = "../../../../images/book"+parseInt(Math.random()*7)+".jpg";
-        $('body').css({"background-image":"url("+ran+")","background-size":"100% auto","overflow-x":"hidden"});
+        $('body').css({"background-image":"url("+ran+")","background-size":"cover","overflow-x":"hidden","background-repeat":"no-repeat"});
     }); 
     
 
