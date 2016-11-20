@@ -9,7 +9,7 @@
         .nickname_menu{height: 40px;width: 150px;background: #3F95FE;color: #818181;margin-right: 20px;line-height: 40px;text-align: center;border-radius: 5px;color: #fff;font-size: 20px;}
         .author_title{margin:0 auto;text-align: center;margin-top: 4%;font-size: 35px;color: #eee;letter-spacing:10px;}
         .verifyLists{width: 550px;height: 700px;border:2px #fff solid;float: left;margin-left: 50px;}
-        .verifyList{height: 100px;width: 450px;border:1px #e2e1e1 solid;list-style: none;display: inline-block;color: #000;display: block;margin-top: 10px;border-radius: 5px;background: #fff;padding-top: 10px;padding-bottom: 10px;}
+        .verifyList{height: 100px;width: 450px;border:1px #e2e1e1 solid;list-style: none;display: inline-block;color: #000;display: block;margin-top: 10px;border-radius: 5px;background: #fff;padding-top: 10px;padding-bottom: 10px;cursor:pointer}
         .background_url{width: 80px;height: 80px;margin-left: 10px;margin-top:10px;float: left}
         .verifyList_content p{margin-left: 10px;color: #000;margin-top: 5px;}
         .page_style a{text-decoration:none;display: inline;}
