@@ -14,9 +14,10 @@
 		.authorDiv_password{margin-left: 6.5%;}
 		.authorDiv_username,.authorDiv_password{padding-left: 5px;font-size:16px;}
 		.author_submit{height: 40px;background:#291F15;color: #fff;font-size: 20px;width: 52%;}
+		.footer{width: 100%;margin:0 auto;text-align: center;color: #fff;position:absolute;bottom:0;margin-bottom:20px;}
     </style>
 </head>
-<body style="background-image:url({{ asset('images/book.jpg')}});background-size: 100% auto;">
+<body>
 	<div class="author_title">
 		<b>校汇鸡汤发布系统</b>
 	</div>
@@ -35,7 +36,16 @@
 	       </div>
 	  	</form>
 	</div>
+
+	<div style="clear:both;height:10px;"></div>
+    <div class="footer">
+        版权所有©广州飞步信息科技有限公司
+    </div>
 </body>
+<script>
+    var ran = "../../../../images/book"+parseInt(Math.random()*7)+".jpg";
+    $('body').css({"background-image":"url("+ran+")","background-size":"100% auto","overflow-x":"hidden"});
+</script>
 <script>
 	$('#author_submit').on('click',function(){
 		if($('#mobile_no').val() == ""){

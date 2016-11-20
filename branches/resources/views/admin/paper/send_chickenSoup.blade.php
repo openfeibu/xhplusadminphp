@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>send</title>
+	<title>发布中心</title>
 	<script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.config.js') }}"></script>
     <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/ueditor.all.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8" src="{{ asset('js/edit/lang/zh-cn/zh-cn.js') }}"></script>
     <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
     <style>
+        .nickname_top{color:#eee;}
+        .nickname_top span{float: right}
+        .nickname_menu{height: 40px;width: 120px;background: #3F95FE;color: #818181;margin-right: 20px;line-height: 40px;text-align: center;border-radius: 5px;color: #fff;font-size: 20px;}
         .author_title{margin:0 auto;text-align: center;margin-top: 4%;font-size: 35px;color: #eee;letter-spacing:10px;}
         .chickenSoup_title span,.chickenSoup_background span{display: inline-block;width:25%;text-align: right;color: #fff;font-size: 20px;}
         #title{width: 60%;height: 35px;border-radius: 5px;border:1px #BFA48E solid;box-shadow: 1px 1px 1px #BFA48E; -webkit-box-shadow: 1px 1px 1px #BFA48E;-moz-box-shadow: 1px 1px 1px #BFA48E;margin-left: 5%;font-size: 16px;color: #818181}
@@ -19,8 +22,31 @@
         #editor{width: 100%;height: 400px;margin-top: -12%}
         .chickenSoup_submit_btn{margin:0 auto;width: 100%;display: inline-block;text-align: center}
         #submit_btn{height: 50px;background:#944A34;color: #fff;font-size: 23px;width: 20%;border-radius: 5px;border:1px #BFA48E solid;box-shadow: 1px 1px 1px #BFA48E; -webkit-box-shadow: 1px 1px 1px #BFA48E;-moz-box-shadow: 1px 1px 1px #BFA48E;}
+        .footer{width: 100%;margin:0 auto;text-align: center;color: #fff;margin-top: 30px;}
     </style>
-<body  style="background-image:url({{ asset('images/book.jpg')}});background-size: 100% auto;">
+<body>
+    @if($is_author == 1)
+        <div class="nickname_top">
+            作者:{{ $nickname }}
+            <span class="nickname_menu">
+                我的发布
+            </span>
+        </div>
+    @elseif($is_author == 2)
+        <div class="nickname_top">
+            管理员:{{ $nickname }}
+            <span class="nickname_menu">
+                我的发布
+            </span>
+            <a href="{{route('admin.chickenSoup.chickenSoupVerifyList',['page'=>1])}}">
+                <span class="nickname_menu" >
+                    审核列表
+                </span>
+            </a>
+        </div>
+    @endif
+    
+    <div style="clear:both"></div>
     <div class="author_title">
         <b>校汇鸡汤发布系统</b>
     </div>
@@ -45,7 +71,16 @@
 			<input type="button" id="submit_btn" value="发表" >
 		</div>
 	</form>
+
+    <div style="clear:both;height:10px;"></div>
+    <div class="footer">
+        版权所有©广州飞步信息科技有限公司
+    </div>
 </body>
+<script>
+    var ran = "../../../../images/book"+parseInt(Math.random()*7)+".jpg";
+    $('body').css({"background-image":"url("+ran+")","background-size":"100% auto","overflow-x":"hidden"});
+</script>
 <script>
     $('#submit_btn').on('click',function(){
         if($('#title').val() == ""){

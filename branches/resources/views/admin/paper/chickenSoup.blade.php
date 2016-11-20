@@ -81,13 +81,15 @@
                                                 审核通过
                                             @elseif ($chickenSoup->status == 2)
                                                 审核失败
+                                            @elseif ($chickenSoup->status == 3)
+                                                等待超管审核
                                             @else
                                                 未知状态
                                             @endif
 										</td>
                                         <td>{{ $chickenSoup->created_at }}</td>
                                         <td style="width:300px;text-align:right">
-                                            @if ($chickenSoup->status == 0) 
+                                            @if ($chickenSoup->status == 0 || $chickenSoup->status == 3) 
                                             <a href="{{ route('admin.chickenSoup.pass',['id'=>$chickenSoup->csid]) }}" data-target="" data-toggle="modal" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 通过</a>
                                             <a href="{{ route('admin.chickenSoup.fail',['id'=>$chickenSoup->csid]) }}" class="btn btn-white btn-xs" data-target="" data-toggle="modal" ><i class="fa fa-pencil"></i> 不通过   </a>
                                             @endif
