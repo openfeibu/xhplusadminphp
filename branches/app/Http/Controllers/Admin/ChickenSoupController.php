@@ -26,7 +26,7 @@ class ChickenSoupController extends Controller
                                 AdminRecordService $adminRecordService,
                                 ImagesService $imagesService)
     {
-        $this->middleware('auth.admin', ['except' => ['store', 'authorLogin', 'authorPostLogin', 'sendChickenSoup']]);
+        $this->middleware('auth.admin', ['except' => ['store', 'authorLogin', 'authorPostLogin', 'sendChickenSoup','chickenSoupVerifyList']]);
         Breadcrumbs::setView('admin._partials.breadcrumbs');
         Breadcrumbs::register('admin-paper', function ($breadcrumbs) {
             $breadcrumbs->push('文章管理', route('admin.paper.chickenSoup'));
@@ -110,7 +110,7 @@ class ChickenSoupController extends Controller
             ->update([
                 'status' => 2,
             ]);
-        Toastr::success('审核成功');
+        Toastr::error('审核失败');
         return redirect(route('admin.paper.chickenSoup'));
     }
 
@@ -143,6 +143,7 @@ class ChickenSoupController extends Controller
             $chickenSoup->uid = $uid;
             $chickenSoup->background_url = $url;
             $chickenSoup->title = $request->title;
+            $chickenSoup->status = 3;
             $chickenSoup->content = stripslashes($request->editor);
             if($chickenSoup->save()){
                 Toastr::success('新增成功');
@@ -165,18 +166,20 @@ class ChickenSoupController extends Controller
         $password = $request->password;
 
         $user = User::select(DB::raw("mobile_no,password,uid,nickname"))
-               ->where('mobile_no',$mobile_no)
-               ->where('password',md5($password))
-               ->first();
+                   ->where('mobile_no',$mobile_no)
+                   ->where('password',md5($password))
+                   ->first();
         
         if($user){
             $userInfo = UserInfo::select(DB::raw("is_author"))
-                    ->where('uid',$user->uid)
-                    ->first();
+                                ->where('uid',$user->uid)
+                                ->first();
             $request->session()->put('uid', $user->uid);
+            $request->session()->put('nickname', $user->nickname);
+            $request->session()->put('is_author', $userInfo->is_author);
 
-            if($userInfo->is_author == 1){
-                return redirect(route('admin.chickenSoup.sendChickenSoup',['uid'=>$request->session()->get('uid')]));
+            if($userInfo->is_author == 1 || $userInfo->is_author == 2){
+                return redirect(route('admin.chickenSoup.sendChickenSoup'));
             }else{
                 echo "<script>alert('无权限访问');history.go(-1);</script>";
             }
@@ -186,13 +189,30 @@ class ChickenSoupController extends Controller
         }
     }
 
-    public function sendChickenSoup($uid){
-        if(!empty(Session::get('uid'))){
-            return view('admin.paper.send_chickenSoup',compact('uid'));
+    public function sendChickenSoup(){
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && !empty(Session::get('is_author'))){
+            return view('admin.paper.send_chickenSoup')
+                        ->with('uid',Session::get('uid'))
+                        ->with('nickname',Session::get('nickname'))
+                        ->with('is_author',Session::get('is_author'));
         }else{
             echo "<script>history.go(-1);</script>";
         }
         
+    }
+
+    public function chickenSoupVerifyList($page){
+        $getVerifyList = $this->chickenSoupRepositoryEloquent->getVerifyList($page);
+        return view('admin.paper.chickenSoupVerifyList')
+                    ->with('verifyList',$getVerifyList['verifyList'])
+                    ->with('nickname',Session::get('nickname'))
+                    ->with('is_author',Session::get('is_author'))
+                    ->with('countList',$getVerifyList['countList'] );
+    }
+
+    public function chickenSoupPreview(Request $request){
+        $getChickenSoupOne = $this->chickenSoupRepositoryEloquent->getChickenSoupOne($request->csid);
+        return $getChickenSoupOne;
     }
 
 }
