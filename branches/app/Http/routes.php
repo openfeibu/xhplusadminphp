@@ -229,4 +229,8 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::get('sendChickenSoup',['as' => 'admin.chickenSoup.sendChickenSoup' ,'uses' => 'ChickenSoupController@sendChickenSoup' ]);
 	Route::get('chickenSoupVerifyList/{page}',['as' => 'admin.chickenSoup.chickenSoupVerifyList' ,'uses' => 'ChickenSoupController@chickenSoupVerifyList' ]);
 	Route::get('chickenSoupPreview',['as' => 'admin.chickenSoup.chickenSoupPreview' ,'uses' => 'ChickenSoupController@chickenSoupPreview' ]);
+	Route::get('chickenSoup/passVerifyList',['as' => 'admin.chickenSoup.passVerifyList' ,'uses' => 'ChickenSoupController@passVerifyList' ]);
+	Route::get('chickenSoup/failVerifyList',['as' => 'admin.chickenSoup.failVerifyList' ,'uses' => 'ChickenSoupController@failVerifyList' ]);
+	Route::get('chickenSoup/deleteVerifyList',['as' => 'admin.chickenSoup.deleteVerifyList' ,'uses' => 'ChickenSoupController@deleteVerifyList' ]);
+	Route::get('chickenSoup/myChickenSoupList/{page}',['as' => 'admin.chickenSoup.myChickenSoupList' ,'uses' => 'ChickenSoupController@myChickenSoupList' ]);
 });
