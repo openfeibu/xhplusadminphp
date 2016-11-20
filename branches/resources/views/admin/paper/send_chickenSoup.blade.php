@@ -28,16 +28,20 @@
     @if($is_author == 1)
         <div class="nickname_top">
             作者:{{ $nickname }}
-            <span class="nickname_menu">
-                我的发布
-            </span>
+            <a href="{{route('admin.chickenSoup.myChickenSoupList',['page'=>1])}}">
+                <span class="nickname_menu">
+                    我的发布
+                </span>
+            </a>
         </div>
     @elseif($is_author == 2)
         <div class="nickname_top">
             管理员:{{ $nickname }}
-            <span class="nickname_menu">
-                我的发布
-            </span>
+            <a href="{{route('admin.chickenSoup.myChickenSoupList',['page'=>1])}}">
+                <span class="nickname_menu">
+                    我的发布
+                </span>
+            </a>
             <a href="{{route('admin.chickenSoup.chickenSoupVerifyList',['page'=>1])}}">
                 <span class="nickname_menu" >
                     审核列表

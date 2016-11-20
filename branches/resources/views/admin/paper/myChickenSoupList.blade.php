@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>鸡汤审核系统</title>
+    <title>我的鸡汤发布</title>
     <style>
         .nickname_top{color:#eee;}
         .nickname_top span{float: right}
@@ -43,16 +43,16 @@
     <div style="clear:both"></div>
 
     <div class="verifyLists_top verifyLists_Top">
-        <b>校汇鸡汤审核系统</b>
+        <b>我的发布历史</b>
     </div>
 
     <div class="verifyLists">
         
         <div class="verifyLists_top">
-            <b>审核列表</b>
+            <b>历史记录</b>
         </div>
         <ul>
-            @foreach($verifyList as $k => $list)
+            @foreach($myList as $k => $list)
                 <li class="verifyList" onclick="preview({{$list->csid}})">
                     <div>
                         <div style="clear:both"></div>
@@ -60,16 +60,14 @@
                         <div style="float: left;" class="verifyList_content">
                             <p>{{$list->title}}</p>
                             <p>{{$list->created_at}}</p>
-                            <p>作者：{{$list->nickname}} , 
-                                @if($list->status == 0)
-                                    <span class="status_btn_pass" onclick="status_btn_pass({{$list->csid}})">通过</span>
-                                    <span class="status_btn_fail"  onclick="status_btn_fail({{$list->csid}})">不通过</span>
+                            <p>状态：@if($list->status == 0)
+                                    <b style="color:orange">审核中</b>
                                     <span class="status_btn_delete"  onclick="status_btn_delete({{$list->csid}})">删除</span>
                                 @elseif($list->status == 3)
-                                    <b>已审核</b>
+                                    <b style="color:#7aa43D">已审核</b>
                                     <span class="status_btn_delete"  onclick="status_btn_delete({{$list->csid}})">删除</span>
                                 @elseif($list->status == 1)
-                                    状态：<b>通过最终审核</b>    
+                                    状态：<b>已发布</b>    
                                 @else
                                     <b style="color:red">审核失败</b>
                                     <span class="status_btn_delete"  onclick="status_btn_delete({{$list->csid}})">删除</span>
@@ -84,7 +82,7 @@
             <div style="width:350px;">
                 @for($i = 1; $i <= ceil($countList/5) ; $i++)
                     <ul class="page_style">
-                        <a href="{{route('admin.chickenSoup.chickenSoupVerifyList',['page'=>$i])}}">
+                        <a href="{{route('admin.chickenSoup.myChickenSoupList',['page'=>$i])}}">
                             <li>{{$i}}</li>
                         </a>
                     </ul>
@@ -113,26 +111,17 @@
         var ran = "../../../../images/book"+parseInt(Math.random()*7)+".jpg";
         $('body').css({"background-image":"url("+ran+")","background-size":"100% auto","overflow-x":"hidden"});
     }); 
+    
 
+    $('#history').on('click',function(){
+        history.go(-1);
+    });
 
     function preview(csid){
         $.get("{{route('admin.chickenSoup.chickenSoupPreview')}}",'csid=' + csid,function(data){
             $('.verifyList_right').html(data.content);
         });
     }
-
-    function status_btn_pass(id){
-        if(confirm("确定通过该鸡汤图文的审核？")){
-            window.location="../chickenSoup/passVerifyList?id="+id;
-        }
-    }
-
-    function status_btn_fail(id){
-        if(confirm("确定否决该鸡汤图文的审核？")){
-            window.location="../chickenSoup/failVerifyList?id="+id;
-        }
-    }
-
     function status_btn_delete(id){
         if(confirm("确定删除该鸡汤图文？")){
             window.location="../chickenSoup/deleteVerifyList?id="+id;
