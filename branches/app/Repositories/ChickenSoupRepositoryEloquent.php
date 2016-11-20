@@ -36,14 +36,14 @@ class ChickenSoupRepositoryEloquent extends BaseRepository implements ChickenSou
             $chickenSoup = ChickenSoup::select(DB::raw('chicken_soup.*,user.nickname'))
                             ->leftJoin('user','chicken_soup.uid','=','user.uid')
                             ->whereNull('deleted_at')
-                            ->where('status','<>',0)
+                            ->where('status',1)
                             ->orderBy('csid', 'desc')
                             ->paginate(config('admin_config.page'));
         }else if($request->act==2){
             $chickenSoup = ChickenSoup::select(DB::raw('chicken_soup.*,user.nickname'))
                             ->leftJoin('user','chicken_soup.uid','=','user.uid')
                             ->whereNull('deleted_at')
-                            ->where('status',0)
+                            ->whereIn('status', [0, 3])
                             ->orderBy('csid', 'desc')
                             ->paginate(config('admin_config.page'));
         }
@@ -56,4 +56,25 @@ class ChickenSoupRepositoryEloquent extends BaseRepository implements ChickenSou
         return $chickenSoup;
     }
 
+    public function getVerifyList($page){
+        $getVerifyList = ChickenSoup::select(DB::raw('chicken_soup.background_url,chicken_soup.title,chicken_soup.status,chicken_soup.created_at,user.nickname,chicken_soup.uid,chicken_soup.csid'))
+                                    ->leftJoin('user','chicken_soup.uid','=','user.uid')
+                                    ->whereIn('status', [0, 3])
+                                    //->where('chicken_soup.uid', '<>',0)
+                                    ->whereNull('chicken_soup.deleted_at')
+                                    ->orderBy('chicken_soup.status','desc')
+                                    ->orderBy('chicken_soup.csid','desc')
+                                    ->skip(5 * $page - 5)
+                                    ->take(5)
+                                    ->get();
+        $countList = ChickenSoup::select(DB::raw('chicken_soup.csid'))
+                                    ->whereIn('status', [0, 3])
+                                    //->where('chicken_soup.uid', '<>',0)
+                                    ->whereNull('chicken_soup.deleted_at')
+                                    ->get();
+        return [
+            'countList' => count($countList) ,
+            'verifyList' => $getVerifyList
+        ];
+    }
 }
