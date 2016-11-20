@@ -26,7 +26,7 @@ class ChickenSoupController extends Controller
                                 AdminRecordService $adminRecordService,
                                 ImagesService $imagesService)
     {
-        $this->middleware('auth.admin', ['except' => ['store', 'authorLogin', 'authorPostLogin', 'sendChickenSoup','chickenSoupVerifyList']]);
+        $this->middleware('auth.admin', ['except' => ['store', 'authorLogin', 'authorPostLogin', 'sendChickenSoup','chickenSoupVerifyList','chickenSoupPreview','passVerifyList','failVerifyList','deleteVerifyList','myChickenSoupList']]);
         Breadcrumbs::setView('admin._partials.breadcrumbs');
         Breadcrumbs::register('admin-paper', function ($breadcrumbs) {
             $breadcrumbs->push('文章管理', route('admin.paper.chickenSoup'));
@@ -143,18 +143,18 @@ class ChickenSoupController extends Controller
             $chickenSoup->uid = $uid;
             $chickenSoup->background_url = $url;
             $chickenSoup->title = $request->title;
-            $chickenSoup->status = 3;
+            $chickenSoup->status = 0;
             $chickenSoup->content = stripslashes($request->editor);
             if($chickenSoup->save()){
                 Toastr::success('新增成功');
             }else{
-                Toastr::success('新增成功');
+                Toastr::error('新增失败');
             }
 
         }
         $id = !empty($request->id) ? $request->id : $chickenSoup->id;
 
-        return redirect(route('admin.chickenSoup.edit',$id));
+        echo "<script>alert('发表成功');history.go(-1);</script>";
     }
 
     public function authorLogin(){
@@ -202,17 +202,77 @@ class ChickenSoupController extends Controller
     }
 
     public function chickenSoupVerifyList($page){
-        $getVerifyList = $this->chickenSoupRepositoryEloquent->getVerifyList($page);
-        return view('admin.paper.chickenSoupVerifyList')
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && !empty(Session::get('is_author'))){
+            $getVerifyList = $this->chickenSoupRepositoryEloquent->getVerifyList($page);
+            return view('admin.paper.chickenSoupVerifyList')
                     ->with('verifyList',$getVerifyList['verifyList'])
                     ->with('nickname',Session::get('nickname'))
                     ->with('is_author',Session::get('is_author'))
                     ->with('countList',$getVerifyList['countList'] );
+        }else{
+            echo "<script>history.go(-1);</script>";
+        }
     }
 
     public function chickenSoupPreview(Request $request){
-        $getChickenSoupOne = $this->chickenSoupRepositoryEloquent->getChickenSoupOne($request->csid);
-        return $getChickenSoupOne;
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && !empty(Session::get('is_author'))){
+            $getChickenSoupOne = $this->chickenSoupRepositoryEloquent->getChickenSoupOne($request->csid);
+            return $getChickenSoupOne;
+        }else{
+            echo "<script>history.go(-1);</script>";
+        }      
+    }
+
+    public function passVerifyList(Request $request){
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && Session::get('is_author') == 2){
+            DB::table('chicken_soup')
+            ->where('csid',$request->id)
+            ->update([
+                'status' => 3,
+            ]);
+            echo "<script>alert('操作成功');self.location=document.referrer;</script>";
+        }else{
+            echo "<script>history.go(-1);</script>";
+        }  
+    }
+
+    public function failVerifyList(Request $request){
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && Session::get('is_author') == 2){
+            DB::table('chicken_soup')
+            ->where('csid',$request->id)
+            ->update([
+                'status' => 2,
+            ]);
+            echo "<script>alert('操作成功');self.location=document.referrer;</script>";
+        }else{
+            echo "<script>history.go(-1);</script>";
+        }  
+    }
+
+    public function deleteVerifyList(Request $request){
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && Session::get('is_author') == 2){
+            DB::table('chicken_soup')
+            ->where('csid',$request->id)
+            ->update([
+                'deleted_at' => date("Y-m-d H:i:s"),
+            ]);
+            echo "<script>alert('操作成功');self.location=document.referrer;</script>";
+        }else{
+            echo "<script>history.go(-1);</script>";
+        } 
+    }
+
+    public function myChickenSoupList($page){
+        if(!empty(Session::get('uid')) && !empty(Session::get('nickname')) && !empty(Session::get('is_author'))){
+            $myChickenSoupList = $this->chickenSoupRepositoryEloquent->getMyChickenSoupList(Session::get('uid'),$page);
+            return view('admin.paper.myChickenSoupList')
+                    ->with('myList',$myChickenSoupList['myList'])
+                    ->with('nickname',Session::get('nickname'))
+                    ->with('is_author',Session::get('is_author'))
+                    ->with('countList',$myChickenSoupList['countList'] );
+        }else{
+            echo "<script>history.go(-1);</script>";
+        }
     }
 
 }
