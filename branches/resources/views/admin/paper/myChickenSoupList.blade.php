@@ -9,15 +9,15 @@
         .nickname_menu{height: 40px;width: 150px;background: #3F95FE;color: #818181;margin-right: 20px;line-height: 40px;text-align: center;border-radius: 5px;color: #fff;font-size: 20px;}
         .author_title{margin:0 auto;text-align: center;margin-top: 4%;font-size: 35px;color: #eee;letter-spacing:10px;}
         .verifyLists{width: 550px;height: 700px;border:2px #fff solid;float: left;margin-left: 50px;}
-        .verifyList{height: 100px;width: 450px;border:1px #e2e1e1 solid;list-style: none;display: inline-block;color: #000;display: block;margin-top: 10px;border-radius: 5px;}
+        .verifyList{height: 100px;width: 450px;border:1px #e2e1e1 solid;list-style: none;display: inline-block;color: #000;display: block;margin-top: 10px;border-radius: 5px;background: #fff;padding-top: 10px;padding-bottom: 10px;}
         .background_url{width: 80px;height: 80px;margin-left: 10px;margin-top:10px;float: left}
-        .verifyList_content p{margin-left: 10px;color: #fff;margin-top: 5px;}
+        .verifyList_content p{margin-left: 10px;color: #000;margin-top: 5px;}
         .page_style a{text-decoration:none;display: inline;}
         .page_style li {color:#fff;list-style: none;height: 30px;width: 40px;background: #3F95FE;line-height: 30px;text-align: center;border-radius: 3px;margin-left:10px;float: left;margin-bottom: 10px;font-size: 20px;}
         .verifyLists_top{margin:0 auto;text-align: center;margin-top: 4%;font-size: 35px;color: #eee;letter-spacing:10px;}
         .verifyLists_Top{margin:0 auto;text-align: center;margin-top: 0;font-size: 35px;color: #eee;letter-spacing:10px;margin-bottom: 30px;}
-        .verifyList_right{float: right;width: 500px;height: 700px;overflow-y:scroll ;border:2px #fff solid;margin-right: 50px;}
-        
+        .verifyList_right{float: right;width: 500px;height: 700px;overflow-y:scroll ;border:2px #fff solid;margin-right: 50px;background: #fff;}
+        .verifyList_right_content{color: #818181}
         .status_btn_pass,.status_btn_fail,.status_btn_delete{height: 25px;width: 50px;background: #3F95FE;color: #818181;margin-left: 5px;line-height: 25px;text-align: center;border-radius: 4px;color: #fff;font-size: 14px;display: inline-block;margin-top: -5px;}
         .status_btn_fail{background: orange;}
         .status_btn_pass{margin-left: 10px;}
@@ -93,7 +93,7 @@
     </div>
 
     <div class="verifyList_right">
-        <div class="verifyLists_top" style="margin-top:100px;">
+        <div class="verifyLists_top verifyList_right_content" style="margin-top:100px;">
             <b>点击左边的图文<br>这里可以看预览﹥○﹤</b>
         </div>
     </div>
