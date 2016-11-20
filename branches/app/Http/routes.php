@@ -226,5 +226,7 @@ Route::post('alipay/alipayRefundNotify','AlipayController@alipayRefundNotify');
 Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('authorLogin',['as' => 'admin.chickenSoup.authorLogin' ,'uses' => 'ChickenSoupController@authorLogin' ]);
 	Route::post('authorPostLogin',['as' => 'admin.chickenSoup.authorPostLogin' ,'uses' => 'ChickenSoupController@authorPostLogin' ]);
-	Route::get('sendChickenSoup/{uid}',['as' => 'admin.chickenSoup.sendChickenSoup' ,'uses' => 'ChickenSoupController@sendChickenSoup' ]);
+	Route::get('sendChickenSoup',['as' => 'admin.chickenSoup.sendChickenSoup' ,'uses' => 'ChickenSoupController@sendChickenSoup' ]);
+	Route::get('chickenSoupVerifyList/{page}',['as' => 'admin.chickenSoup.chickenSoupVerifyList' ,'uses' => 'ChickenSoupController@chickenSoupVerifyList' ]);
+	Route::get('chickenSoupPreview',['as' => 'admin.chickenSoup.chickenSoupPreview' ,'uses' => 'ChickenSoupController@chickenSoupPreview' ]);
 });
