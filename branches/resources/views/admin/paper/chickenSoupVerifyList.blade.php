@@ -20,7 +20,7 @@
         
         .status_btn_pass,.status_btn_fail,.status_btn_delete{height: 25px;width: 50px;background: #3F95FE;color: #818181;margin-left: 5px;line-height: 25px;text-align: center;border-radius: 4px;color: #fff;font-size: 14px;display: inline-block;margin-top: -5px;}
         .status_btn_fail{background: orange;}
-        .status_btn_pass{margin-left: 30px;}
+        .status_btn_pass{margin-left: 10px;}
         .status_btn_delete{background: #E91717;}
 
         .footer{width: 100%;margin:0 auto;text-align: center;color: #fff;margin-top: 30px;}
