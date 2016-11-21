@@ -16,9 +16,6 @@
 
                         <div class="pull-right">
                             <div class="btn-group mr10">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-white tooltips"
-                                   data-toggle="tooltip" data-original-title="新增"><i
-                                            class="glyphicon glyphicon-plus"></i></a>
                                 <a class="btn btn-white tooltips deleteall" data-toggle="tooltip"
                                    data-original-title="删除" data-href="{{ route('admin.user.destroy_all') }}"><i
                                             class="glyphicon glyphicon-trash"></i></a>
@@ -27,6 +24,18 @@
 
                         <h5 class="subtitle mb5">用户列表</h5>
                         @include('admin._partials.show-page-status',['result'=>$users])
+                        
+                        <form action="{{route('admin.user.searchUser')}}">
+                            <div class="col-md-5">
+                                <input type="text" name="searchUser" placeholder="按uid 、手机号码、真实姓名查找" style="" class="form-control" >
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
+                            </div>
+                        </form>
+
+                        <div style="clear:both"></div>                        
 
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
@@ -40,16 +49,15 @@
                                     </th>
                                     <th>标识</th>
                                     <th>用户昵称</th>
+                                    <th>真实名字</th>
                                     <th>手机号码</th>
-                                    <th>密码</th>
                                     <th>头像</th>
-                                    <th>创建ip</th>
-                                    <th>最近登录ip</th>
                                     <th>是否封号</th>
                                     <th>总积分</th>  
-                                    <th>今日积分</th>   
+                                    <th>今日积分</th>  
+                                    <th>是否是作者</th>
                                     <th>钱包余额(元)</th>                                
-                                    <th>提交时间</th>
+                                    <th>注册时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -65,13 +73,11 @@
                                         </td>
 										<td>{{ $user->uid }}</td>
                                         <td>{{ $user->nickname }}</td>
+                                        <td style="width:100px;">【{{ $user->realname }}】</td>
                                         <td>{{ $user->mobile_no }}</td>
-                                        <td>{{ $user->password }}</td>
 										<td>
                                             <img src="{{ $user->avatar_url }}" alt="" style="width:50px;height:50px;">
 										</td>
-                                        <td>{{ $user->created_ip }}</td>
-                                        <td>{{ $user->last_ip }}</td>
                                         <td>
                                             <?php
                                                 if($user->ban_flag == 0){
@@ -83,10 +89,20 @@
                                         </td>
                                         <td>{{ $user->integral }}</td>
                                         <td>{{ $user->today_integral }}</td>
+                                        <td>
+                                            @if($user->is_author == 0)
+                                                平民
+                                            @elseif($user->is_author == 1)
+                                                小编
+                                            @elseif($user->is_author == 2)
+                                                管理员
+                                            @else
+                                                未知
+                                            @endif
+                                        </td>
                                         <td> <a href="{{ route('admin.user.wallet_account',$user->uid) }}" target="_blank">{{ $user->wallet }}</a></td>
                                         <td>{{ $user->created_at }}</td>
                                         <td style="width:150px">
-	                                       
                                             <a href="{{ route('admin.user.edit',['id'=>$user->uid]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
                                             <a class="btn btn-danger btn-xs realname-delete"
