@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('images/xh.png') }}" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    <title>Rbac</title>
+    <title>校汇管理后台</title>
 
     @section('css')
         <link href="{{ asset('css/style.default.css') }}" rel="stylesheet">
