@@ -196,7 +196,7 @@ class ChickenSoupController extends Controller
                         ->with('nickname',Session::get('nickname'))
                         ->with('is_author',Session::get('is_author'));
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         }
         
     }
@@ -210,7 +210,7 @@ class ChickenSoupController extends Controller
                     ->with('is_author',Session::get('is_author'))
                     ->with('countList',$getVerifyList['countList'] );
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         }
     }
 
@@ -219,7 +219,7 @@ class ChickenSoupController extends Controller
             $getChickenSoupOne = $this->chickenSoupRepositoryEloquent->getChickenSoupOne($request->csid);
             return $getChickenSoupOne;
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         }      
     }
 
@@ -232,7 +232,7 @@ class ChickenSoupController extends Controller
             ]);
             echo "<script>alert('操作成功');self.location=document.referrer;</script>";
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         }  
     }
 
@@ -245,7 +245,7 @@ class ChickenSoupController extends Controller
             ]);
             echo "<script>alert('操作成功');self.location=document.referrer;</script>";
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         }  
     }
 
@@ -258,7 +258,7 @@ class ChickenSoupController extends Controller
             ]);
             echo "<script>alert('操作成功');self.location=document.referrer;</script>";
         }else{
-            echo "<script>history.go(-1);</script>";
+            return redirect(route('admin.chickenSoup.authorLogin'));
         } 
     }
 
@@ -271,7 +271,7 @@ class ChickenSoupController extends Controller
                     ->with('is_author',Session::get('is_author'))
                     ->with('countList',$myChickenSoupList['countList'] );
         }else{
-            echo "<script>history.go(-1);</script>";
+           return redirect(route('admin.chickenSoup.authorLogin'));
         }
     }
 
