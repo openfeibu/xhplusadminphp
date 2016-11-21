@@ -84,6 +84,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::DELETE('user/destroy/{id}',['as' => 'admin.user.destroy' ,'uses' => 'UserController@destroy' ]);
 	Route::post('user/destroy_all',['as' => 'admin.user.destroy_all' ,'uses' => 'UserController@destroy_all' ]);
 	Route::post('user/store',['as' => 'admin.user.store' ,'uses' => 'UserController@store' ]);
+	Route::get('user/searchUser',['as' => 'admin.user.searchUser' ,'uses' => 'UserController@searchUser' ]);
 
 	Route::get('user/walletAccount/{uid}',['as' => 'admin.user.wallet_account' ,'uses' => 'UserController@walletAccount' ]);
 	
