@@ -48,8 +48,6 @@ class UserController extends BaseController
             $breadcrumbs->push('编辑用户', route('admin.user.create'));
         });
         $user = $request->session()->get('user');
-        $request->session()->put('user','');
-        $request->session()->put('password',isset($user['password'])?$user['password']:'');
         return view('admin.user.create',compact('user'));
 	}
 
@@ -83,50 +81,30 @@ class UserController extends BaseController
 	}
 	
 	public function store(Request $request){
-		$password = $request->session()->get('password');
-		if($password != $request->password){
-			$password = md5($request->password);
-		}
-		if(!empty($request->uid)){
-			DB::table('user')
-				->where('uid',$request->uid)
-				->update([
-					'nickname' => $request->nickname,
-					'mobile_no' => $request->mobile_no,
-					'password' => $password,
-					'avatar_url' => $request->avatar_url  ,
-					'created_ip' => $request->created_ip,
-					'last_ip' => $request->last_ip,
-					'ban_flag' => $request->ban_flag,
-					'integral' => $request->integral,
-					'today_integral' => $request->today_integral
-				]);
-	        $record = "用户管理，更新用户资料,用户id为：".$request->uid;
-	        $this->adminRecordService->record($record);
+		if($request->ban_flag == 10){
+			$ban_flag = $request->old_ban_flag;
 		}else{
-			$user = new User;
-			$user->nickname = $request->nickname;
-			$user->mobile_no = $request->mobile_no;
-			$user->password = $password;
-			$user->openid = DB::raw('md5(UUID())');
-			$user->avatar_url = $request->avatar_url ? $request->avatar_url : config('app.api_url').'/uploads/system/avatar.png';
-			$user->created_ip = $request->created_ip;
-			$user->last_ip = $request->last_ip;
-			$user->ban_flag = $request->ban_flag;
-			$user->integral = $request->integral;
-			$user->today_integral = $request->today_integral;
-			$user->save();
-
-			$record = "用户管理，增加用户";
-	        $this->adminRecordService->record($record);
-
-	        $userInfo = new UserInfo;
-	        $userInfo->uid = $user->uid;
-	        $userInfo->gender = '0';
-	        $userInfo->college_id = '1';
-	        $userInfo->enrollment_year = '2014';
-	        $userInfo->save();
+			$ban_flag = $request->ban_flag;
 		}
+
+		if($request->is_author == 10){
+			$is_author = $request->old_author;
+		}else{
+			$is_author = $request->is_author;
+		}
+		DB::table('user')
+			->where('uid',$request->uid)
+			->update([
+				'nickname' => $request->nickname,
+				'ban_flag' => $ban_flag,
+			]);
+		DB::table('user_info')
+			->where('uid',$request->uid)
+			->update([
+				'is_author' => $is_author,
+			]);
+        $record = "用户管理，更新用户资料,用户id为：".$request->uid;
+        $this->adminRecordService->record($record);
 		header("Location:/admin/user");
 	}
 	public function walletAccount (Request $request)
@@ -135,4 +113,13 @@ class UserController extends BaseController
 		$accounts = $this->walletAccountRepositoryEloquent->getWalletAccount($request->uid);
 		return view('admin.user.wallet_account',compact('user','accounts'));
 	}
+	public function searchUser(Request $request){
+		Breadcrumbs::register('admin-user-index',function($breadcrumbs){
+			$breadcrumbs->parent('dashboard');
+			$breadcrumbs->push('用户管理', route('admin.user.index'));
+		});
+		$users = $this->userRepositoryEloquent->getUserBySearch($request->searchUser);
+        return view('admin.user.index',compact('users'));
+	}	
+
 }
