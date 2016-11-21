@@ -27,10 +27,13 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     }
 
     public function getUserList(){
-        $users = User::orderBy('uid', 'desc')->paginate(config('admin_config.page'));
+        $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+                      ->leftJoin('user_info','user.uid','=','user_info.uid')
+                      ->orderBy('user.uid', 'desc')
+                      ->paginate(config('admin_config.page'));
         return $users;
     }
-	
+
     public function getUserOne($id,$column = ['*']){
         $user = User::where('uid',$id)->first($column);
         return $user;
@@ -39,7 +42,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $user_info = UserInfo::where('uid',$id)->first($column);
         return $user_info;
     }
-    
+
 	public function getUserWallet($id){
         $user = User::select(DB::raw('wallet'))->where('uid',$id)->first();
         return $user->wallet;
@@ -59,4 +62,30 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 	{
 		return User::find($user_id);
 	}
+
+  public function getUserBySearch($info){
+      if(is_numeric($info)){
+          if(strlen($info) < 11){
+              $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+                      ->leftJoin('user_info','user.uid','=','user_info.uid')
+                      ->where('user.uid',$info)
+                      ->orderBy('user.uid', 'desc')
+                      ->paginate(config('admin_config.page'));
+          }elseif(strlen($info) == 11){
+              $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+                      ->leftJoin('user_info','user.uid','=','user_info.uid')
+                      ->where('user.mobile_no',$info)
+                      ->orderBy('user.uid', 'desc')
+                      ->paginate(config('admin_config.page'));
+          }
+      }else{
+        $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+                      ->leftJoin('user_info','user.uid','=','user_info.uid')
+                      ->where('user_info.realname',$info)
+                      ->orderBy('user.uid', 'desc')
+                      ->paginate(config('admin_config.page'));
+      }
+      return $users;
+    }
+
 }
