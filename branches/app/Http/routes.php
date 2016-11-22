@@ -202,6 +202,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('association_activity/destroy_all',['as' => 'admin.association_activity.destroy_all' ,'uses' => 'AssociationActivityController@destroy_all' ]);
 	Route::post('association_activity/store',['as' => 'admin.association_activity.store' ,'uses' => 'AssociationActivityController@store' ]);
 	Route::post('association_activity/update',['as' => 'admin.association_activity.update' ,'uses' => 'AssociationActivityController@update' ]);
+
+	Route::get('operateHistory',['as' => 'admin.operateHistory.index' ,'uses' => 'OperateHistoryController@index' ]);
+	Route::DELETE('operateHistory/destroy/{id}',['as' => 'admin.operateHistory.destroy' ,'uses' => 'OperateHistoryController@destroy' ]); 
+	Route::post('operateHistory/destroy_all',['as' => 'admin.operateHistory.destroy_all' ,'uses' => 'OperateHistoryController@destroy_all' ]);
 	
 
 	Route::get('test',['as' => 'admin.test.index' ,'uses' => 'TestController@index' ]);
