@@ -18,7 +18,7 @@
                         <div class="pull-right">
                             <div class="btn-group mr10">
 	                            <a href="https://auth.alipay.com/login/index.htm" class="btn btn-white tooltips"
-                                   data-toggle="tooltip" >支付宝</a>
+                                   data-toggle="tooltip" target="_blank">支付宝</a>
                                 <!--<a href="{{ route('admin.applyWallet.create') }}" class="btn btn-white tooltips"
                                    data-toggle="tooltip" data-original-title="新增"><i
                                             class="glyphicon glyphicon-plus"></i></a>
