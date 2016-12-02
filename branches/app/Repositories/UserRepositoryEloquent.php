@@ -67,10 +67,17 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
       if(is_numeric($info)){
           if(strlen($info) < 11){
               $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+                        ->leftJoin('user_info','user.uid','=','user_info.uid')
+                        ->orWhere('user.nickname',$info)
+                        ->orderBy('user.uid', 'desc')
+                        ->paginate(config('admin_config.page'));
+              if(empty($users->data) || $users->data == null){
+                  $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
                       ->leftJoin('user_info','user.uid','=','user_info.uid')
                       ->where('user.uid',$info)
                       ->orderBy('user.uid', 'desc')
                       ->paginate(config('admin_config.page'));
+              }
           }elseif(strlen($info) == 11){
               $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
                       ->leftJoin('user_info','user.uid','=','user_info.uid')
@@ -82,6 +89,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
                       ->leftJoin('user_info','user.uid','=','user_info.uid')
                       ->where('user_info.realname',$info)
+                      ->orWhere('user.nickname',$info)
                       ->orderBy('user.uid', 'desc')
                       ->paginate(config('admin_config.page'));
       }
