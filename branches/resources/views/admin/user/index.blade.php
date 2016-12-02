@@ -27,7 +27,7 @@
                         
                         <form action="{{route('admin.user.searchUser')}}">
                             <div class="col-md-5">
-                                <input type="text" name="searchUser" placeholder="按uid 、手机号码、真实姓名查找" style="" class="form-control" >
+                                <input type="text" name="searchUser" placeholder="按用户昵称、uid 、手机号码、真实姓名查找" style="" class="form-control" >
                                 
                             </div>
                             <div class="col-md-2">
