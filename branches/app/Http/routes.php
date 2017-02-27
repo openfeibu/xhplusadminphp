@@ -209,6 +209,11 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	
 
 	Route::get('test',['as' => 'admin.test.index' ,'uses' => 'TestController@index' ]);
+
+	Route::get('shop/index',['as' => 'admin.shop.index' ,'uses' => 'ShopController@index' ]);
+	Route::get('goods/batch',['as' => 'admin.shop.goods_batch' ,'uses' => 'ShopController@goodsBatch' ]);
+	Route::post('goods/batchUpload',['as' => 'admin.shop.goods_batch_upload' ,'uses' => 'ShopController@goodsBatchUpload' ]);
+	
 });
 
 

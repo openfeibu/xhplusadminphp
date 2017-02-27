@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
-use App\Shop as Shop ;
+use Excel;
+use Input;
+use App\Shop as Shop;
+use App\Goods as Goods;
+use App\GoodsCategory as GoodsCategory;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
@@ -24,7 +28,7 @@ class ShopController extends BaseController
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
 		Breadcrumbs::register('admin-shop',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
-			$breadcrumbs->push('µêÆÌ¹ÜÀí', route('admin.shop.index'));
+			$breadcrumbs->push('åº—é“ºç®¡ç†', route('admin.shop.index'));
 		});
 	}
 	public function index()
@@ -32,7 +36,7 @@ class ShopController extends BaseController
 	    
 		Breadcrumbs::register('admin-shop-index',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
-			$breadcrumbs->push('µêÆÌÁÐ±í', route('admin.shop.index'));
+			$breadcrumbs->push('åº—é“ºåˆ—è¡¨', route('admin.shop.index'));
 		});
 
 		$shops = DB::table('shop')
@@ -46,7 +50,7 @@ class ShopController extends BaseController
 
     	 Breadcrumbs::register('admin-shop-create', function ($breadcrumbs) {
             $breadcrumbs->parent('admin-shop');
-            $breadcrumbs->push('Ìí¼ÓµêÆÌ', route('admin.shop.create'));
+            $breadcrumbs->push('æ·»åŠ åº—é“º', route('admin.shop.create'));
         });
 
         return view('admin.shop.create');
@@ -55,7 +59,7 @@ class ShopController extends BaseController
     {
         Breadcrumbs::register('admin-shop-edit', function ($breadcrumbs) use ($id) {
             $breadcrumbs->parent('admin-shop');
-            $breadcrumbs->push('±à¼­µêÆÌ', route('admin.shop.edit', ['id' => $id]));
+            $breadcrumbs->push('ç¼–è¾‘åº—é“º', route('admin.shop.edit', ['id' => $id]));
         });
 
         $shop = $this->shopRepositoryEloquent->find($id);
@@ -70,8 +74,50 @@ class ShopController extends BaseController
         if(!$result['status']) {
             Toastr::error($result['msg']);
         } else {
-            Toastr::success('µêÆÌ¸üÐÂ³É¹¦');
+            Toastr::success('åº—é“ºæ›´æ–°æˆåŠŸ');
         }
         return redirect(route('admin.shop.edit', ['id' => $id]));
+    }
+    public function goodsBatch (Request $request)
+    {
+    	Breadcrumbs::register('admin-shop-goodsBatch',function($breadcrumbs){
+			$breadcrumbs->parent('admin-shop');
+			$breadcrumbs->push('åº—é“ºåˆ—è¡¨', route('admin.shop.index'));
+		});
+		$shops = Shop::get();
+		$cats = [];
+		$shop_id = isset($request->shop_id) ? $request->shop_id : 0;
+		if($shop_id){
+			$cats = GoodsCategory::where('shop_id',$shop_id)->get();
+		}else{
+			$shop = Shop::find(1);
+			$shop_id = $shop->shop_id;
+			$cats = GoodsCategory::where('shop_id',$shop_id)->get();
+		}
+		return view('admin.shop.goods_batch')->with('shops',$shops)->with('shop_id',$shop_id)->with('cats',$cats);
+    }
+    public function goodsBatchUpload (Request $request)
+    {
+	    $file = Input::file('excel');
+    	Excel::load($file, function($reader) use( &$res ) {  
+	        $reader = $reader->getSheet(0);  
+	        $goodses = $reader->toArray();  
+	        unset($goodses[0]);
+	        foreach( $goodses as $key => $goods )
+		    {
+		    	Goods::create([
+					'shop_id' => Input::get('shop_id'),
+					'cat_id' => Input::get('cat_id'),
+					'goods_name' => $goods['0'],
+					'goods_price' => $goods['1'],
+					'goods_img' => 'http://xhplus.feibu.info/uploads/goods/'.$goods['2'],
+					'goods_thumb' => 'http://xhplus.feibu.info/uploads/goods/thumb/'.$goods['2'],
+					'goods_desc' => $goods['4'] ? $goods['4'] : '',
+					'goods_number' => $goods['5'],
+		    	]);
+		    }
+	    });  
+	    
+	    return redirect(route('admin.shop.goods_batch', ['shop_id' => Input::get('shop_id')]));
     }
 }
