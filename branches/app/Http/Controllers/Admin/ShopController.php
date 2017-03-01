@@ -78,6 +78,17 @@ class ShopController extends BaseController
         }
         return redirect(route('admin.shop.edit', ['id' => $id]));
     }
+    public function store (Request $request)
+    {
+	    $url = $this->imagesService->upload(Input::file("shop_img"),$request);
+    	$shop = $this->shopRepositoryEloquent->create($request->all());
+        if(!$result) {
+            Toastr::error('创建失败');
+        } else {
+            Toastr::success('店铺创建成功');
+        }
+        return redirect(route('admin.shop.edit', ['id' => $id]));
+    }
     public function goodsBatch (Request $request)
     {
     	Breadcrumbs::register('admin-shop-goodsBatch',function($breadcrumbs){
