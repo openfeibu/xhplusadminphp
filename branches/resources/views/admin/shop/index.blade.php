@@ -46,7 +46,9 @@
                                     <th>店铺图片</th>
                                     <th>描述</th>
                                     <th>收藏量</th>
-                                    <th>浏览量</th>                                 
+                                    <th>浏览量</th>     
+                                    <th>商店总收入</th>   
+                                    <th>商店销量</th>                           
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -67,8 +69,10 @@
                                         <td>{{ trans("common.shop_status.$shop->shop_status") }}</td>
                                         <td>{{ $shop->shop_img }}</td>
                                         <td>{{ $shop->description }}</td>
-                                        <td>{{ $shop->shop_favorite}}</td>
+                                        <td>{{ $shop->shop_favorite_count}}</td>
                                         <td>{{ $shop->shop_click_count}}</td>
+                                        <td>{{ $shop->income}}</td>
+                                        <td>{{ $shop->sale_count}}</td>
                                         <td>{{ $shop->created_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.shop.edit',['id'=>$shop->shop_id]) }}"
