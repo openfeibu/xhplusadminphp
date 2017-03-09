@@ -76,7 +76,9 @@
                                         <td>{{ $shop->created_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.shop.edit',['id'=>$shop->shop_id]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>   
+                                             <a href="{{ route('admin.shop.goods_batch',['shop_id'=>$shop->shop_id]) }}"
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 批量添加商品</a>                                       
                                             <a class="btn btn-danger btn-xs shop-delete"
                                                data-href="{{ route('admin.shop.destroy',['id'=>$shop->shop_id]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
