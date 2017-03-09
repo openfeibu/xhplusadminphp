@@ -21,6 +21,12 @@
             </a>
         </li>
         <li class="{{ $appPresenter->activeMenuByRoute('permission') }}">
+            <a href="{{ route('admin.paper.shop') }}">
+                <span class="badge pull-right"></span>
+                <i class="fa fa-users"></i> 小店铺协议
+            </a>
+        </li>
+        <li class="{{ $appPresenter->activeMenuByRoute('permission') }}">
             <a href="{{ route('admin.paper.integral') }}">
                 <span class="badge pull-right"></span>
                 <i class="fa fa-users"></i> 积分说明

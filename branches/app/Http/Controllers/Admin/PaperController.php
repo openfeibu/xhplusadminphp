@@ -14,7 +14,7 @@ class PaperController extends BaseController
 
 	protected $paperRepositoryEloquent;
     protected $adminRecordService;
-		
+
     public function __construct(PaperRepositoryEloquent $paperRepositoryEloquent,
                                 AdminRecordService $adminRecordService)
     {
@@ -28,7 +28,7 @@ class PaperController extends BaseController
         $this->paperRepositoryEloquent = $paperRepositoryEloquent;
         $this->adminRecordService = $adminRecordService;
     }
-    
+
 	public function faq(Request $request)
     {
 		$id = "1";
@@ -82,10 +82,17 @@ class PaperController extends BaseController
         $route = "admin.paper.wallet";
         $paper = $this->paperRepositoryEloquent->getPaperOne($id);
         return view('admin.paper.faq',compact('paper','route'));
-    }	
+    }
 
     public function chickenSoup(Request $request){
         return view('admin.paper.chickenSoup');
+    }
+    public function shop(Request $request)
+    {
+        $id = "12";
+        $route = "admin.paper.xh";
+        $paper = $this->paperRepositoryEloquent->getPaperOne($id);
+        return view('admin.paper.faq',compact('paper','route'));
     }
 
 }

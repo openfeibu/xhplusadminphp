@@ -54,25 +54,25 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('shop/update/{id}',['as' => 'admin.shop.update' ,'uses' => 'ShopController@update' ]);
 	Route::post('shop/destroy',['as' => 'admin.shop.destroy' ,'uses' => 'ShopController@destroy' ]);
 	Route::post('shop/destroyall',['as'=>'admin.shop.destroy.all','uses'=>'ShopController@destroyAll']);
-	
-	Route::get('telecom',['as' => 'admin.telecomPackage.index','uses' => 'TelecomController@index' ]);	
+
+	Route::get('telecom',['as' => 'admin.telecomPackage.index','uses' => 'TelecomController@index' ]);
 	Route::get('telecom/createPackage',['as' => 'admin.telecomPackage.create' ,'uses' => 'TelecomController@createPackage' ]);
 	Route::post('telecom/storePackage',['as' => 'admin.telecomPackage.store' ,'uses' => 'TelecomController@storePackage' ]);
 	Route::get('telecom/editPackage/{id}',['as' => 'admin.telecomPackage.edit' ,'uses' => 'TelecomController@editPackage' ]);
 	Route::put('telecom/updatePackage/{id}',['as' => 'admin.telecomPackage.update' ,'uses' => 'TelecomController@updatePackage' ]);
 	Route::DELETE('telecom/destroyPackage/{id}',['as' => 'admin.telecomPackage.destroy' ,'uses' => 'TelecomController@destroyPackage' ]);
 	Route::post('telecom/destroyallPackage',['as'=>'admin.telecomPackage.destroy.all','uses'=>'TelecomController@destroyallPackage']);
-	
+
 	Route::get('telecom/telecomOrder',['as' => 'admin.telecomOrder.index','uses' => 'TelecomController@order' ]);
 	Route::get('telecom/createOrder',['as' => 'admin.telecomOrder.create' ,'uses' => 'TelecomController@createOrder' ]);
 	Route::get('telecom/editOrder/{id}',['as' => 'admin.telecomOrder.edit' ,'uses' => 'TelecomController@editOrder' ]);
 	Route::get('telecom/saveOrder',['as' => 'admin.telecomOrder.save','uses' => 'TelecomController@saveOrder' ]);
-	Route::put('telecom/updateOrder/{id}',['as' => 'admin.telecomOrder.update' ,'uses' => 'TelecomController@updateOrder' ]);	
+	Route::put('telecom/updateOrder/{id}',['as' => 'admin.telecomOrder.update' ,'uses' => 'TelecomController@updateOrder' ]);
 	Route::DELETE('telecom/destroyOrder/{id}',['as' => 'admin.telecomOrder.destroy' ,'uses' => 'TelecomController@destroyOrder' ]);
 	Route::post('telecom/destroyallOrder',['as'=>'admin.telecomOrder.destroy.all','uses'=>'TelecomController@destroyallOrder']);
-	
-	
-	Route::get('user/real',['as' => 'admin.user.real' ,'uses' => 'RealnameController@index' ]);	
+
+
+	Route::get('user/real',['as' => 'admin.user.real' ,'uses' => 'RealnameController@index' ]);
 	Route::DELETE('user/real_destroy/{id}',['as' => 'admin.user.real_destroy' ,'uses' => 'RealnameController@real_destroy' ]);
 	Route::post('user/real_destroy_all',['as' => 'admin.user.real_destroy_all' ,'uses' => 'RealnameController@real_destroy_all' ]);
 	Route::post('user/real_pass',['as' => 'admin.user.real_pass' ,'uses' => 'RealnameController@real_pass' ]);
@@ -87,48 +87,48 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::get('user/searchUser',['as' => 'admin.user.searchUser' ,'uses' => 'UserController@searchUser' ]);
 
 	Route::get('user/walletAccount/{uid}',['as' => 'admin.user.wallet_account' ,'uses' => 'UserController@walletAccount' ]);
-	
-	Route::get('trade',['as' => 'admin.trade.index','uses' => 'TradeController@index' ]);	
+
+	Route::get('trade',['as' => 'admin.trade.index','uses' => 'TradeController@index' ]);
 	Route::get('trade/create',['as' => 'admin.trade.create' ,'uses' => 'TradeController@create' ]);
 	Route::post('trade/store',['as' => 'admin.trade.store' ,'uses' => 'TradeController@store' ]);
 	Route::get('trade/edit/{id}',['as' => 'admin.trade.edit' ,'uses' => 'TradeController@edit' ]);
 	Route::put('trade/update/{id}',['as' => 'admin.trade.update' ,'uses' => 'TradeController@update' ]);
 	Route::DELETE('trade/destroy/{id}',['as' => 'admin.trade.destroy' ,'uses' => 'TradeController@destroy' ]);
 	Route::post('trade/destroyall',['as'=>'admin.trade.destroy.all','uses'=>'TradeController@destroyall']);
-	
-	Route::get('applyWallet',['as' => 'admin.applyWallet.index','uses' => 'ApplyWalletController@index' ]);	
+
+	Route::get('applyWallet',['as' => 'admin.applyWallet.index','uses' => 'ApplyWalletController@index' ]);
 	Route::get('applyWallet/create',['as' => 'admin.applyWallet.create' ,'uses' => 'ApplyWalletController@create' ]);
 	Route::post('applyWallet/store',['as' => 'admin.applyWallet.store' ,'uses' => 'ApplyWalletController@store' ]);
 	Route::get('applyWallet/edit/{id}',['as' => 'admin.applyWallet.edit' ,'uses' => 'ApplyWalletController@edit' ]);
 	Route::put('applyWallet/update/{id}',['as' => 'admin.applyWallet.update' ,'uses' => 'ApplyWalletController@update' ]);
 	Route::DELETE('applyWallet/destroy/{id}',['as' => 'admin.applyWallet.destroy' ,'uses' => 'ApplyWalletController@destroy' ]);
 	Route::post('applyWallet/destroyall',['as'=>'admin.applyWallet.destroy.all','uses'=>'ApplyWalletController@destroyall']);
-	
-	Route::get('applyWallet',['as' => 'admin.applyWallet.index','uses' => 'ApplyWalletController@index' ]);	
+
+	Route::get('applyWallet',['as' => 'admin.applyWallet.index','uses' => 'ApplyWalletController@index' ]);
 	Route::get('applyWallet/create',['as' => 'admin.applyWallet.create' ,'uses' => 'ApplyWalletController@create' ]);
 	Route::post('applyWallet/store',['as' => 'admin.applyWallet.store' ,'uses' => 'ApplyWalletController@store' ]);
 	Route::get('applyWallet/edit/{id}',['as' => 'admin.applyWallet.edit' ,'uses' => 'ApplyWalletController@edit' ]);
 	Route::put('applyWallet/update/{id}',['as' => 'admin.applyWallet.update' ,'uses' => 'ApplyWalletController@update' ]);
 	Route::DELETE('applyWallet/destroy/{id}',['as' => 'admin.applyWallet.destroy' ,'uses' => 'ApplyWalletController@destroy' ]);
 	Route::post('applyWallet/destroyall',['as'=>'admin.applyWallet.destroy.all','uses'=>'ApplyWalletController@destroyall']);
-	
-	Route::get('order',['as' => 'admin.order.index','uses' => 'OrderController@index' ]);	
+
+	Route::get('order',['as' => 'admin.order.index','uses' => 'OrderController@index' ]);
 	Route::get('order/create',['as' => 'admin.order.create' ,'uses' => 'OrderController@create' ]);
 	Route::post('order/store',['as' => 'admin.order.store' ,'uses' => 'OrderController@store' ]);
 	Route::get('order/edit/{id}',['as' => 'admin.order.edit' ,'uses' => 'OrderController@edit' ]);
 	Route::put('order/update/{id}',['as' => 'admin.order.update' ,'uses' => 'OrderController@update' ]);
 	Route::DELETE('order/destroy/{id}',['as' => 'admin.order.destroy' ,'uses' => 'OrderController@destroy' ]);
 	Route::post('order/destroyall',['as'=>'admin.order.destroy.all','uses'=>'OrderController@destroyall']);
-	
+
 	Route::get('order/refundIndex',['as' => 'admin.order.refundIndex','uses' => 'OrderController@refundIndex' ]);
 	Route::get('order/refund/{id}',['as' => 'admin.order.refund','uses' => 'OrderController@refund' ]);
 	Route::get('order/refundAll/{ids}',['as' => 'admin.order.refundAll','uses' => 'OrderController@refundAll' ]);
 	Route::put('order/refundHandle',['as' => 'admin.order.refundHandle','uses' => 'OrderController@refundHandle' ]);
 	Route::DELETE('order/destroyRefund/{id}',['as' => 'admin.order.destroyRefund' ,'uses' => 'OrderController@destroyRefund' ]);
 	Route::post('orderRefund/destroyRefundAll',['as'=>'admin.order.destroyRefund.all','uses'=>'OrderController@destroyRefundAll']);
-	
 
-	Route::get('topic',['as' => 'admin.topic.index' ,'uses' => 'TopicController@index' ]);	
+
+	Route::get('topic',['as' => 'admin.topic.index' ,'uses' => 'TopicController@index' ]);
 	Route::get('topic/create',['as' => 'admin.topic.create' ,'uses' => 'TopicController@create' ]);
 	Route::get('topic/edit/{id}',['as' => 'admin.topic.edit' ,'uses' => 'TopicController@edit' ]);
 	Route::DELETE('topic/destroy/{id}',['as' => 'admin.topic.destroy' ,'uses' => 'TopicController@destroy' ]);
@@ -167,9 +167,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('paper/faq_store',['as' => 'admin.paper.faq_store' ,'uses' => 'PaperController@faq_store' ]);
 	Route::get('paper/school_mission',['as' => 'admin.paper.school_mission' ,'uses' => 'PaperController@school_mission' ]);
 	Route::get('paper/xh',['as' => 'admin.paper.xh' ,'uses' => 'PaperController@xh' ]);
+	Route::get('paper/shop',['as' => 'admin.paper.shop' ,'uses' => 'PaperController@shop' ]);
 	Route::get('paper/integral',['as' => 'admin.paper.integral' ,'uses' => 'PaperController@integral' ]);
 	Route::get('paper/wallet',['as' => 'admin.paper.wallet' ,'uses' => 'PaperController@wallet' ]);
-	
+
 	Route::get('paper/chickenSoup',['as' => 'admin.paper.chickenSoup' ,'uses' => 'ChickenSoupController@chickenSoup' ]);
 	Route::DELETE('chickenSoup/destroy/{id}',['as' => 'admin.chickenSoup.destroy' ,'uses' => 'ChickenSoupController@destroy' ]);
 	Route::post('chickenSoup/destroy_all',['as' => 'admin.chickenSoup.destroy_all' ,'uses' => 'ChickenSoupController@destroy_all' ]);
@@ -191,29 +192,29 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 
 	Route::get('association_info',['as' => 'admin.association_info.index' ,'uses' => 'AssociationInfoController@index' ]);
 	Route::get('association_info/create',['as' => 'admin.association_info.create' ,'uses' => 'AssociationInfoController@create' ]);
-	Route::DELETE('association_info/destroy/{id}',['as' => 'admin.association_info.destroy' ,'uses' => 'AssociationInfoController@destroy' ]); 
+	Route::DELETE('association_info/destroy/{id}',['as' => 'admin.association_info.destroy' ,'uses' => 'AssociationInfoController@destroy' ]);
 	Route::post('association_info/destroy_all',['as' => 'admin.association_info.destroy_all' ,'uses' => 'AssociationInfoController@destroy_all' ]);
 	Route::post('association_info/store',['as' => 'admin.association_info.store' ,'uses' => 'AssociationInfoController@store' ]);
 	Route::post('association_info/update',['as' => 'admin.association_info.update' ,'uses' => 'AssociationInfoController@update' ]);
 
 	Route::get('association_activity',['as' => 'admin.association_activity.index' ,'uses' => 'AssociationActivityController@index' ]);
 	Route::get('association_activity/create',['as' => 'admin.association_activity.create' ,'uses' => 'AssociationActivityController@create' ]);
-	Route::DELETE('association_activity/destroy/{id}',['as' => 'admin.association_activity.destroy' ,'uses' => 'AssociationActivityController@destroy' ]); 
+	Route::DELETE('association_activity/destroy/{id}',['as' => 'admin.association_activity.destroy' ,'uses' => 'AssociationActivityController@destroy' ]);
 	Route::post('association_activity/destroy_all',['as' => 'admin.association_activity.destroy_all' ,'uses' => 'AssociationActivityController@destroy_all' ]);
 	Route::post('association_activity/store',['as' => 'admin.association_activity.store' ,'uses' => 'AssociationActivityController@store' ]);
 	Route::post('association_activity/update',['as' => 'admin.association_activity.update' ,'uses' => 'AssociationActivityController@update' ]);
 
 	Route::get('operateHistory',['as' => 'admin.operateHistory.index' ,'uses' => 'OperateHistoryController@index' ]);
-	Route::DELETE('operateHistory/destroy/{id}',['as' => 'admin.operateHistory.destroy' ,'uses' => 'OperateHistoryController@destroy' ]); 
+	Route::DELETE('operateHistory/destroy/{id}',['as' => 'admin.operateHistory.destroy' ,'uses' => 'OperateHistoryController@destroy' ]);
 	Route::post('operateHistory/destroy_all',['as' => 'admin.operateHistory.destroy_all' ,'uses' => 'OperateHistoryController@destroy_all' ]);
-	
+
 
 	Route::get('test',['as' => 'admin.test.index' ,'uses' => 'TestController@index' ]);
 
 	Route::get('shop/index',['as' => 'admin.shop.index' ,'uses' => 'ShopController@index' ]);
 	Route::get('goods/batch',['as' => 'admin.shop.goods_batch' ,'uses' => 'ShopController@goodsBatch' ]);
 	Route::post('goods/batchUpload',['as' => 'admin.shop.goods_batch_upload' ,'uses' => 'ShopController@goodsBatchUpload' ]);
-	
+
 });
 
 
@@ -228,7 +229,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/game', 'GameController@index');
 	Route::get('/game/{id}', 'GameController@game');
 
-	
+
 });
 Route::post('alipay/alipayRefundNotify','AlipayController@alipayRefundNotify');
 

@@ -12,19 +12,19 @@ use App\Repositories\OrderRepositoryEloquent;
 use App\Repositories\TradeAccountRepositoryEloquent;
 use App\Repositories\AlipayRefundRepositoryEloquent;
 use App\Services\AdminRecordService;
- 
+
 class OrderController extends BaseController
 {
 	protected $helpService;
-	
+
     protected $OrderRepositoryEloquent;
-	
+
 	protected $tradeAccountRepositoryEloquent;
-	
+
 	protected $adminRecordService;
 
 	protected $alipayRefundRepositoryEloquent;
-	
+
 	public function __construct(OrderRepositoryEloquent $orderRepositoryEloquent,
 								TradeAccountRepositoryEloquent $tradeAccountRepositoryEloquent,
 								HelpService $helpService,
@@ -54,11 +54,11 @@ class OrderController extends BaseController
 	}
 	public function create()
 	{
-		
-	}	
+
+	}
 	public function store(Request $request)
 	{
-		
+
 	}
 	public function edit($id)
 	{
@@ -79,7 +79,7 @@ class OrderController extends BaseController
         } else {
 
 			$trade = $this->tradeAccountRepositoryEloquent->findByField('out_trade_no',$order->order_sn,$columns = ['id','out_trade_no','trade_status']);
-			
+
 
 			if(Input::get('status') == 'success'&&$trade->trade_status == 'cashing')
 			{
@@ -87,7 +87,7 @@ class OrderController extends BaseController
 		   		$this->adminRecordService->record($record);
 				$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'cashed'],$trade->id);
 			}
-		
+
             Toastr::success('任务更新成功');
         }
         return redirect(route('admin.order.edit', ['id' => $id]));
@@ -160,7 +160,7 @@ class OrderController extends BaseController
 		$batch_no = $this->helpService->buildBatchNo();
 		$batch_num = Input::get('WIDbatch_num');
         $detail_data = Input::get('WIDdetail_data');
-		
+
 		$parameter = array(
 			'service' => trim($alipay_config['service']),
 			'partner' => trim($alipay_config['partner']),

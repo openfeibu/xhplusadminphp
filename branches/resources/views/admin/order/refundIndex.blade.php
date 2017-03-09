@@ -14,7 +14,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-						
+
                         <div class="pull-right">
                             <div class="btn-group mr10">
                                <!-- <a href="{{ route('admin.order.create') }}" class="btn btn-white tooltips"
@@ -47,9 +47,9 @@
 									<th>订单号</th>
 									<th>支付交易号</th>
                                     <th>发单人</th>
-									<th>任务费用</th>								
-									<th>任务状态</th>  
-                                    <th>创建时间</th>
+									<th>任务费用</th>
+									<th>任务状态</th>
+                                    <th>退款时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -64,14 +64,14 @@
                                             </div>
                                         </td>
                                          <td>{{ $order->oid }}</td>
-										 <td>{{ $order->order_sn }}</td> 
+										 <td>{{ $order->order_sn }}</td>
 										 <td>{{ $order->trade_no }}</td>
 										 <td>{{ $order->nickname }}</td>
-										 <td>{{ $order->fee }}</td>	
+										 <td>{{ $order->fee }}</td>
 										 <td>{{ trans("common.task_status.$order->status") }}</td>
-										 <td>{{ $order->created_at }}</td>
+										 <td>{{ $order->updated_at }}</td>
                                         <td>
-											<a href="{{route('admin.order.refund',['id'=>$order->oid])}}"  class="btn btn-white btn-xs"><i class="fa fa-cny"></i>退款</a>                                        
+											<a href="{{route('admin.order.refund',['id'=>$order->oid])}}"  class="btn btn-white btn-xs"><i class="fa fa-cny"></i>退款</a>
                                             <!--<a class="btn btn-danger btn-xs order-delete"
                                                data-href="{{ route('admin.order.destroyRefund',['id'=>$order->oid]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>-->

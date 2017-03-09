@@ -25,7 +25,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         return Order::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,7 +34,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-	
+
 	/**
 	 * 获取任务列表
 	 */
@@ -50,7 +50,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 	}
 	public function getRefundOrders()
 	{
-		return Order::select(DB::raw('order.oid,order.order_sn,order.fee,order.status,order.created_at,order.pay_id,user.nickname,user.uid,trade.trade_no'))
+		return Order::select(DB::raw('order.oid,order.order_sn,order.fee,order.status,order.updated_at,trade.created_at,order.pay_id,user.nickname,user.uid,trade.trade_no'))
 						->leftJoin('user','order.owner_id','=','user.uid')
 						->leftJoin('trade_account as trade','order.order_sn','=','trade.out_trade_no')
 						->where('order.admin_deleted', 0)
@@ -79,7 +79,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 						->leftJoin('trade_account as trade','order.order_sn','=','trade.out_trade_no')
 						->whereIn('order.oid', $ids)
 						->get();
-						
+
 	}
-	
+
 }
