@@ -41,6 +41,7 @@ class ShopController extends BaseController
 
 		$shops = DB::table('shop')
             ->leftJoin('user', 'user.uid', '=', 'shop.uid')
+            ->orderBy('shop.shop_id','desc')
             ->paginate(10);
 
         return view('admin.shop.index', compact('shops'));
@@ -64,7 +65,7 @@ class ShopController extends BaseController
 
         $shop = $this->shopRepositoryEloquent->find($id);
        // $hasRoles = $user->roles()->lists('name')->toArray();
-        $phone = Shop::find(1)->user;
+        $phone = Shop::find($shop->shop_id)->user;
 
         return view('admin.shop.edit', compact('shop','phone'));
     }
@@ -95,14 +96,11 @@ class ShopController extends BaseController
 			$breadcrumbs->parent('admin-shop');
 			$breadcrumbs->push('店铺列表', route('admin.shop.index'));
 		});
-		$shops = Shop::get();
+		$shops = Shop::orderBy('shop.shop_id','desc')->get();
 		$cats = [];
 		$shop_id = isset($request->shop_id) ? $request->shop_id : 0;
 		if($shop_id){
-			$cats = GoodsCategory::where('shop_id',$shop_id)->get();
-		}else{
-			$shop = Shop::find(1);
-			$shop_id = $shop->shop_id;
+			$shop = Shop::find($shop_id);
 			$cats = GoodsCategory::where('shop_id',$shop_id)->get();
 		}
 		return view('admin.shop.goods_batch')->with('shops',$shops)->with('shop_id',$shop_id)->with('cats',$cats);
@@ -113,16 +111,17 @@ class ShopController extends BaseController
     	Excel::load($file, function($reader) use( &$res ) {  
 	        $reader = $reader->getSheet(0);  
 	        $goodses = $reader->toArray();  
+	       
 	        unset($goodses[0]);
 	        foreach( $goodses as $key => $goods )
 		    {
 		    	Goods::create([
 					'shop_id' => Input::get('shop_id'),
 					'cat_id' => Input::get('cat_id'),
-					'goods_name' => $goods['0'],
-					'goods_price' => $goods['1'],
-					'goods_img' => 'http://xhplus.feibu.info/uploads/goods/'.$goods['2'],
-					'goods_thumb' => 'http://xhplus.feibu.info/uploads/goods/thumb/'.$goods['2'],
+					'goods_name' => $goods['1'],
+					'goods_price' => $goods['2'],
+					'goods_img' => 'http://xhplus.feibu.info/uploads/goods/'.Input::get('shop_id').'/'.$goods['3'],
+					'goods_thumb' => 'http://xhplus.feibu.info/uploads/goods/'.Input::get('shop_id').'/thumb/'.$goods['3'],
 					'goods_desc' => $goods['4'] ? $goods['4'] : '',
 					'goods_number' => $goods['5'],
 		    	]);
