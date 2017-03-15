@@ -58,8 +58,11 @@ if (!function_exists('check_refund_order_info')) {
 	}
 }
 if (!function_exists('dtime')) {
-	function dtime()
+	function dtime($time = '')
 	{
+		if($time){
+			return date('Y-m-d H:i:s',$time);
+		}
 		return date('Y-m-d H:i:s');
 	}
 }

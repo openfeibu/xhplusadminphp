@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\GoodsRepositoryEloquent;
 use App\Repositories\OrderInfoRepositoryEloquent;
+use App\Repositories\UserRepositoryEloquent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('orderInfoRepositoryEloquent', function ($app) {
             return new OrderInfoRepositoryEloquent($app);
+        });
+        $this->app->singleton('userRepositoryEloquent', function ($app) {
+            return new UserRepositoryEloquent($app);
         });
     }
 }
