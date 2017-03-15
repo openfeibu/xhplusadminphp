@@ -16,10 +16,10 @@
                     <div class="panel-body">
 	                    
                         <h5 class="subtitle mb5">订单列表</h5>
-                        @include('admin._partials.show-page-status',['result'=>$order_infos])
+                        
 						<form action="{{route('admin.user.searchUser')}}">
                             <div class="col-md-5">
-                                <input type="text" name="searchUser" placeholder="按用户昵称、uid 、手机号码、真实姓名查找" style="" class="form-control" >
+                                <input type="text" name="searchUser" placeholder="" style="" class="form-control" >
                                 
                             </div>
                             <div class="col-md-2">
@@ -80,7 +80,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+						@include('admin._partials.show-page-status',['result'=>$order_infos])
                         {!! $order_infos->render() !!}
 
                     </div><!-- panel-body -->

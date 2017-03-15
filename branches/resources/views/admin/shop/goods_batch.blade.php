@@ -39,7 +39,7 @@
                                 <div class="col-sm-6">
 									<select name="cat_id" class="select form-control">
 		                                @foreach($cats as $key => $cat)
-		                                <option value="{{$cat->shop_id}}">{{$cat->cat_name}}</option>
+		                                <option value="{{$cat->cat_id}}">{{$cat->cat_name}}</option>
 		                                @endforeach
 	                                </select>
                                 </div>
