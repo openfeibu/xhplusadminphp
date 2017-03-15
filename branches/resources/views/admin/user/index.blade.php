@@ -58,7 +58,8 @@
                                     <th>是否作者</th>
                                     <th>钱包余额(元)</th>                                
                                     <th>注册时间</th>
-                                    <th>操作</th>
+                                    <th>最后一次登录</th>
+                                    <th>上次访问</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +103,8 @@
                                         </td>
                                         <td> <a href="{{ route('admin.user.wallet_account',$user->uid) }}" target="_blank">{{ $user->wallet }}</a></td>
                                         <td>{{ $user->created_at }}</td>
+                                        <td>{{ $user->last_login }}</td>
+                                        <td>{{ $user->last_visit }}</td>
                                         <td style="width:150px">
                                             <a href="{{ route('admin.user.edit',['id'=>$user->uid]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
