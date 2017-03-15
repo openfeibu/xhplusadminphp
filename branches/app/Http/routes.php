@@ -215,6 +215,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::get('goods/batch',['as' => 'admin.shop.goods_batch' ,'uses' => 'ShopController@goodsBatch' ]);
 	Route::post('goods/batchUpload',['as' => 'admin.shop.goods_batch_upload' ,'uses' => 'ShopController@goodsBatchUpload' ]);
 
+	Route::get('orderInfo/index',['as' => 'admin.order_info.index','uses' => 'OrderInfoController@index']);
 });
 
 

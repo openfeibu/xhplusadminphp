@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\GoodsRepositoryEloquent;
+use App\Repositories\OrderInfoRepositoryEloquent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,11 @@ class AppServiceProvider extends ServiceProvider
 //        if($this->app->environment('local')) {
 //            $this->app->register('Barryvdh\Debugbar\ServiceProvider');
 //        }
+		$this->app->singleton('goodsRepositoryEloquent', function ($app) {
+            return new GoodsRepositoryEloquent($app);
+        });
+        $this->app->singleton('orderInfoRepositoryEloquent', function ($app) {
+            return new OrderInfoRepositoryEloquent($app);
+        });
     }
 }

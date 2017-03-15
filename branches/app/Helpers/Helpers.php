@@ -20,7 +20,7 @@ if (!function_exists('buildOrderSn')) {
      *
      * @return string
      */
-    public function buildOrderSn($prefix = ''){
+    function buildOrderSn($prefix = ''){
 
         $out_trade_no = $prefix.'XH'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
         if(TradeAccount::where('out_trade_no',$out_trade_no)->first()){
@@ -29,7 +29,7 @@ if (!function_exists('buildOrderSn')) {
         return $out_trade_no;
     }
 }
-if (!function_exists('buildOrderSn')) {
+if (!function_exists('buildBatchNo')) {
     /**
      * Create a new back url.
      *
@@ -40,11 +40,54 @@ if (!function_exists('buildOrderSn')) {
      *
      * @return string
      */
-    public function buildBatchNo($prefix = ''){
+    function buildBatchNo($prefix = ''){
 
         $batch_no = date("YmdHis",time()).substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 
         return $out_trade_no;
     }
+}
+
+if (!function_exists('check_refund_order_info')) {
+	function check_refund_order_info($pay_status,$shipping_status,$order_status)
+	{
+		if($pay_status !=1 || $shipping_status !=0 || $order_status >=2 ){
+			return false;
+		}
+		return true;
+	}
+}
+if (!function_exists('dtime')) {
+	function dtime()
+	{
+		return date('Y-m-d H:i:s');
+	}
+}
+if (!function_exists('seller_check_refund_order_info')) {
+	function seller_check_refund_order_info($pay_status,$shipping_status,$order_status)
+	{
+		if($pay_status !=1 || $shipping_status !=0 || $order_status !=3 ){
+			return false;
+		}
+		return true;
+	}
+}
+if (!function_exists('check_confirm_order_info')) {
+	function check_confirm_order_info ($pay_status,$shipping_status,$order_status)
+	{
+		if($pay_status !=1 || $shipping_status !=1 || $order_status >=2 ){
+			return false;
+		}
+		return true;
+	}
+}
+if (!function_exists('seller_check_Shipping_order_info')) {
+	function seller_check_Shipping_order_info ($pay_status,$shipping_status,$order_status)
+	{
+		if($pay_status !=1 || $shipping_status !=0 || $order_status >=2 ){
+			return false;
+		}
+		return true;
+	}
 }
 

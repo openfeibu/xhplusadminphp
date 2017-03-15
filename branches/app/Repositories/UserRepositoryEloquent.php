@@ -27,7 +27,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     }
 
     public function getUserList(){
-        $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user_info.realname,user_info.is_author,user.wallet'))
+        $users = User::select(DB::raw('user.uid,user.nickname,user.mobile_no,user.avatar_url,user.ban_flag,user.integral,user.today_integral,user.created_at,user.last_login,user.last_visit,user_info.realname,user_info.is_author,user.wallet'))
                       ->leftJoin('user_info','user.uid','=','user_info.uid')
                       ->orderBy('user.uid', 'desc')
                       ->paginate(config('admin_config.page'));
