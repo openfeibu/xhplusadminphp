@@ -111,7 +111,6 @@ class ShopController extends BaseController
     	Excel::load($file, function($reader) use( &$res ) {  
 	        $reader = $reader->getSheet(0);  
 	        $goodses = $reader->toArray();  
-	       
 	        unset($goodses[0]);
 	        foreach( $goodses as $key => $goods )
 		    {
