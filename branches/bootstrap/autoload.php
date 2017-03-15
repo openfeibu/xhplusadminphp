@@ -34,3 +34,7 @@ if (file_exists($compiledPath)) {
 }
 
 
+if(file_exists(__DIR__ . '/../app/Helpers/Helpers.php'))  
+{  
+    require __DIR__ . '/../app/Helpers/Helpers.php';  
+}  
