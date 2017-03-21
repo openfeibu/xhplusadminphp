@@ -118,5 +118,50 @@
             </div><!-- ./col -->
         </div>
 
-    </div><!-- contentpanel -->
+
+		<div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ $data['wallet'] }}<sup style="font-size: 20px">元</sup></h3>
+                  <p>钱包总额</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-chatboxes"></i>
+                </div>
+                <a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ $data['service_fee'] }}<sup style="font-size: 20px">元</sup></h3>
+                  <p>已收服务费</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-document"></i>
+                </div>
+                <a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{ $data['shop_trade'] }}<sup style="font-size: 20px">元</sup></h3>
+                  <p>商店成功交易总额</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- contentpanel -->
 @endsection
