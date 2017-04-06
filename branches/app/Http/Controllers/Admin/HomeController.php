@@ -64,4 +64,44 @@ class HomeController extends BaseController
 
         return view('admin.home')->with('data',$data);
     }
+	public function getOrderInfosCharts()
+	{
+		
+		return [
+			'rows1' => [
+				'name' => '第一条',
+				'data' => [
+					0 => 10,
+					1 => 20,
+					2 => 30,
+					3 => 40,
+					4 => 50,
+					5 => 200,
+					6 => 70,
+					7 => 100,
+					8 => 90,
+					9 => 200,
+					10 => 100,
+					11 => 60,
+				],
+			],
+			'rows2' => [
+				'name' => '第二条',
+				'data' => [
+					0 => 10,
+					1 => 20,
+					2 => 30,
+					3 => 40,
+					4 => 50,
+					5 => 200,
+					6 => 70,
+					7 => 100,
+					8 => 90,
+					9 => 200,
+					10 => 100,
+					11 => 60,
+				],
+			],
+		 ];
+	}
 }
