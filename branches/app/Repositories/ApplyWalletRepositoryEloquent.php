@@ -25,7 +25,7 @@ class ApplyWalletRepositoryEloquent extends BaseRepository implements ApplyWalle
         return ApplyWallet::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria

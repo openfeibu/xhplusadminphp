@@ -30,7 +30,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-	
+
 });
 
 
@@ -209,6 +209,17 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::DELETE('operateHistory/destroy/{id}',['as' => 'admin.operateHistory.destroy' ,'uses' => 'OperateHistoryController@destroy' ]);
 	Route::post('operateHistory/destroy_all',['as' => 'admin.operateHistory.destroy_all' ,'uses' => 'OperateHistoryController@destroy_all' ]);
 
+    Route::get('loss_cate/index',['as' => 'admin.loss_cate.index' ,'uses' => 'LossCategoryController@index' ]);
+    Route::get('loss_cate/create',['as' => 'admin.loss_cate.create' ,'uses' => 'LossCategoryController@create' ]);
+    Route::get('loss_cate/edit/{id}',['as' => 'admin.loss_cate.edit' ,'uses' => 'LossCategoryController@edit' ]);
+	Route::DELETE('loss_cate/destroy/{id}',['as' => 'admin.loss_cate.destroy' ,'uses' => 'LossCategoryController@destroy' ]);
+	Route::post('loss_cate/destroy_all',['as' => 'admin.loss_cate.destroy_all' ,'uses' => 'LossCategoryController@destroy_all' ]);
+	Route::post('loss_cate/store',['as' => 'admin.loss_cate.store' ,'uses' => 'LossCategoryController@store' ]);
+	Route::post('loss_cate/update',['as' => 'admin.loss_cate.update' ,'uses' => 'LossCategoryController@update' ]);
+
+    Route::get('loss/index',['as' => 'admin.loss.index' ,'uses' => 'LossController@index' ]);
+    Route::DELETE('loss/destroy/{id}',['as' => 'admin.loss.destroy' ,'uses' => 'LossController@destroy' ]);
+    Route::post('loss/destroy_all',['as' => 'admin.loss.destroy_all' ,'uses' => 'LossController@destroy_all' ]);
 
 	Route::get('test',['as' => 'admin.test.index' ,'uses' => 'TestController@index' ]);
 
@@ -217,8 +228,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('goods/batchUpload',['as' => 'admin.shop.goods_batch_upload' ,'uses' => 'ShopController@goodsBatchUpload' ]);
 
 	Route::get('orderInfo/index',['as' => 'admin.order_info.index','uses' => 'OrderInfoController@index']);
-	
+
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
+
+
 });
 
 

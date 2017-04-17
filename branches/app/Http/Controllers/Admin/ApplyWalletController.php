@@ -20,7 +20,7 @@ use App\Services\AdminRecordService;
 class ApplyWalletController extends BaseController
 {
     protected $applyWalletRepositoryEloquent;
-	
+
 	protected $tradeAccountRepositoryEloquent;
 
 	protected $messageService;
@@ -30,7 +30,7 @@ class ApplyWalletController extends BaseController
 	protected $walletAccountRepositoryEloquent;
 
 	protected $adminRecordService;
-	
+
 	public function __construct(ApplyWalletRepositoryEloquent $applyWalletRepositoryEloquent,
 								TradeAccountRepositoryEloquent $tradeAccountRepositoryEloquent,
 								WalletAccountRepositoryEloquent $walletAccountRepositoryEloquent,
@@ -66,17 +66,17 @@ class ApplyWalletController extends BaseController
 			$user_info = $this->userRepositoryEloquent->getUserInfo($applyWallet->uid,['realname']);
 			$applyWallet->nickname = $user->nickname;
 			$applyWallet->realname = $user_info->realname;
-		}	
+		}
 
         return view('admin.applyWallet.index', compact('applyWallets'));
 	}
 	public function create()
 	{
-		
-	}	
+
+	}
 	public function store(Request $request)
 	{
-		
+
 	}
 	public function edit($id)
 	{
@@ -88,7 +88,7 @@ class ApplyWalletController extends BaseController
         return view('admin.applyWallet.edit', compact('applyWallet'));
 	}
 	public function update($id)
-	{		
+	{
 		$applyWallet = $this->applyWalletRepositoryEloquent->find($id,$columns = ['uid','out_trade_no','status','fee']);
 
 		if($applyWallet->status != 'wait')
@@ -108,7 +108,7 @@ class ApplyWalletController extends BaseController
 		        $this->adminRecordService->record($record);
 			}
 			if(Input::get('status') == 'failed' && isset($trade) && $trade->trade_status == 'cashing'){
-				$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'cashfail','wallet_type' => 1],$trade->id);				
+				$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'cashfail','wallet_type' => 1],$trade->id);
 				$wallet = $this->userRepositoryEloquent->getUserWallet($applyWallet->uid);
 				$this->applyWalletRepositoryEloquent->updateWallet( $applyWallet->uid, $wallet + $trade->fee );
 				$this->walletAccountRepositoryEloquent->updateTradeType( ['trade_type' => 'WithdrawalsFail','wallet_type' => 1,'wallet' => $wallet + $trade->fee ],$applyWallet->out_trade_no );

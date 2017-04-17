@@ -18,10 +18,10 @@ class ShopController extends BaseController
 {
 	protected $shopRepositoryEloquent ;
     protected $adminRecordService;
-	
+
     public function __construct(ShopRepositoryEloquent $shopRepositoryEloquent,
                                 AdminRecordService $adminRecordService){
-	    
+
 		parent::__construct();
 		$this->shopRepositoryEloquent = $shopRepositoryEloquent;
         $this->adminRecordService = $adminRecordService;
@@ -33,7 +33,7 @@ class ShopController extends BaseController
 	}
 	public function index()
     {
-	    
+
 		Breadcrumbs::register('admin-shop-index',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
 			$breadcrumbs->push('店铺列表', route('admin.shop.index'));
@@ -108,9 +108,9 @@ class ShopController extends BaseController
     public function goodsBatchUpload (Request $request)
     {
 	    $file = Input::file('excel');
-    	Excel::load($file, function($reader) use( &$res ) {  
-	        $reader = $reader->getSheet(0);  
-	        $goodses = $reader->toArray();  
+    	Excel::load($file, function($reader) use( &$res ) {
+	        $reader = $reader->getSheet(0);
+	        $goodses = $reader->toArray();
 	        unset($goodses[0]);
 	        foreach( $goodses as $key => $goods )
 		    {
@@ -125,8 +125,8 @@ class ShopController extends BaseController
 					'goods_number' => $goods['5'],
 		    	]);
 		    }
-	    });  
-	    
+	    });
+
 	    return redirect(route('admin.shop.goods_batch', ['shop_id' => Input::get('shop_id')]));
     }
 }
