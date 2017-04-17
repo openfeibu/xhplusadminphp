@@ -164,80 +164,83 @@ ${demo.css}
         </div>
 		<div class="row">
 			<div id="container" style="min-width:400px;height:400px">
-				
+
 			</div>
 			<div class="message"></div>
 		</div>
     </div>
 
 
-    <!-- contentpanel -->
+@endsection
 
+
+    <!-- contentpanel -->
+@section('javascript')
+@parent
 <script type="text/javascript">
 //定义一个Highcharts的变量，初始值为null
 var oChart = null;
 
 //定义oChart的布局环境
 //布局环境组成：X轴、Y轴、数据显示、图标标题
-var oOptions = {  
-    
+var oOptions = {
+
     //设置图表关联显示块和图形样式
-    chart: {  
+    chart: {
         renderTo: 'container',  //设置显示的页面块
         // type:'line'                //设置显示的方式
         type: 'column'
     },
-    
+
     //图标标题
-    title: {  
+    title: {
         text: '图表展示范例'
         //text: null, //设置null则不显示标题
     },
-    
+
     //x轴
     xAxis: {
         title: {
             text: 'X 轴 标 题'
         },
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']  
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
-    
+
     //y轴
     yAxis: {
         title: { text: 'Y 轴 标 题' }
     },
      //数据列
     //数据列
-    series: [] 
-    
-}; 
+    series: []
+
+};
 
 $(document).ready(function(){
-    oChart = new Highcharts.Chart(oOptions);         
+    oChart = new Highcharts.Chart(oOptions);
     //异步动态加载数据列
     LoadSerie_Ajax();
-}); 
+});
 
 //异步读取数据并加载到图表
-function LoadSerie_Ajax() { 
-        oChart.showLoading(); 
-        $.ajax({  
+function LoadSerie_Ajax() {
+        oChart.showLoading();
+        $.ajax({
             url : '/admin/home/getOrderInfosCharts',
             type : 'POST',
             dataType : 'json',
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",   
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success : function(rntData){
                 var oSeries = { };
 				for(var p in rntData){//遍历json对象的每个key/value对,p为key
 					oSeries.name = rntData[p].name;
 					oSeries.data = rntData[p].data;
-					oChart.addSeries(oSeries);		
+					oChart.addSeries(oSeries);
 				}
             }
         });
-		oChart.hideLoading(); 
-        
+		oChart.hideLoading();
+
 }
 </script>
 @endsection
-

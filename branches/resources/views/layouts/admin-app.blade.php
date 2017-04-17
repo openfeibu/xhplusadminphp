@@ -21,36 +21,7 @@
         <script src="{{ asset('js/html5shiv.js') }}"></script>
         <script src="{{ asset('js/respond.min.js') }}"></script>
         <![endif]-->
-        @section('javascript')
-                <script src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
-                <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
-                <script src="{{ asset('js/jquery-ui-1.10.3.min.js') }}"></script>
-                <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-                <script src="{{ asset('js/modernizr.min.js') }}"></script>
-                <script src="{{ asset('js/toggles.min.js') }}"></script>
-                <script src="{{ asset('js/retina.min.js') }}"></script>
-                <script src="{{ asset('js/jquery.cookies.js') }}"></script>
-                <script src="{{ asset('js/flot/flot.min.js') }}"></script>
-                <script src="{{ asset('js/flot/flot.resize.min.js') }}"></script>
-                <script src="{{ asset('js/morris.min.js') }}"></script>
-                <script src="{{ asset('js/raphael-2.1.0.min.js') }}"></script>
-                <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
-                <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-                <script src="{{ asset('js/highcharts/js/highcharts.js') }}"></script>
-                <script src="{{ asset('js/highcharts/js/modules/exporting.js') }}"></script>
-                <script src="{{ asset('js/custom.js') }}"></script>
-                    <script src="{{ asset('js/jquery.pjax.min.js') }}"></script>
-                    
-                    <script>
-                            /* $(document).pjax('a', '#pjax-container');
-                            $(document).on("pjax:timeout", function(event) {
-                                    // 阻止超时导致链接跳转事件发生
-                                    event.preventDefault()
-                            }); */
-                    </script>
-                    
-                {!! Toastr::render() !!}
-        @show
+
 </head>
 
 <body>
@@ -153,11 +124,40 @@
         </div><!-- tab-content -->
     </div><!-- rightpanel -->
 
+    @section('javascript')
+            <script src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-ui-1.10.3.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/modernizr.min.js') }}"></script>
+            <script src="{{ asset('js/toggles.min.js') }}"></script>
+            <script src="{{ asset('js/retina.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.cookies.js') }}"></script>
+            <script src="{{ asset('js/flot/flot.min.js') }}"></script>
+            <script src="{{ asset('js/flot/flot.resize.min.js') }}"></script>
+            <script src="{{ asset('js/morris.min.js') }}"></script>
+            <script src="{{ asset('js/raphael-2.1.0.min.js') }}"></script>
+            <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
+            <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+            <script src="{{ asset('js/highcharts/js/highcharts.js') }}"></script>
+            <script src="{{ asset('js/highcharts/js/modules/exporting.js') }}"></script>
+            <script src="{{ asset('js/custom.js') }}"></script>
+                <script src="{{ asset('js/jquery.pjax.min.js') }}"></script>
 
+                <script>
+                        /* $(document).pjax('a', '#pjax-container');
+                        $(document).on("pjax:timeout", function(event) {
+                                // 阻止超时导致链接跳转事件发生
+                                event.preventDefault()
+                        }); */
+                </script>
+
+            {!! Toastr::render() !!}
+    @show
 </section>
 
 
 
-	
+
 </body>
 </html>
