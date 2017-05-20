@@ -2,32 +2,22 @@
 
 @section('content')
     <div class="pageheader">
-        <h2><i class="fa fa-home"></i> Dashboard <span>ÏµÍ³ÉèÖÃ</span></h2>
-        {!! Breadcrumbs::render('admin-role-index') !!}
+        <h2><i class="fa fa-home"></i> Dashboard <span>ç³»ç»Ÿè®¾ç½®</span></h2>
+        {!! Breadcrumbs::render('admin-game-index') !!}
     </div>
 
     <div class="contentpanel panel-email">
 
         <div class="row">
 
-            <div class="col-sm-9 col-lg-10">
+            <div class="col-sm-9 col-lg-12">
 
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <div class="pull-right">
-                            <div class="btn-group mr10">
-                                <a href="{{ route('admin.role.create') }}" class="btn btn-white tooltips"
-                                   data-toggle="tooltip" data-original-title="ĞÂÔö"><i
-                                            class="glyphicon glyphicon-plus"></i></a>
-                                <a class="btn btn-white tooltips deleteall" data-toggle="tooltip"
-                                   data-original-title="É¾³ı" data-href="{{ route('admin.role.destroy.all') }}"><i
-                                            class="glyphicon glyphicon-trash"></i></a>
-                            </div>
-                        </div><!-- pull-right -->
 
-                        <h5 class="subtitle mb5">ÓÎÏ·ÁĞ±í</h5>
-                        @include('admin._partials.show-page-status',['result'=>$roles])
+                        <h5 class="subtitle mb5">æ¸¸æˆåˆ—è¡¨</h5>
+                        @include('admin._partials.show-page-status',['result'=>$games])
 
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
@@ -39,35 +29,40 @@
                                             <label for="selectall"></label>
                                         </span>
                                     </th>
-                                    <th>±êÊ¶</th>
-                                    <th>½ÇÉ«Ãû</th>
-                                    <th>ËµÃ÷</th>
-                                    <th>´´½¨Ê±¼ä</th>
-                                    <th>²Ù×÷</th>
+                                    <th>ID</th>
+                                    <th>æ´»åŠ¨æ ‡è¯†</th>
+                                    <th>æ´»åŠ¨åç§°</th>
+                                    <th>æ´»åŠ¨çŠ¶æ€</th>
+                                    <th>æ´»åŠ¨å¼€å§‹æ—¶é—´</th>
+                                    <th>æ´»åŠ¨ç»“æŸæ—¶é—´</th>
+                                    <th>åˆ›å»ºæ—¶é—´</th>
+                                    <th>æ“ä½œ</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($roles as $role)
+                                @foreach($games as $game)
                                     <tr>
                                         <td>
                                             <div class="ckbox ckbox-default">
-                                                <input type="checkbox" name="id" id="id-{{ $role->id }}"
-                                                       value="{{ $role->id }}" class="selectall-item"/>
-                                                <label for="id-{{ $role->id }}"></label>
+                                                <input type="checkbox" name="id" id="id-{{ $game->id }}"
+                                                       value="{{ $game->id }}" class="selectall-item"/>
+                                                <label for="id-{{ $game->id }}"></label>
                                             </div>
                                         </td>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->display_name }}</td>
-                                        <td>{{ $role->description }}</td>
-                                        <td>{{ $role->created_at }}</td>
+                                        <td>{{ $game->id }}</td>
+                                        <td>{{ $game->name }}</td>
+                                        <td>{{ $game->title }}</td>
+                                        <td>{{ trans('common.open_status.'.$game->status)}}</td>
+                                        <td>{{ $game->starttime }}</td>
+                                        <td>{{ $game->endtime }}</td>
+                                        <td>{{ $game->created_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.role.edit',['id'=>$role->id]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> ±à¼­</a>
-                                            <a href="{{ route('admin.role.permissions',['id'=>$role->id]) }}"
-                                            class="btn btn-info btn-xs role-permissions"><i class="fa fa-wrench"></i> È¨ÏŞ</a>
-                                            <a class="btn btn-danger btn-xs role-delete"
-                                               data-href="{{ route('admin.role.destroy',['id'=>$role->id]) }}">
-                                                <i class="fa fa-trash-o"></i> É¾³ı</a>
+                                            @if($game->name == 'coupon')
+                                            <a href="{{ route('admin.game.prizes',['id'=>$game->id]) }}"
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> è®¾ç½®å¥–é¡¹</a>
+                                            <a href="{{ route('admin.game.user_prizes',['id'=>$game->id]) }}"
+                                              class="btn btn-white btn-xs"><i class="fa fa-pencil"></i>è·å¥–ç”¨æˆ·</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -75,7 +70,7 @@
                             </table>
                         </div>
 
-                        {!! $roles->render() !!}
+                        {!! $games->render() !!}
 
                     </div><!-- panel-body -->
                 </div><!-- panel -->
@@ -91,21 +86,7 @@
     @parent
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script type="text/javascript">
-        $(".role-delete").click(function () {
-            Rbac.ajax.delete({
-                confirmTitle: 'È·¶¨É¾³ı½ÇÉ«?',
-                href: $(this).data('href'),
-                successTitle: '½ÇÉ«É¾³ı³É¹¦'
-            });
-        });
 
-        $(".deleteall").click(function () {
-            Rbac.ajax.deleteAll({
-                confirmTitle: 'È·¶¨É¾³ıÑ¡ÖĞµÄ½ÇÉ«?',
-                href: $(this).data('href'),
-                successTitle: '½ÇÉ«É¾³ı³É¹¦'
-            });
-        });
     </script>
 
 @endsection
