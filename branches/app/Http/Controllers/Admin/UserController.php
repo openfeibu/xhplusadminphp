@@ -16,7 +16,7 @@ class UserController extends BaseController
 {
 	protected $userRepositoryEloquent;
 	protected $adminRecordService;
-		
+
     public function __construct(UserRepositoryEloquent $userRepositoryEloquent,
     							AdminRecordService $adminRecordService,
     							WalletAccountRepositoryEloquent $walletAccountRepositoryEloquent)
@@ -31,7 +31,7 @@ class UserController extends BaseController
        	$this->walletAccountRepositoryEloquent = $walletAccountRepositoryEloquent;
        	$this->adminRecordService = $adminRecordService;
     }
-    
+
 	public function index(Request $request)
     {
     	Breadcrumbs::register('admin-user-index',function($breadcrumbs){
@@ -41,7 +41,7 @@ class UserController extends BaseController
 		$users = $this->userRepositoryEloquent->getUserList();
         return view('admin.user.index',compact('users'));
     }
-	
+
 	public function create(Request $request){
         Breadcrumbs::register('admin-user-create', function ($breadcrumbs) {
             $breadcrumbs->parent('admin-user');
@@ -79,7 +79,7 @@ class UserController extends BaseController
         }
         return response()->json($result ? ['status' => 1] : ['status' => 0]);
 	}
-	
+
 	public function store(Request $request){
 		if($request->ban_flag == 10){
 			$ban_flag = $request->old_ban_flag;
@@ -120,6 +120,6 @@ class UserController extends BaseController
 		});
 		$users = $this->userRepositoryEloquent->getUserBySearch($request->searchUser);
         return view('admin.user.index',compact('users'));
-	}	
+	}
 
 }

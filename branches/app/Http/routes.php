@@ -48,7 +48,12 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::resource('permission', 'PermissionController');
     Route::post('permission/destroyall',['as'=>'admin.permission.destroy.all','uses'=>'PermissionController@destroyAll']);
     Route::resource('blog', 'BlogController');
+
 	Route::get('game',['as' => 'admin.game.index' ,'uses' => 'GameController@index' ]);
+    Route::get('game/prizes',['as' => 'admin.game.prizes' ,'uses' => 'GameController@prizes' ]);
+    Route::post('game/prizesRunEdit',['as' => 'admin.game.prizes_runedit' ,'uses' => 'GameController@prizesRunEdit' ]);
+    Route::get('game/userPrizes',['as' => 'admin.game.user_prizes' ,'uses' => 'GameController@userPrizes' ]);
+
 	Route::get('shop',['as' => 'admin.shop.index' ,'uses' => 'ShopController@index' ]);
 	Route::get('shop/create',['as' => 'admin.shop.create' ,'uses' => 'ShopController@create' ]);
 	Route::get('shop/edit/{id}',['as' => 'admin.shop.edit' ,'uses' => 'ShopController@edit' ]);
@@ -228,6 +233,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('goods/batchUpload',['as' => 'admin.shop.goods_batch_upload' ,'uses' => 'ShopController@goodsBatchUpload' ]);
 
 	Route::get('orderInfo/index',['as' => 'admin.order_info.index','uses' => 'OrderInfoController@index']);
+    Route::get('orderInfo/shopCouponCount',['as' => 'admin.order_info.shopCouponCount','uses' => 'OrderInfoController@shopCouponCount']);
 
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
 

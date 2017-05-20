@@ -26,7 +26,7 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
         return OrderInfo::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -70,9 +70,9 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
 				}
 			}
 			$result = check_refund_order_info($order_info->pay_status,$order_info->shipping_status,$order_info->order_status);
-			$order_info->can_cancel = 1; 
+			$order_info->can_cancel = 1;
 			if(!$result){
-				$order_info->can_cancel = 0; 
+				$order_info->can_cancel = 0;
 			}
 		}
 		return $order_infos;
@@ -81,4 +81,15 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
 	{
 		return OrderGoods::where('order_id',$order_id)->get($columns);
 	}
+    public function getShopCouponCount()
+    {
+        $data =  OrderInfo::select(DB::raw('sum(order_info.goods_amount) as goods_amount_count,sum(user_coupon.price) as price_count,shop.shop_name,shop.shop_id,shop.uid'))
+                        ->join('user_coupon','user_coupon.user_coupon_id','=','order_info.user_coupon_id')
+                        ->join('shop','shop.shop_id','=','order_info.shop_id')
+                        ->groupBy('shop.shop_id')
+                        ->where('order_info.user_coupon_id','>','0')
+                        ->where('order_info.order_status',2)
+                        ->paginate(config('admin_config.page'));
+        return $data;
+    }
 }

@@ -129,4 +129,5 @@ class ShopController extends BaseController
 
 	    return redirect(route('admin.shop.goods_batch', ['shop_id' => Input::get('shop_id')]));
     }
+
 }
