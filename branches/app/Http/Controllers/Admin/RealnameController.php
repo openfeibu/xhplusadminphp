@@ -11,6 +11,7 @@ use DB;
 use App\Real_name_auth;
 use App\Userinfo;
 use App\Repositories\RealnameRepository;
+use App\Repositories\UserRepositoryEloquent;
 use App\Services\MessageService;
 use App\RealnameAuth;
 use App\Services\PushService;
@@ -32,6 +33,7 @@ class RealnameController extends BaseController
     							RealnameRepository $realnameRepository,
     							PushService $pushService,
 								SMSService $smsService,
+								UserRepositoryEloquent $userRepositoryEloquent,
     							AdminRecordService $adminRecordService)
     {
         parent::__construct();
@@ -52,6 +54,7 @@ class RealnameController extends BaseController
 		$this->adminRecordService = $adminRecordService;
 
 		$this->smsService = $smsService;
+		$this->userRepositoryEloquent = $userRepositoryEloquent;
     }
 	public function index(Request $request)
     {
