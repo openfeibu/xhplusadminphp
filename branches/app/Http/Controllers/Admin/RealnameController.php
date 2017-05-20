@@ -161,7 +161,7 @@ class RealnameController extends BaseController
 			$record = "用户实名管理，驳回实名用户,用户id为：".$request->uid."原因是:".$request->beizhu;
    			$this->adminRecordService->record($record);
 			$user = $this->userRepositoryEloquent->getUserOne($request->uid,['nickname','mobile_no']);
-			$rst = $this->smsService->sendSMS($user->mobile_no,$type = 'real_name_error',$data = ['sms_template_code' => config('sms.real_name_true')]);
+			$rst = $this->smsService->sendSMS($user->mobile_no,$type = 'real_name_error',$data = ['sms_template_code' => config('sms.real_name_error')]);
 			return redirect('admin/user/real');
 		}
 	}
