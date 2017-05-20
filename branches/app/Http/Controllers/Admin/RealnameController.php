@@ -9,7 +9,7 @@ use App\Http\Requests\Admin\AdminUser\UpdateRequest;
 use Breadcrumbs, Toastr;
 use DB;
 use App\Real_name_auth;
-use App\Userinfo;
+use App\UserInfo;
 use App\Repositories\RealnameRepository;
 use App\Repositories\UserRepositoryEloquent;
 use App\Services\MessageService;
@@ -120,7 +120,7 @@ class RealnameController extends BaseController
 			Toastr::error('名字不能为空!');
         	return redirect('admin/user/real');
 		}
-		Userinfo::where('uid',$request->uid)->update([
+		UserInfo::where('uid',$request->uid)->update([
 			"realname" => $request->username,
 		]);
 		RealnameAuth::where('uid',$request->uid)->update([
@@ -149,7 +149,7 @@ class RealnameController extends BaseController
 		RealnameAuth::where('uid',$request->uid)->update([
 			"status" => "invalid",
 		]);
-		Userinfo::where('uid',$request->uid)->update([
+		UserInfo::where('uid',$request->uid)->update([
 			"realname" => "",
 		]);
 
