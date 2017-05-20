@@ -46,10 +46,8 @@ class SMSService
 				$code = $data['code'];
 				$req->setSmsParam("{\"pick_code\":\"$code\",\"product\":\"校汇\"}");
 				break;
-			case 'real_name_true':
-				$req->setSmsParam("{\"product\":\"校汇\"}");
 			default:
-				// code...
+				$req->setSmsParam("{\"product\":\"校汇\"}");
 				break;
 		}
 		$resp = $c->execute($req);
