@@ -53,7 +53,9 @@ class GameController extends BaseController
 			$breadcrumbs->parent('dashboard');
 			$breadcrumbs->push('游戏列表', route('admin.game.index'));
 		});
-        $user_prizes = $this->gameRepositoryEloquent->getUserPrizes(['game_id' => $request->id]);
-        return view('admin.game.user_prizes', compact('user_prizes'));
+        $game_id = $request->id;
+        $user_prizes = $this->gameRepositoryEloquent->getUserPrizes(['game_id' => $game_id]);
+
+        return view('admin.game.user_prizes', compact('user_prizes','game_id'));
     }
 }

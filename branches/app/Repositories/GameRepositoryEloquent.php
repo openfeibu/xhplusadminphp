@@ -57,6 +57,7 @@ class GameRepositoryEloquent extends BaseRepository implements GameRepository
 		return GameUserPrize::where($where)
                             ->Join('user','user.uid','=','game_user_prize.uid')
                             ->orderBy('game_user_prize.user_prize_id','desc')
+                            ->where($where)
                             ->paginate(config('admin_config.page'));
 	}
 
