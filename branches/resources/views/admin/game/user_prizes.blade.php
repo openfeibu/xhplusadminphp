@@ -38,7 +38,7 @@
                             </table>
                         </div>
 
-                        {!! $user_prizes->render() !!}
+                        {!! $user_prizes->appends(['id' => $game_id])->render() !!}
 
                     </div><!-- panel-body -->
                 </div><!-- panel -->
