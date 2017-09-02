@@ -140,5 +140,17 @@ return [
 	'open_status' => [
 		'0' => '关闭',
 		'1' => '开启'
-	]
+	],
+	'sms' => [
+		'order_info' => '您有新的订单，请及时处理!',
+		'pick_code' => '您好！请您在到达提货点后，凭提货码%s完成提货，感谢您对校汇的支持与信赖',
+	],
+	'loss_type' => [
+		'found' => '招领',
+		'lose' => '寻物'
+	],
+	'recommend_type' => [
+		'hot_goods' => '热销商品',
+		'featured' => '精品推荐',
+	],
 ];
