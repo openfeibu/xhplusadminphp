@@ -12,19 +12,25 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
 use App\Repositories\ShopRepositoryEloquent;
+use App\Repositories\UserRepositoryEloquent;
 use App\Services\AdminRecordService;
+use App\Services\ImageService;
 
 class ShopController extends BaseController
 {
 	protected $shopRepositoryEloquent ;
     protected $adminRecordService;
 
-    public function __construct(ShopRepositoryEloquent $shopRepositoryEloquent,
-                                AdminRecordService $adminRecordService){
+    public function __construct(UserRepositoryEloquent $userRepositoryEloquent,
+								ShopRepositoryEloquent $shopRepositoryEloquent,
+                                AdminRecordService $adminRecordService,
+								ImageService $imageService){
 
 		parent::__construct();
 		$this->shopRepositoryEloquent = $shopRepositoryEloquent;
+		$this->userRepositoryEloquent = $userRepositoryEloquent;
         $this->adminRecordService = $adminRecordService;
+		$this->imageService = $imageService;
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
 		Breadcrumbs::register('admin-shop',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
@@ -69,26 +75,71 @@ class ShopController extends BaseController
 
         return view('admin.shop.edit', compact('shop','phone'));
     }
-    public function update(UpdateRequest $request, $id)
+    public function update(Request $request)
     {
-        $result = $this->shop->update($request->all(), $id);
-        if(!$result['status']) {
-            Toastr::error($result['msg']);
-        } else {
-            Toastr::success('店铺更新成功');
-        }
-        return redirect(route('admin.shop.edit', ['id' => $id]));
+		if(Input::file('uploadfile')){
+			$shop_img = $this->imageService->uploadImages(Input::all(), 'shop');
+			if(!$shop_img){
+				return redirect(route('admin.shop.edit', ['id' => $request->shop_id]));
+			}
+			$shop_img = $shop_img['thumb_img_url'];
+		}else{
+			$shop_img = $request->shop_img;
+		}
+		$result = Shop::where('shop_id',$request->shop_id)->update([
+														'address' => $request->address,
+														'description' => $request->description,
+														'open_time' => $request->open_time,
+														'close_time' => $request->close_time,
+														'shop_img' => $shop_img,
+														'shop_status' => $request->shop_status
+													]);
+													/*
+        $result = $this->shopRepositoryEloquent->update([
+														'address' => $request->address,
+														'description' => $request->description,
+														'open_time' => $request->open_time,
+														'close_time' => $request->close_time,
+														'shop_img' => $shop_img,
+														'shop_status' => $request->shop_status
+													], $request->shop_id);*/
+		// if(!$result['status']) {
+        //     Toastr::error($result['msg']);
+        // } else {
+        //     Toastr::success('店铺更新成功');
+        // }
+        return redirect(route('admin.shop.edit', ['id' => $request->shop_id]));
     }
     public function store (Request $request)
     {
-	    $url = $this->imagesService->upload(Input::file("shop_img"),$request);
-    	$shop = $this->shopRepositoryEloquent->create($request->all());
-        if(!$result) {
+		$mobile = $request->mobile;
+		$user = $this->userRepositoryEloquent->getUser(['mobile_no' => $mobile],['uid']);
+		if(!$user) {
+            Toastr::error('用户不存在');
+			return redirect(route('admin.shop.create'));
+        }
+	    $shop_img = $this->imageService->uploadImages(Input::all(), 'shop');
+		if(!$shop_img){
+			return redirect(route('admin.shop.create'));
+		}
+    	$shop = $this->shopRepositoryEloquent->create([
+			'uid' => $user->uid,
+			'shop_name' => $request->shop_name,
+			'address' => $request->address,
+			'description' => $request->description,
+			'open_time' => $request->open_time,
+			'close_time' => $request->close_time,
+			'shop_type' => $request->shop_type,
+			'shop_img' => $shop_img['thumb_img_url'],
+			'shop_status' => 1,
+		]);
+        if(!$shop) {
             Toastr::error('创建失败');
+			return redirect(route('admin.shop.create'));
         } else {
             Toastr::success('店铺创建成功');
         }
-        return redirect(route('admin.shop.edit', ['id' => $id]));
+        return redirect(route('admin.shop.edit', ['id' => $shop->shop_id]));
     }
     public function goodsBatch (Request $request)
     {

@@ -42,7 +42,11 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $user_info = UserInfo::where('uid',$id)->first($column);
         return $user_info;
     }
-
+    public function getUser($where = [],$column = ['*'])
+    {
+        $user = User::where($where)->first($column);
+        return $user;
+    }
 	public function getUserWallet($id){
         $user = User::select(DB::raw('wallet'))->where('uid',$id)->first();
         return $user->wallet;

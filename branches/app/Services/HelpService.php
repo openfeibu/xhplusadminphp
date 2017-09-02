@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Validator;
 use App\TradeAccount;
+use Toastr;
+use Redirect;
 use Illuminate\Http\Request;
 
 class HelpService
@@ -76,21 +78,21 @@ class HelpService
     	return $money;
     }
     public function do_hash($psw) {
-	    $salt = 'xiaohuifdsafagfdgv43532ju76jM';  
+	    $salt = 'xiaohuifdsafagfdgv43532ju76jM';
 	    return md5($psw . $salt);
 	}
 	public function handlePayPassword ($pay_password)
 	{
 		//$options = [
-		// 'salt' => custom_function_for_salt(), 
-		// 'cost' => 2 
+		// 'salt' => custom_function_for_salt(),
+		// 'cost' => 2
 		//];
 		$hash = password_hash($pay_password, PASSWORD_BCRYPT);
 		return $hash;
 	}
 	public function handleRealName ($file_contents)
 	{
-		$contents = str_replace('(','',trim($file_contents));	
+		$contents = str_replace('(','',trim($file_contents));
 		$contents = str_replace(')','',$file_contents);
 		$contents = json_decode($file_contents);
 		return $contents;
@@ -101,4 +103,31 @@ class HelpService
 
         return $batch_no;
     }
+	public function isVaildImage($files)
+	{
+		$error = '';
+
+		foreach($files as $key => $file)
+		{
+			$name = $file->getClientOriginalName();
+			if(!$file->isValid())
+			{
+				$error.= $name.$file->getErrorMessage().';';
+			}
+			if(!in_array( strtolower($file->extension()),config('common.img_type'))){
+				$error.= $name."类型错误;";
+			}
+			if($file->getClientSize() > config('common.img_size')){
+				$img_size = config('common.img_size')/1024;
+				$error.= $name.'超过'.$img_size.'M';
+			}
+		}
+		if($error)
+		{
+			Toastr::error($error);
+			return false;
+		}
+		return true;
+
+	}
 }

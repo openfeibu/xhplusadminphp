@@ -57,9 +57,27 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::get('shop',['as' => 'admin.shop.index' ,'uses' => 'ShopController@index' ]);
 	Route::get('shop/create',['as' => 'admin.shop.create' ,'uses' => 'ShopController@create' ]);
 	Route::get('shop/edit/{id}',['as' => 'admin.shop.edit' ,'uses' => 'ShopController@edit' ]);
-	Route::post('shop/update/{id}',['as' => 'admin.shop.update' ,'uses' => 'ShopController@update' ]);
+	Route::PUT('shop/update',['as' => 'admin.shop.update' ,'uses' => 'ShopController@update' ]);
+    Route::post('shop/store',['as' => 'admin.shop.store' ,'uses' => 'ShopController@store' ]);
 	Route::post('shop/destroy',['as' => 'admin.shop.destroy' ,'uses' => 'ShopController@destroy' ]);
 	Route::post('shop/destroyall',['as'=>'admin.shop.destroy.all','uses'=>'ShopController@destroyAll']);
+
+    Route::get('drivingSchool',['as' => 'admin.drivingSchool.index' ,'uses' => 'DrivingSchoolController@index' ]);
+	Route::get('drivingSchool/create',['as' => 'admin.drivingSchool.create' ,'uses' => 'DrivingSchoolController@create' ]);
+	Route::get('drivingSchool/edit/{id}',['as' => 'admin.drivingSchool.edit' ,'uses' => 'DrivingSchoolController@edit' ]);
+	Route::PUT('drivingSchool/update',['as' => 'admin.drivingSchool.update' ,'uses' => 'DrivingSchoolController@update' ]);
+    Route::post('drivingSchool/store',['as' => 'admin.drivingSchool.store' ,'uses' => 'DrivingSchoolController@store' ]);
+	Route::post('drivingSchool/destroy',['as' => 'admin.drivingSchool.destroy' ,'uses' => 'DrivingSchoolController@destroy' ]);
+	Route::post('drivingSchool/destroyall',['as'=>'admin.drivingSchool.destroy.all','uses'=>'DrivingSchoolController@destroyAll']);
+
+    Route::get('education',['as' => 'admin.education.index' ,'uses' => 'EducationController@index' ]);
+	Route::get('education/create',['as' => 'admin.education.create' ,'uses' => 'EducationController@create' ]);
+	Route::get('education/edit/{id}',['as' => 'admin.education.edit' ,'uses' => 'EducationController@edit' ]);
+	Route::PUT('education/update',['as' => 'admin.education.update' ,'uses' => 'EducationController@update' ]);
+    Route::post('education/store',['as' => 'admin.education.store' ,'uses' => 'EducationController@store' ]);
+	Route::post('education/destroy',['as' => 'admin.education.destroy' ,'uses' => 'EducationController@destroy' ]);
+	Route::post('education/destroyall',['as'=>'admin.education.destroy.all','uses'=>'EducationController@destroyAll']);
+
 
 	Route::get('telecom',['as' => 'admin.telecomPackage.index','uses' => 'TelecomController@index' ]);
 	Route::get('telecom/createPackage',['as' => 'admin.telecomPackage.create' ,'uses' => 'TelecomController@createPackage' ]);
