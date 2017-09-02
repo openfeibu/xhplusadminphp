@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\EducationRepository;
-use App\Models\Education;
+use App\Education;
 use App\Validators\EducationValidator;
 
 /**
@@ -24,7 +24,7 @@ class EducationRepositoryEloquent extends BaseRepository implements EducationRep
         return Education::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria

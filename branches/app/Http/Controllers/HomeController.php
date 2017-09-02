@@ -29,20 +29,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-		
+
 	    //$redis = Redis::connection('default');
-	    
+
      //   $cacheUsers = $redis->get('userList');
 
      //   if( $cacheUsers ){
      //       $users = $cacheUsers;
      //       print_r($users);
-     //       Log::info('获取用户列表，通过redis');
+     //       Log::info('锟斤拷取锟矫伙拷锟叫憋拷锟斤拷通锟斤拷redis');
      //   }else{
      //       $users = $this->model->get();
      //       $redis->set('userList', $users);
      //       print_r($users);
-     //       Log::info('获取用户列表，通过msyql');
+     //       Log::info('锟斤拷取锟矫伙拷锟叫憋拷锟斤拷通锟斤拷msyql');
      //   }
         return view('home');
     }

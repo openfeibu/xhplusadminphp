@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\EducationProRepository;
-use App\Models\EducationPro;
+use App\EducationPro;
 use App\Validators\EducationProValidator;
 
 /**
@@ -24,7 +24,7 @@ class EducationProRepositoryEloquent extends BaseRepository implements Education
         return EducationPro::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -32,5 +32,9 @@ class EducationProRepositoryEloquent extends BaseRepository implements Education
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+    public function get($edu_id)
+    {
+        return EducationPro::where('edu_id',$edu_id)->orderBy('product_id','asc')->get();
     }
 }
