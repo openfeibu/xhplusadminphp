@@ -54,7 +54,7 @@ class EducationController extends BaseController
     {
         Breadcrumbs::register('admin-education-edit', function ($breadcrumbs) use ($id) {
             $breadcrumbs->parent('admin-education');
-            $breadcrumbs->push('编辑驾校', route('admin.shop.edit', ['id' => $id]));
+            $breadcrumbs->push('编辑驾校', route('admin.education.edit', ['id' => $id]));
         });
 
         $education = $this->educationRepositoryEloquent->find($id);

@@ -78,6 +78,14 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::post('education/destroy',['as' => 'admin.education.destroy' ,'uses' => 'EducationController@destroy' ]);
 	Route::post('education/destroyall',['as'=>'admin.education.destroy.all','uses'=>'EducationController@destroyAll']);
 
+    Route::get('recommend',['as' => 'admin.recommend.index' ,'uses' => 'RecommendController@index' ]);
+	Route::get('recommend/create',['as' => 'admin.recommend.create' ,'uses' => 'RecommendController@create' ]);
+	Route::get('recommend/edit/{id}',['as' => 'admin.recommend.edit' ,'uses' => 'RecommendController@edit' ]);
+	Route::PUT('recommend/update',['as' => 'admin.recommend.update' ,'uses' => 'RecommendController@update' ]);
+    Route::post('recommend/store',['as' => 'admin.recommend.store' ,'uses' => 'RecommendController@store' ]);
+	Route::post('recommend/destroy',['as' => 'admin.recommend.destroy' ,'uses' => 'RecommendController@destroy' ]);
+	Route::post('recommend/destroyall',['as'=>'admin.recommend.destroy.all','uses'=>'RecommendController@destroyAll']);
+
 
 	Route::get('telecom',['as' => 'admin.telecomPackage.index','uses' => 'TelecomController@index' ]);
 	Route::get('telecom/createPackage',['as' => 'admin.telecomPackage.create' ,'uses' => 'TelecomController@createPackage' ]);
