@@ -42,6 +42,8 @@ return [
     'url' => 'http://xhplusadmin.feibu.info',
 
 	'api_url' => 'http://xhplus.feibu.info',
+
+    'img_url' => 'http://img.feibu.info',
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -163,8 +165,9 @@ return [
         Yuansir\Toastr\ToastrServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
-		
+
 		Maatwebsite\Excel\ExcelServiceProvider::class,
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
     ],
 
     /*

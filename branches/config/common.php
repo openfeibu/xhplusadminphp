@@ -10,6 +10,7 @@ return [
 	'img_type' => [
 		"jpg","gif","bmp","jpeg","png"
 	],
+	'img_size' => 1024 * 1024 * 10,
 	'shop_fee' => 0,
 	'no_goods_img' => config('app.url').'/uploads/system/no_goods_image.png',
 ];
