@@ -46,9 +46,9 @@
                                     <th>店铺图片</th>
                                     <th>描述</th>
                                     <th>收藏量</th>
-                                    <th>浏览量</th>     
-                                    <th>商店总收入</th>   
-                                    <th>商店销量</th>                           
+                                    <th>浏览量</th>
+                                    <th>商店总收入</th>
+                                    <th>商店销量</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -76,9 +76,9 @@
                                         <td>{{ $shop->created_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.shop.edit',['id'=>$shop->shop_id]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>   
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
                                              <a href="{{ route('admin.shop.goods_batch',['shop_id'=>$shop->shop_id]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 批量添加商品</a>                                       
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 批量添加商品</a>
                                             <a class="btn btn-danger btn-xs shop-delete"
                                                data-href="{{ route('admin.shop.destroy',['id'=>$shop->shop_id]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
