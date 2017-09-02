@@ -16,7 +16,8 @@
         "predis/predis": "*",
         "latrell/alipay": "dev-master",
         "maatwebsite/excel": "2.1.0",
-        "spatie/laravel-pjax": "^1.3"
+        "spatie/laravel-pjax": "^1.3",
+        "zgldh/qiniu-laravel-storage": "^0.8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -68,10 +69,6 @@
         {
             "type": "git",
             "url": "git@github.com:jamisonvalenta/Laravel-4-Generators.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/hiendv/entrust"
         }
     ]
 }
