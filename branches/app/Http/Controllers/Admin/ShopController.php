@@ -181,7 +181,7 @@ class ShopController extends BaseController
 				}
 		    }
 	    });
-
+		Toastr::success('操作成功');
 	    return redirect(route('admin.shop.goods_batch', ['shop_id' => Input::get('shop_id')]));
     }
 
