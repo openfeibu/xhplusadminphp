@@ -165,16 +165,20 @@ class ShopController extends BaseController
 	        unset($goodses[0]);
 	        foreach( $goodses as $key => $goods )
 		    {
-		    	Goods::create([
-					'shop_id' => Input::get('shop_id'),
-					'cat_id' => Input::get('cat_id'),
-					'goods_name' => $goods['1'],
-					'goods_price' => $goods['2'],
-					'goods_img' => 'http://xhplus.feibu.info/uploads/goods/'.Input::get('shop_id').'/'.$goods['3'],
-					'goods_thumb' => 'http://xhplus.feibu.info/uploads/goods/'.Input::get('shop_id').'/thumb/'.$goods['3'],
-					'goods_desc' => $goods['4'] ? $goods['4'] : '',
-					'goods_number' => $goods['5'],
-		    	]);
+				$goods_img = config('app.img_url').'/goods/'.Input::get('shop_id').'/'.$goods['3'].'.png';
+				if($goods['1']){
+					$data = [
+						'shop_id' => Input::get('shop_id'),
+						'cat_id' => Input::get('cat_id'),
+						'goods_name' => $goods['1'],
+						'goods_price' => $goods['2'],
+						'goods_img' => $goods_img,
+						'goods_thumb' => $goods_img.'?imageMogr2/thumbnail/400x',
+						'goods_desc' => $goods['4'] ? $goods['4'] : '',
+						'goods_number' => $goods['5'] ? $goods['5'] : 99999999,
+					];
+					Goods::create($data);
+				}
 		    }
 	    });
 
