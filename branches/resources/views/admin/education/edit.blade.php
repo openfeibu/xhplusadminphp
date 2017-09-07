@@ -33,6 +33,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label" for="checkbox">电话</label>
+                                <div class="col-sm-6">
+                                   <input type="text"  data-toggle="tooltip" name="tell"
+                                           data-trigger="hover" class="form-control tooltips"
+                                           data-original-title="不可重复" value="{{ $education->tell }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="checkbox">logo</label>
                                 <div class="col-sm-6">
                                     <input type="file" name="uploadfile_logo" class="form-control tooltips">

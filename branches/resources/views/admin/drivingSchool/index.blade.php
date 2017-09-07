@@ -70,7 +70,7 @@
                                             <a href="{{ route('admin.drivingSchool.edit',['id'=>$driving_school->ds_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
 
-                                            <a class="btn btn-danger btn-xs drivingSchool-delete"
+                                            <a class="btn btn-danger btn-xs delete"
                                                data-href="{{ route('admin.drivingSchool.destroy',['id'=>$driving_school->ds_id]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
                                         </td>
@@ -95,6 +95,20 @@
 @section('javascript')
     @parent
     <script src="{{ asset('js/ajax.js') }}"></script>
+    @section('javascript')
+        @parent
+        <script src="{{ asset('js/ajax.js') }}"></script>
+        <script type="text/javascript">
+            $(".delete").click(function () {
+                Rbac.ajax.delete({
+                    confirmTitle: '确定删除?',
+                    href: $(this).data('href'),
+                    successTitle: '删除成功'
+                });
+            });
 
+        </script>
+
+    @endsection
 
 @endsection

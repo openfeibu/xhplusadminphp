@@ -67,11 +67,11 @@
                                         <td>
                                             <a href="{{ route('admin.education.createPro',['edu_id'=>$education->edu_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 添加产品</a>
-                                            <a href="{{ route('admin.education.editPro',['id'=>$education->edu_id]) }}"
+                                            <a href="{{ route('admin.education.edit',['id'=>$education->edu_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
 
-                                            <a class="btn btn-danger btn-xs education-delete"
-                                               data-href="{{ route('admin.education.destroyPro',['id'=>$education->edu_id]) }}">
+                                            <a class="btn btn-danger btn-xs delete"
+                                               data-href="{{ route('admin.education.destroy',['id'=>$education->edu_id]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
                                         </td>
                                     </tr>
@@ -95,6 +95,20 @@
 @section('javascript')
     @parent
     <script src="{{ asset('js/ajax.js') }}"></script>
+    @section('javascript')
+        @parent
+        <script src="{{ asset('js/ajax.js') }}"></script>
+        <script type="text/javascript">
+            $(".delete").click(function () {
+                Rbac.ajax.delete({
+                    confirmTitle: '确定删除?',
+                    href: $(this).data('href'),
+                    successTitle: '删除成功'
+                });
+            });
 
+        </script>
+
+    @endsection
 
 @endsection
