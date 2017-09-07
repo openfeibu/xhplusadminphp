@@ -69,6 +69,11 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::post('drivingSchool/store',['as' => 'admin.drivingSchool.store' ,'uses' => 'DrivingSchoolController@store' ]);
 	Route::post('drivingSchool/destroy',['as' => 'admin.drivingSchool.destroy' ,'uses' => 'DrivingSchoolController@destroy' ]);
 	Route::post('drivingSchool/destroyall',['as'=>'admin.drivingSchool.destroy.all','uses'=>'DrivingSchoolController@destroyAll']);
+    Route::get('drivingSchool/createPro',['as' => 'admin.drivingSchool.createPro' ,'uses' => 'DrivingSchoolController@createPro' ]);
+    Route::post('drivingSchool/storePro',['as' => 'admin.drivingSchool.storePro' ,'uses' => 'DrivingSchoolController@storePro' ]);
+    Route::get('drivingSchool/editPro/{id}',['as' => 'admin.drivingSchool.editPro' ,'uses' => 'DrivingSchoolController@editPro' ]);
+    Route::DELETE('drivingSchool/destroyPro',['as' => 'admin.drivingSchool.destroyPro' ,'uses' => 'DrivingSchoolController@destroyPro' ]);
+    Route::PUT('drivingSchool/updatePro',['as' => 'admin.drivingSchool.updatePro' ,'uses' => 'DrivingSchoolController@updatePro' ]);
 
     Route::get('education',['as' => 'admin.education.index' ,'uses' => 'EducationController@index' ]);
 	Route::get('education/create',['as' => 'admin.education.create' ,'uses' => 'EducationController@create' ]);
@@ -77,6 +82,11 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::post('education/store',['as' => 'admin.education.store' ,'uses' => 'EducationController@store' ]);
 	Route::post('education/destroy',['as' => 'admin.education.destroy' ,'uses' => 'EducationController@destroy' ]);
 	Route::post('education/destroyall',['as'=>'admin.education.destroy.all','uses'=>'EducationController@destroyAll']);
+    Route::get('education/createPro',['as' => 'admin.education.createPro' ,'uses' => 'EducationController@createPro' ]);
+    Route::post('education/storePro',['as' => 'admin.education.storePro' ,'uses' => 'EducationController@storePro' ]);
+    Route::get('education/editPro/{id}',['as' => 'admin.education.editPro' ,'uses' => 'EducationController@editPro' ]);
+    Route::DELETE('education/destroyPro',['as' => 'admin.education.destroyPro' ,'uses' => 'EducationController@destroyPro' ]);
+    Route::PUT('education/updatePro',['as' => 'admin.education.updatePro' ,'uses' => 'EducationController@updatePro' ]);
 
     Route::get('recommend',['as' => 'admin.recommend.index' ,'uses' => 'RecommendController@index' ]);
 	Route::get('recommend/create',['as' => 'admin.recommend.create' ,'uses' => 'RecommendController@create' ]);

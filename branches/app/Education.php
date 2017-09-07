@@ -17,5 +17,6 @@ class Education extends Model
         'desc',
         'content',
         'tell',
+        'uid',
     ];
 }

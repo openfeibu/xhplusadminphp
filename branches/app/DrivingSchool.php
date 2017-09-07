@@ -17,5 +17,6 @@ class DrivingSchool extends Model
         'desc',
         'content',
         'tell',
+        'uid',
     ];
 }

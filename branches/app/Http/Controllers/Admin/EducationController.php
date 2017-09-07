@@ -9,13 +9,15 @@ use Breadcrumbs, Toastr;
 use App\Http\Requests;
 use App\Services\ImageService;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\EducationRepositoryEloquent;
 use App\Repositories\EducationProRepositoryEloquent;
 use App\Repositories\EducationEnrollmentRepositoryEloquent;
 
 class EducationController extends BaseController
 {
-    public function __construct(EducationRepositoryEloquent $educationRepositoryEloquent,
+    public function __construct(UserRepositoryEloquent $userRepositoryEloquent,
+                                EducationRepositoryEloquent $educationRepositoryEloquent,
                                 EducationProRepositoryEloquent $educationProRepositoryEloquent,
                                 EducationEnrollmentRepositoryEloquent $educationEnrollmentRepositoryEloquent,
                                 ImageService $imageService)
@@ -27,6 +29,7 @@ class EducationController extends BaseController
             $breadcrumbs->push('驾校管理', route('admin.education.index'));
         });
         $this->imageService = $imageService;
+        $this->userRepositoryEloquent = $userRepositoryEloquent;
         $this->educationRepositoryEloquent = $educationRepositoryEloquent;
         $this->educationProRepositoryEloquent = $educationProRepositoryEloquent;
         $this->educationEnrollmentRepositoryEloquent = $educationEnrollmentRepositoryEloquent;
@@ -58,8 +61,8 @@ class EducationController extends BaseController
         });
 
         $education = $this->educationRepositoryEloquent->find($id);
-        $productions = $this->educationProRepositoryEloquent->get($id);
-        return view('admin.education.edit', compact('education','productions'));
+        $products = $this->educationProRepositoryEloquent->get($id);
+        return view('admin.education.edit', compact('education','products'));
     }
     public function update(Request $request)
     {
@@ -102,6 +105,12 @@ class EducationController extends BaseController
     }
     public function store(Request $request)
     {
+        $mobile = $request->mobile;
+		$user = $this->userRepositoryEloquent->getUser(['mobile_no' => $mobile],['uid']);
+		if(!$user) {
+            Toastr::error('用户不存在');
+			return redirect(route('admin.education.create'));
+        }
         if(Input::file('uploadfile_logo')){
             $files['uploadfile'] = Input::file('uploadfile_logo');
 			$img = $this->imageService->uploadImages($files, 'education');
@@ -131,6 +140,7 @@ class EducationController extends BaseController
             'content' => $request->content,
             'img_url' => $img_url,
             'logo_url' => $logo_url,
+            'uid' => $user->uid,
 		]);
         if(!$data) {
             Toastr::error('创建失败');
@@ -140,4 +150,62 @@ class EducationController extends BaseController
         }
         return redirect(route('admin.education.edit', ['id' => $data->edu_id]));
     }
+    public function createPro(Request $request)
+    {
+        Breadcrumbs::register('admin-education-createPro', function ($breadcrumbs) {
+           $breadcrumbs->parent('admin-education');
+           $breadcrumbs->push('添加驾校产品', route('admin.education.createPro'));
+       });
+
+        $edu_id = $request->edu_id;
+
+        return view('admin.education.createPro', compact('edu_id'));
+    }
+    public function storePro(Request $request)
+    {
+        $data = $this->educationProRepositoryEloquent->create([
+            'edu_id' => $request->edu_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'original_price' => $request->original_price,
+            'desc' => $request->desc,
+        ]);
+        if(!$data) {
+            Toastr::error('创建失败');
+			return redirect(route('admin.education.createPro'));
+        } else {
+            Toastr::success('创建成功');
+        }
+        return redirect(route('admin.education.editPro', ['id' => $data->product_id]));
+    }
+    public function editPro($id)
+    {
+        Breadcrumbs::register('admin-education-editPro', function ($breadcrumbs) use ($id) {
+            $breadcrumbs->parent('admin-education');
+            $breadcrumbs->push('编辑驾校产品', route('admin.education.editPro', ['id' => $id]));
+        });
+        $product = $this->educationProRepositoryEloquent->find($id);
+        return view('admin.education.editPro', compact('product'));
+    }
+    public function updatePro(Request $request)
+    {
+
+        $result = $this->educationProRepositoryEloquent->update([
+														'name' => $request->name,
+                                                        'price' => $request->price,
+                                                        'original_price' => $request->original_price,
+                                                        'desc' => $request->desc,
+													], $request->id);
+        if(!$result) {
+            Toastr::error('更新失败');
+        } else {
+            Toastr::success('更新成功');
+        }
+        return redirect(route('admin.education.editPro', ['id' => $request->id]));
+    }
+    public function destroyPro(Request $request)
+	{
+		$result = $this->educationProRepositoryEloquent->delete($request->id);
+		return response()->json($result ? ['status' => 1] : ['status' => 0]);
+	}
 }
