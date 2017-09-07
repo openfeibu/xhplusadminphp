@@ -22,9 +22,16 @@
 
                     <form class="form-horizontal form-bordered" action="{{ route('admin.education.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="panel-body panel-body-nopadding">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">注册手机号码 <span class="asterisk">*</span></label>
 
+                                <div class="col-sm-6">
+                                    <input type="text"  data-toggle="tooltip" name="mobile"
+                                           data-trigger="hover" class="form-control tooltips">
+                                </div>
+                            </div>
 							<div class="form-group">
-                                <label class="col-sm-3 control-label" for="checkbox">驾校名称</label>
+                                <label class="col-sm-3 control-label" for="checkbox">名称</label>
                                 <div class="col-sm-6">
                                    <input type="text"  data-toggle="tooltip" name="name"
                                            data-trigger="hover" class="form-control tooltips"
@@ -32,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="checkbox">驾校logo</label>
+                                <label class="col-sm-3 control-label" for="checkbox">logo</label>
                                 <div class="col-sm-6">
                                     <input type="file" name="uploadfile_logo" class="form-control tooltips">
                                 </div>
@@ -40,7 +47,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="checkbox">驾校图片</label>
+                                <label class="col-sm-3 control-label" for="checkbox">图片</label>
                                 <div class="col-sm-6">
                                     <input type="file" name="uploadfile_img" class="form-control tooltips">
                                 </div>

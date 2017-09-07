@@ -82,6 +82,8 @@
                                     <button class="btn btn-primary">保存</button>
                                     &nbsp;
                                     <button class="btn btn-default">取消</button>
+                                    <a href="{{ route('admin.drivingSchool.createPro',['id'=>$driving_school->ds_id]) }}"
+                                       class="btn btn-white btn-xs">添加产品</a>
                                 </div>
                             </div>
                         </div><!-- panel-footer -->
@@ -102,23 +104,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($productions as $production)
+                        @foreach($products as $product)
                             <tr>
-                                <td>{{ $production->product_id }}</td>
-                                <td>{{ $production->name }}</td>
-                                <td>{{ $production->original_price }}</td>
-                                <td>{{ $production->price }}</td>
-                                <td>{{ $production->desc }}</td>
-                                <td>{{ $production->created_at }}</td>
+                                <td>{{ $product->product_id }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->original_price }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->desc }}</td>
+                                <td>{{ $product->created_at }}</td>
                                 <td>
-                                    <!--
-                                    <a href="{{ route('admin.drivingSchool.edit',['id'=>$production->production_id]) }}"
+                                    <a href="{{ route('admin.drivingSchool.editPro',['id'=>$product->product_id]) }}"
                                        class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
-
-                                    <a class="btn btn-danger btn-xs drivingSchool-delete"
-                                       data-href="{{ route('admin.drivingSchool.destroy',['id'=>$production->production_id]) }}">
+                                    <a class="btn btn-danger btn-xs delete"
+                                       data-href="{{ route('admin.drivingSchool.destroyPro',['id'=>$product->product_id]) }}">
                                         <i class="fa fa-trash-o"></i> 删除</a>
-                                    -->
                                 </td>
                             </tr>
                         @endforeach
@@ -130,4 +129,19 @@
         </div><!-- row -->
 
     </div>
+@endsection
+@section('javascript')
+    @parent
+    <script src="{{ asset('js/ajax.js') }}"></script>
+    <script type="text/javascript">
+        $(".delete").click(function () {
+            Rbac.ajax.delete({
+                confirmTitle: '确定删除?',
+                href: $(this).data('href'),
+                successTitle: '删除成功'
+            });
+        });
+
+    </script>
+
 @endsection

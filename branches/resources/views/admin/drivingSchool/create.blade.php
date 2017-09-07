@@ -22,7 +22,14 @@
 
                     <form class="form-horizontal form-bordered" action="{{ route('admin.drivingSchool.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="panel-body panel-body-nopadding">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">注册手机号码 <span class="asterisk">*</span></label>
 
+                                <div class="col-sm-6">
+                                    <input type="text"  data-toggle="tooltip" name="mobile"
+                                           data-trigger="hover" class="form-control tooltips">
+                                </div>
+                            </div>
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="checkbox">驾校名称</label>
                                 <div class="col-sm-6">

@@ -65,6 +65,8 @@
                                         <td><img src="{{ $driving_school->img_url }}" width="100px"/></td>
                                         <td>{{ $driving_school->created_at }}</td>
                                         <td>
+                                            <a href="{{ route('admin.drivingSchool.createPro',['ds_id'=>$driving_school->ds_id]) }}"
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 添加产品</a>
                                             <a href="{{ route('admin.drivingSchool.edit',['id'=>$driving_school->ds_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
 
@@ -82,7 +84,7 @@
 
                     </div><!-- panel-body -->
                 </div><!-- panel -->
-                
+
             </div><!-- col-sm-9 -->
 
         </div><!-- row -->

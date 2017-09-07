@@ -65,11 +65,13 @@
                                         <td><img src="{{ $education->img_url }}" width="100px"/></td>
                                         <td>{{ $education->created_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.education.edit',['id'=>$education->edu_id]) }}"
+                                            <a href="{{ route('admin.education.createPro',['edu_id'=>$education->edu_id]) }}"
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 添加产品</a>
+                                            <a href="{{ route('admin.education.editPro',['id'=>$education->edu_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
 
                                             <a class="btn btn-danger btn-xs education-delete"
-                                               data-href="{{ route('admin.education.destroy',['id'=>$education->edu_id]) }}">
+                                               data-href="{{ route('admin.education.destroyPro',['id'=>$education->edu_id]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
                                         </td>
                                     </tr>
