@@ -37,4 +37,8 @@ class DrivingSchoolProRepositoryEloquent extends BaseRepository implements Drivi
     {
         return DrivingSchoolPro::where('ds_id',$ds_id)->orderBy('product_id','asc')->get();
     }
+    public function deletePro($ds_id)
+    {
+        return DrivingSchoolPro::where('ds_id',$ds_id)->delete();
+    }
 }

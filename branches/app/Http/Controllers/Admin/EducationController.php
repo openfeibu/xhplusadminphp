@@ -95,6 +95,7 @@ class EducationController extends BaseController
 														'content' => $request->content,
 														'img_url' => $img_url,
 														'logo_url' => $logo_url,
+                                                        'tell' => $request->tell,
 													], $request->id);
 		if(!$result) {
             Toastr::error('更新失败');
@@ -141,6 +142,7 @@ class EducationController extends BaseController
             'img_url' => $img_url,
             'logo_url' => $logo_url,
             'uid' => $user->uid,
+            'tell' => $request->tell,
 		]);
         if(!$data) {
             Toastr::error('创建失败');
@@ -150,6 +152,12 @@ class EducationController extends BaseController
         }
         return redirect(route('admin.education.edit', ['id' => $data->edu_id]));
     }
+    public function destroy(Request $request)
+	{
+		$result = $this->educationRepositoryEloquent->delete($request->id);
+        $this->educationProRepositoryEloquent->deletePro($request->id);
+		return response()->json($result ? ['status' => 1] : ['status' => 0]);
+	}
     public function createPro(Request $request)
     {
         Breadcrumbs::register('admin-education-createPro', function ($breadcrumbs) {

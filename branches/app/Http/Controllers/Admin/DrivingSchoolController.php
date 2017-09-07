@@ -95,6 +95,7 @@ class DrivingSchoolController extends BaseController
 														'content' => $request->content,
 														'img_url' => $img_url,
 														'logo_url' => $logo_url,
+                                                        'tell' => $request->tell,
 													], $request->id);
 		if(!$result) {
             Toastr::error('更新失败');
@@ -141,6 +142,7 @@ class DrivingSchoolController extends BaseController
             'img_url' => $img_url,
             'logo_url' => $logo_url,
             'uid' => $user->uid,
+            'tell' => $request->tell,
 		]);
         if(!$data) {
             Toastr::error('创建失败');
@@ -150,6 +152,12 @@ class DrivingSchoolController extends BaseController
         }
         return redirect(route('admin.drivingSchool.edit', ['id' => $data->ds_id]));
     }
+    public function destroy(Request $request)
+	{
+		$result = $this->drivingSchoolRepositoryEloquent->delete($request->id);
+        $this->drivingSchoolProRepositoryEloquent->deletePro($request->id);
+		return response()->json($result ? ['status' => 1] : ['status' => 0]);
+	}
     public function createPro(Request $request)
     {
         Breadcrumbs::register('admin-drivingSchool-createPro', function ($breadcrumbs) {

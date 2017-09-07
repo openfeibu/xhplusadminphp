@@ -33,4 +33,5 @@ class DrivingSchoolRepositoryEloquent extends BaseRepository implements DrivingS
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
 }

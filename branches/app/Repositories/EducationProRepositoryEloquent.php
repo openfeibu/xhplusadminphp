@@ -37,4 +37,8 @@ class EducationProRepositoryEloquent extends BaseRepository implements Education
     {
         return EducationPro::where('edu_id',$edu_id)->orderBy('product_id','asc')->get();
     }
+    public function deletePro($edu_id)
+    {
+        return EducationPro::where('edu_id',$edu_id)->delete();
+    }
 }
