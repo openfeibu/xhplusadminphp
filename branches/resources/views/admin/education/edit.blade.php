@@ -90,7 +90,7 @@
                                     <button class="btn btn-primary">保存</button>
                                     &nbsp;
                                     <button class="btn btn-default">取消</button>
-                                    <a href="{{ route('admin.education.createPro',['id'=>$education->edu_id]) }}"
+                                    <a href="{{ route('admin.education.createPro',['edu_id'=>$education->edu_id]) }}"
                                        class="btn btn-white btn-xs">添加产品</a>
                                 </div>
                             </div>
