@@ -167,6 +167,7 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
 		Maatwebsite\Excel\ExcelServiceProvider::class,
+        Overtrue\LaravelWechat\ServiceProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
     ],
 
@@ -220,6 +221,7 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
 		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Wechat'    => Overtrue\LaravelWechat\Facade::class,
     ],
 
 ];
