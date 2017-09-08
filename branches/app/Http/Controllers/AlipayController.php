@@ -16,9 +16,9 @@ use App\Services\MessageService;
 class AlipayController extends Controller
 {
 	protected $alipayRefundRepositoryEloquent;
-	
+
 	protected $tradeAccountRepositoryEloquent;
-	
+
     public function __construct(OrderRepositoryEloquent $orderRepositoryEloquent,
 								AlipayRefundRepositoryEloquent $alipayRefundRepositoryEloquent,
 								TradeAccountRepositoryEloquent $tradeAccountRepositoryEloquent,
@@ -35,7 +35,7 @@ class AlipayController extends Controller
 		$alipayRefund = app('alipay.refund');
 		$alipay_config = array_merge(config('alipay-refund'),config('alipay'));
 		$verify_result = $alipayRefund->verifyNotify();
-		
+
 		if($verify_result) {//验证成功
 
 			$batch_no = Input::get('batch_no');
@@ -49,7 +49,7 @@ class AlipayController extends Controller
 				'success_num' => $success_num,
 				'result_details' => $result_details,
 				'refund_status' => 'success',
-			);	
+			);
 			$updateAlipayRefundStatus = AlipayRefund::where('batch_no', $batch_no)
 										->where('refund_status','wait')
 										->update($alipayRefundData);
@@ -63,24 +63,15 @@ class AlipayController extends Controller
 					$trade_no = $trade_no_arr[0];
 					$status = $trade_no_arr[2];
 					if($status == 'SUCCESS')
-					{	
-						$trade = $this->tradeAccountRepositoryEloquent->findWhere(['trade_no'=>$trade_no,'trade_status'=>'refunding'],$columns =['uid','id','from','trade_no','out_trade_no','fee'])->first();
-						if($trade){
-							$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'refunded'],$trade->id);
-							if($trade->from == 'order'){
-								$update = $this->orderRepositoryEloquent->updateBySn(['status'=>'cancelled'],$trade->out_trade_no);
-								if($update){
-									$this->messageService->SystemMessage2SingleOne($trade->uid, "任务金额 " . $trade->fee . "元 已原路退回，请注意查收");
-								}
-								
-							}					
-						}
-					}					
+					{
+						$this->refundOrder($trade_no);
+
+					}
 				}
 			}
-			
-			echo "success";		
-			
+
+			echo "success";
+
 			Log::debug("支付宝退款回调 success");
 		}
 		else {
@@ -89,6 +80,20 @@ class AlipayController extends Controller
 			Log::debug("支付宝退款回调 fail");
 			//调试用，写文本函数记录程序运行情况是否正常
 			//logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+		}
+	}
+	public function refundOrder($trade_no)
+	{
+		$trade = $this->tradeAccountRepositoryEloquent->findWhere(['trade_no'=>$trade_no,'trade_status'=>'refunding'],$columns =['uid','id','from','trade_no','out_trade_no','fee'])->first();
+		if($trade){
+			$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'refunded'],$trade->id);
+			if($trade->from == 'order'){
+				$update = $this->orderRepositoryEloquent->updateBySn(['status'=>'cancelled'],$trade->out_trade_no);
+				if($update){
+					$this->messageService->SystemMessage2SingleOne($trade->uid, "任务金额 " . $trade->fee . "元 已原路退回，请注意查收");
+				}
+
+			}
 		}
 	}
 }
