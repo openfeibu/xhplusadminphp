@@ -65,7 +65,6 @@ class AlipayController extends Controller
 					if($status == 'SUCCESS')
 					{
 						$this->refundOrder($trade_no);
-
 					}
 				}
 			}

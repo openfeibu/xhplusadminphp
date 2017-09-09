@@ -51,8 +51,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 	public function getRefundOrders()
 	{
 		return Order::select(DB::raw('order.oid,order.order_sn,order.fee,order.status,order.updated_at,trade.created_at,order.pay_id,user.nickname,user.uid,trade.trade_no'))
-						->leftJoin('user','order.owner_id','=','user.uid')
-						->leftJoin('trade_account as trade','order.order_sn','=','trade.out_trade_no')
+						->join('user','order.owner_id','=','user.uid')
+						->join('trade_account as trade','order.order_sn','=','trade.out_trade_no')
 						->where('order.admin_deleted', 0)
 						->where('order.pay_id','<>',3)
 						->whereIn('order.status', ['cancelling'])
@@ -62,8 +62,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 	public function getRefundOrder($id)
 	{
 		return Order::select(DB::raw('order.oid,order.order_sn,order.fee,order.status,order.created_at,order.pay_id,user.nickname,user.uid,trade.trade_no'))
-						->leftJoin('user','order.owner_id','=','user.uid')
-						->leftJoin('trade_account as trade','order.order_sn','=','trade.out_trade_no')
+						->join('user','order.owner_id','=','user.uid')
+						->join('trade_account as trade','order.order_sn','=','trade.out_trade_no')
 						->where('order.oid', $id)
 						->first();
 
