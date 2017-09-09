@@ -12,13 +12,11 @@ class MessageService
 
 	protected $messageRepository;
 	protected $pushService;
-	
-	function __construct(Request $request,
-						 PushService $pushService,
+
+	function __construct(PushService $pushService,
 						 MessageRepository $messageRepository
 						 )
 	{
-		$this->request = $request;
 		$this->messageRepository = $messageRepository;
 		$this->pushService = $pushService;
 	}
@@ -43,7 +41,7 @@ class MessageService
 		$data = [
 			'refresh' => 1,
 			'target' => 'message',
-			'data' => $content 
+			'data' => $content
 		];
 		$this->pushService->PushUserTokenDevice($type, json_encode($data), $user_id,2);
 		return true;

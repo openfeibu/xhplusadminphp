@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\GoodsRepositoryEloquent;
 use App\Repositories\OrderInfoRepositoryEloquent;
 use App\Repositories\UserRepositoryEloquent;
+use App\Repositories\TradeAccountRepositoryEloquent;
+use App\Repositories\OrderRepositoryEloquent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +39,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('userRepositoryEloquent', function ($app) {
             return new UserRepositoryEloquent($app);
+        });
+        $this->app->singleton('tradeAccountRepositoryEloquent', function ($app) {
+            return new TradeAccountRepositoryEloquent($app);
+        });
+        $this->app->singleton('orderRepositoryEloquent', function ($app) {
+            return new OrderRepositoryEloquent($app);
         });
     }
 }

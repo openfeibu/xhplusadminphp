@@ -49,13 +49,13 @@ class PushService
 						$this->logFailedPush($ret);
 						break;
 
-					case 'xiaomi':					
+					case 'xiaomi':
 				        $payload = '{"test":1,"ok":"It\'s a string"}';
 				        $desc = '你有新消息';
 				        Constants::setPackage(config('xiaomi.package'));
 						Constants::setSecret(config('xiaomi.secret'));
 						$sender = new Sender();
-						$message1 = new Builder();	
+						$message1 = new Builder();
 				       if($type == 1)
 				        {
 					        $message1->title($title);  // 通知栏的title
@@ -65,9 +65,9 @@ class PushService
 				        }else{
 					        $message1->passThrough(1);
 					        $message1->extra(Builder::notifyForeground, 1); // 应用在前台是否展示通知，如果不希望应用在前台时候弹出通知，则设置这个参数为0
-				        }  
+				        }
 						$message1->payload($content); // 携带的数据，点击后将会通过客户端的receiver中的onReceiveMessage方法传入。
-						
+
 						$message1->notifyId(2); // 通知类型。最多支持0-4 5个取值范围，同样的类型的通知会互相覆盖，不同类型可以在通知栏并存
 						$message1->build();
 						$targetMessage = new TargetedMessage();
@@ -140,7 +140,7 @@ class PushService
 			//透传
 			return $this->PushUserAccountMessage($title, $content, $user_id);
 		}
-		
+
 	}
 
 	/**
@@ -162,16 +162,16 @@ class PushService
 	 */
 	public function PushUserAccountMessage($title, $content, $user_id)
 	{
-		
+
 		$user = $this->userRepository->getUserByUserID($user_id);
 
 		$device = $this->userRepository->getDeviceTokenByUserID($user_id);
-		
+
 		$ret = $this->xinge->PushAccountMessage($title, $content, $user->openid);
 		//$ret = $this->xinge->PushSingleDeviceMessage( $title, $content, $device->device_token);
-		
+
 		$this->logFailedPush($ret);
-		
+
 		return $ret;
 	}
 	/**

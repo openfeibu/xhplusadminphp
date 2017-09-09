@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use Input;
 use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
+use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\HelpService;
 use App\Repositories\OrderRepositoryEloquent;
 use App\Repositories\TradeAccountRepositoryEloquent;
 use App\Repositories\AlipayRefundRepositoryEloquent;
+use App\Repositories\WechatRefundRepositoryEloquent;
 use App\Services\AdminRecordService;
+use App\Services\MessageService;
 use EasyWeChat\Foundation\Application;
 
 class OrderController extends BaseController
@@ -30,14 +33,18 @@ class OrderController extends BaseController
 								TradeAccountRepositoryEloquent $tradeAccountRepositoryEloquent,
 								HelpService $helpService,
 								AlipayRefundRepositoryEloquent $alipayRefundRepositoryEloquent,
-								AdminRecordService $adminRecordService)
+								WechatRefundRepositoryEloquent $wechatRefundRepositoryEloquent,
+								AdminRecordService $adminRecordService,
+								MessageService $messageService)
 	{
 		parent::__construct();
 		$this->helpService = $helpService;
 		$this->orderRepositoryEloquent = $orderRepositoryEloquent;
 		$this->tradeAccountRepositoryEloquent = $tradeAccountRepositoryEloquent;
 		$this->alipayRefundRepositoryEloquent = $alipayRefundRepositoryEloquent;
+		$this->wechatRefundRepositoryEloquent = $wechatRefundRepositoryEloquent;
 		$this->adminRecordService = $adminRecordService;
+		$this->messageService = $messageService;
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
 		Breadcrumbs::register('admin-order',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
@@ -144,17 +151,81 @@ class OrderController extends BaseController
 				'payment' => [
 					'merchant_id'        => config('wechat.payment.merchant_id'),
 					'key'                => config('wechat.payment.key'),
+					'cert_path'          => config('wechat.payment.cert_path'),
+			        'key_path'           => config('wechat.payment.key_path') ,
+				],
+			];
+			$app_options = [
+				'app_id' => config('wechat.app_payment.app_id'),
+				'payment' => [
+					'merchant_id'        => config('wechat.app_payment.merchant_id'),
+					'key'                => config('wechat.app_payment.key'),
+					'cert_path'          => config('wechat.app_payment.cert_path'),
+			        'key_path'           => config('wechat.app_payment.key_path') ,
 				],
 			];
 			$app = new Application($options);
 			$payment = $app->payment;
 			$batch_no = $this->helpService->buildBatchNo();
-			$result = $payment->refund($order->order_sn, $batch_no, $order->fee);
-			var_dump($result);exit;
+			$result = $payment->refund($order->order_sn, $batch_no, $order->fee * 100);
+			//有结果
+			if($result)
+			{
+				//SUCCESS/FAIL  SUCCESS退款申请接收成功，结果通过退款查询接口查询  FAIL 提交业务失败
+				if($result['result_code'] == 'SUCCESS')
+				{
+					$refundData = array(
+						'batch_no'	=> $batch_no,
+						'refund_status' => 'success',
+					);
+					$this->wechatRefundRepositoryEloquent->create($refundData);
+					Toastr::success('退款成功');
+					$this->refundOrder($order->trade_no);
+				}else{
+					//失败
+					if($result['err_code'] == 'ERROR')
+					{
+						Toastr::error($result['err_code_des']);
+					}
+					//订单不存在   查看是否app支付
+					if($result['err_code'] == 'ORDERNOTEXIST')
+					{
+						$app = new Application($app_options);
+						$payment = $app->payment;
+						$result = $payment->refund($order->order_sn, $batch_no, $order->fee * 100);
+						if($result['result_code'] == 'SUCCESS')
+						{
+							$refundData = array(
+								'batch_no'	=> $batch_no,
+								'refund_status' => 'success',
+							);
+							$this->wechatRefundRepositoryEloquent->create($refundData);
+							Toastr::success('退款成功');
+						}else{
+							Toastr::error($result['err_code_des']);
+
+						}
+					}
+				}
+			}
+			return redirect(route('admin.order.refundIndex'));
 		}
 
-
 	}
+	public function refundOrder($trade_no)
+	{
+		$trade = $this->tradeAccountRepositoryEloquent->findWhere(['trade_no'=>$trade_no,'trade_status'=>'refunding'],$columns =['uid','id','from','trade_no','out_trade_no','fee'])->first();
+		if($trade){
+			$this->tradeAccountRepositoryEloquent->update(['trade_status'=>'refunded'],$trade->id);
+			if($trade->from == 'order'){
+				$update = $this->orderRepositoryEloquent->updateBySn(['status'=>'cancelled'],$trade->out_trade_no);
+				if($update){
+					$this->messageService->SystemMessage2SingleOne($trade->uid, "任务金额 " . $trade->fee . "元 已原路退回，请留意。");
+				}
+			}
+		}
+	}
+
 	public function refundAll($ids)
 	{
 		Breadcrumbs::register('admin-order-refund',function($breadcrumbs) use ($ids){
