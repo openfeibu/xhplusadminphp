@@ -168,6 +168,7 @@ class OrderController extends BaseController
 			$payment = $app->payment;
 			$batch_no = $this->helpService->buildBatchNo();
 			$result = $payment->refund($order->order_sn, $batch_no, $order->fee * 100);
+
 			//有结果
 			if($result)
 			{
@@ -201,9 +202,9 @@ class OrderController extends BaseController
 							);
 							$this->wechatRefundRepositoryEloquent->create($refundData);
 							Toastr::success('退款成功');
+							$this->refundOrder($order->trade_no);
 						}else{
 							Toastr::error($result['err_code_des']);
-
 						}
 					}
 				}

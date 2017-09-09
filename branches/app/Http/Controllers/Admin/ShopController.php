@@ -165,7 +165,7 @@ class ShopController extends BaseController
 	        unset($goodses[0]);
 	        foreach( $goodses as $key => $goods )
 		    {
-				$goods_img = config('app.img_url').'/goods/'.Input::get('shop_id').'/'.$goods['3'].'.png';
+				$goods_img = config('app.img_url').'/goods/'.Input::get('shop_id').'/'.$goods['3'].'.jpg';
 				if($goods['1']){
 					$data = [
 						'shop_id' => Input::get('shop_id'),
