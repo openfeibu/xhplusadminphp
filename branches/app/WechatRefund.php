@@ -16,7 +16,7 @@ class WechatRefund extends Model implements Transformable
 
     protected $fillable = [
         'batch_no',
-        'status',
+        'refund_status',
     ];
 
 }
