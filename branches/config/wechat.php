@@ -85,8 +85,8 @@ return [
     'payment' => [
         'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID', '1422653602'),
         'key'                => env('WECHAT_PAYMENT_KEY', 'XomEXFYJjm6NSkkGmYDKqWbObpTodkds'),
-        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', 'cert/apiclient_cert.pem'), // XXX: 绝对路径！！！！
-        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'cert/apiclient_key.pem'),      // XXX: 绝对路径！！！！
+        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', base_path('cert/apiclient_cert.pem')), // XXX: 绝对路径！！！！
+        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', base_path('cert/apiclient_key.pem')),      // XXX: 绝对路径！！！！
         // 'device_info'     => env('WECHAT_PAYMENT_DEVICE_INFO', ''),
         // 'sub_app_id'      => env('WECHAT_PAYMENT_SUB_APP_ID', ''),
         // 'sub_merchant_id' => env('WECHAT_PAYMENT_SUB_MERCHANT_ID', ''),
@@ -98,8 +98,8 @@ return [
         'secret'             => '',
         'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID', '1486607202'),
         'key'                => env('WECHAT_PAYMENT_KEY', 'XomEXFYJjm6NSkkGmYDKqWbObpTok2is'),
-        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', 'cert/apiclient_cert.pem'),
-        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'cert/apiclient_key.pem'),
+        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', base_path('cert/app_apiclient_cert.pem')),
+        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', base_path('cert/app_apiclient_key.pem')),
     ],
 
     /*
