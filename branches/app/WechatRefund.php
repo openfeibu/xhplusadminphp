@@ -14,6 +14,9 @@ class WechatRefund extends Model implements Transformable
 
     protected $primaryKey = 'refund_id';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'batch_no',
+        'status',
+    ];
 
 }
