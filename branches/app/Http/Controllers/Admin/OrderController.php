@@ -12,6 +12,7 @@ use App\Repositories\OrderRepositoryEloquent;
 use App\Repositories\TradeAccountRepositoryEloquent;
 use App\Repositories\AlipayRefundRepositoryEloquent;
 use App\Services\AdminRecordService;
+use EasyWeChat\Foundation\Application;
 
 class OrderController extends BaseController
 {
@@ -131,9 +132,28 @@ class OrderController extends BaseController
 			$breadcrumbs->push('退款编辑', route('admin.order.refund', ['id' => $id]));
 		});
 		$order = $this->orderRepositoryEloquent->getRefundOrder($id);
-		$order->batch_num =1;
-		$order->detail_data = $order->trade_no.'^'.$order->fee.'^'.'任务退款';
-        return view('admin.order.refund', compact('order'));
+		if($order->pay_id == 1)
+		{
+			$order->batch_num =1;
+			$order->detail_data = $order->trade_no.'^'.$order->fee.'^'.'任务退款';
+			return view('admin.order.refund', compact('order'));
+		}else if($order->pay_id == 2)
+		{
+			$options = [
+				'app_id' => config('wechat.app_id'),
+				'payment' => [
+					'merchant_id'        => config('wechat.payment.merchant_id'),
+					'key'                => config('wechat.payment.key'),
+				],
+			];
+			$app = new Application($options);
+			$payment = $app->payment;
+			$batch_no = $this->helpService->buildBatchNo();
+			$result = $payment->refund($order->order_sn, $batch_no, $order->fee);
+			var_dump($result);exit;
+		}
+
+
 	}
 	public function refundAll($ids)
 	{
