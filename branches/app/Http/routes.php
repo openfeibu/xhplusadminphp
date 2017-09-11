@@ -113,6 +113,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::DELETE('telecom/destroyOrder/{id}',['as' => 'admin.telecomOrder.destroy' ,'uses' => 'TelecomController@destroyOrder' ]);
 	Route::post('telecom/destroyallOrder',['as'=>'admin.telecomOrder.destroy.all','uses'=>'TelecomController@destroyallOrder']);
 
+    Route::get('telecom/enrollmentTime',['as' => 'admin.telecomEnroll.time','uses' => 'TelecomController@enrollmentTime' ]);
+    Route::get('telecom/enrollmentEditTime',['as' => 'admin.telecomEnroll.editTime','uses' => 'TelecomController@enrollmentTime' ]);
+    Route::get('telecom/enrollments',['as' => 'admin.telecomEnroll.enrollments','uses' => 'TelecomController@enrollments' ]);
+
 
 	Route::get('user/real',['as' => 'admin.user.real' ,'uses' => 'RealnameController@index' ]);
 	Route::DELETE('user/real_destroy/{id}',['as' => 'admin.user.real_destroy' ,'uses' => 'RealnameController@real_destroy' ]);

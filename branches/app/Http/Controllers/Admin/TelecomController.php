@@ -11,6 +11,9 @@ use App\TelecomOrder;
 use App\Repositories\TelecomPackageRepositoryEloquent;
 use App\Repositories\TelecomOrderRepositoryEloquent;
 use App\Repositories\TelecomRealNameRepositoryEloquent;
+use App\Repositories\TelecomEnrollmentRepositoryEloquent;
+use App\Repositories\TelecomEnrollmentCountRepositoryEloquent;
+use App\Repositories\TelecomEnrollmentTimeRepositoryEloquent;
 use Excel;
 use DB;
 use App\Services\AdminRecordService;
@@ -18,33 +21,39 @@ use App\Services\AdminRecordService;
 class TelecomController extends BaseController
 {
 	protected $telecomRepositoryEloquent;
-	
+
 	protected $telecomOrderRepositoryEloquent;
-	
+
 	protected $telecomRealNameRepositoryEloquent;
 
 	protected $adminRecordService;
-	
+
     public function __construct(TelecomPackageRepositoryEloquent $telecomPackageRepositoryEloquent,
 								TelecomOrderRepositoryEloquent $telecomOrderRepositoryEloquent,
 								TelecomRealNameRepositoryEloquent $telecomRealNameRepositoryEloquent,
+								TelecomEnrollmentRepositoryEloquent $telecomEnrollmentRepositoryEloquent,
+								TelecomEnrollmentCountRepositoryEloquent $telecomEnrollmentCountRepositoryEloquent,
+								TelecomEnrollmentTimeRepositoryEloquent $telecomEnrollmentTimeRepositoryEloquent,
 								AdminRecordService $adminRecordService)
 	{
-	    
+
 		parent::__construct();
 		$this->telecomPackageRepositoryEloquent = $telecomPackageRepositoryEloquent;
 		$this->telecomOrderRepositoryEloquent = $telecomOrderRepositoryEloquent;
 		$this->telecomRealNameRepositoryEloquent = $telecomRealNameRepositoryEloquent;
+		$this->telecomEnrollmentRepositoryEloquent = $telecomEnrollmentRepositoryEloquent;
+		$this->telecomEnrollmentCountRepositoryEloquent = $telecomEnrollmentCountRepositoryEloquent;
+		$this->telecomEnrollmentTimeRepositoryEloquent = $telecomEnrollmentTimeRepositoryEloquent;
 		$this->adminRecordService = $adminRecordService;
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
 		Breadcrumbs::register('admin-telecom',function($breadcrumbs){
 			$breadcrumbs->parent('dashboard');
 			$breadcrumbs->push('电信管理', route('admin.telecomPackage.index'));
 		});
-		
+
 	}
 	public function index()
-	{	
+	{
 		Breadcrumbs::register('admin-telecomPackage-index',function($breadcrumbs){
 			$breadcrumbs->parent('admin-telecom');
 			$breadcrumbs->push('套餐列表', route('admin.telecomPackage.index'));
@@ -53,9 +62,9 @@ class TelecomController extends BaseController
 			return $query->orderBy('package_id','desc');
 		})->paginate(config('admin_config.page'));
 
-		
-		
-        return view('admin.telecom.index', compact('packages')); 
+
+
+        return view('admin.telecom.index', compact('packages'));
 	}
 	public function createPackage()
     {
@@ -131,7 +140,7 @@ class TelecomController extends BaseController
 		//	return $query->orderBy('id','desc');
 		//})->paginate(config('admin_config.page'));
 		$orders = $this->telecomOrderRepositoryEloquent->getTelecomOrders();
-        return view('admin.telecom.order', compact('orders')); 
+        return view('admin.telecom.order', compact('orders'));
 	}
 	public function editOrder($id)
 	{
@@ -167,10 +176,10 @@ class TelecomController extends BaseController
 			$orders = $ordersQuery->where('telecom_real_name_status',$request->real)->get();
 		}
 		//if(!count($orders)) {
-  //          Toastr::error("没有数据可以导出"); 
-  //          echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";    
+  //          Toastr::error("没有数据可以导出");
+  //          echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
   //      }
-  //      else{ 
+  //      else{
         	$name = $request->startTime.'__'.$request->endTime.trans("common.telecom_real_name_status.$request->real").'电信填单';
 			Excel::create($name,function($excel) use ($orders){
 			  $excel->sheet('score', function($sheet) use ($orders){
@@ -203,4 +212,24 @@ class TelecomController extends BaseController
         }
         return response()->json($result ? ['status' => 1] : ['status' => 0]);
     }
+	public function enrollmentTime(Request $request)
+	{
+		Breadcrumbs::register('admin-telecomEnroll-time',function($breadcrumbs){
+			$breadcrumbs->parent('admin-telecom');
+			$breadcrumbs->push('', route('admin.telecomEnroll.time'));
+		});
+
+		$times = $this->telecomEnrollmentTimeRepositoryEloquent->all();
+
+		return view('admin.telecom.time', compact('times'));
+	}
+	public function enrollments(Request $request)
+	{
+		Breadcrumbs::register('admin-telecomEnroll-enrollments',function($breadcrumbs){
+			$breadcrumbs->parent('admin-telecom');
+			$breadcrumbs->push('', route('admin.telecomEnroll.enrollments'));
+		});
+		$enrollments = $this->telecomEnrollmentRepositoryEloquent->getEnrollments();
+		return view('admin.telecom.enrollments', compact('enrollments'));
+	}
 }
