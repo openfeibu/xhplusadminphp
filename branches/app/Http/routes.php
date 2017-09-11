@@ -116,6 +116,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::get('telecom/enrollmentTime',['as' => 'admin.telecomEnroll.time','uses' => 'TelecomController@enrollmentTime' ]);
     Route::get('telecom/enrollmentEditTime',['as' => 'admin.telecomEnroll.editTime','uses' => 'TelecomController@enrollmentTime' ]);
     Route::get('telecom/enrollments',['as' => 'admin.telecomEnroll.enrollments','uses' => 'TelecomController@enrollments' ]);
+    Route::get('telecom/saveEnroll',['as' => 'admin.telecomEnroll.saveEnroll','uses' => 'TelecomController@saveEnroll' ]);
 
 
 	Route::get('user/real',['as' => 'admin.user.real' ,'uses' => 'RealnameController@index' ]);

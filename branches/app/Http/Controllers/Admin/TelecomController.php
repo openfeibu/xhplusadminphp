@@ -229,7 +229,19 @@ class TelecomController extends BaseController
 			$breadcrumbs->parent('admin-telecom');
 			$breadcrumbs->push('', route('admin.telecomEnroll.enrollments'));
 		});
+		$date = date("Y-m-d",strtotime("+1 day"));
 		$enrollments = $this->telecomEnrollmentRepositoryEloquent->getEnrollments();
-		return view('admin.telecom.enrollments', compact('enrollments'));
+		return view('admin.telecom.enrollments', compact('enrollments','date'));
+	}
+	public function saveEnroll(Request $request)
+	{
+		$enrolls = $this->telecomEnrollmentRepositoryEloquent->getAllEnrollments(['date' => $request->date]);
+    	$name = $request->date.'预约名单';
+		Excel::create($name,function($excel) use ($enrolls){
+		  $excel->sheet('score', function($sheet) use ($enrolls){
+			$sheet->fromArray($enrolls);
+		  });
+		})->export('xls');
+
 	}
 }
