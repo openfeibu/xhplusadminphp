@@ -33,22 +33,20 @@
 
                                     <th>标识</th>
                                     <th>姓名</th>
-                                    <th>预约日期</th>
-                                    <th>预约开始时间</th>
-									<th>预约结束时间</th>
+                                    <th>宿舍</th>
+                                    <th>报名日期</th>
+                                    <!-- <th>预约开始时间</th>
+									<th>预约结束时间</th> -->
                                     <!-- <th>操作</th> -->
                                 </tr>
                                 </thead>
                                 <tbody>
                                	@foreach($enrollments as $enrollment)
                                     <tr>
-
                                          <td>{{ $enrollment->enroll_id }}</td>
                                          <td>{{ $enrollment->name }}</td>
+                                         <td>{{ $enrollment->dormitory_number }}</td>
                                          <td>{{ $enrollment->date }}</td>
-										 <td>{{ $enrollment->time_start }}</td>
-										 <td>{{ $enrollment->time_end }}</td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>
