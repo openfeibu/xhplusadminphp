@@ -45,7 +45,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
                       ->join('user as owner_user', 'order.owner_id', '=', 'owner_user.uid')
                       ->leftJoin('user as courier_user', 'order.courier_id', '=', 'courier_user.uid')
                       ->where('order.admin_deleted', 0)
-                      ->orderBy('order.updated_at', 'desc')
+                      ->orderBy('order.created_at', 'desc')
 					  ->paginate(config('admin_config.page'));
 	}
 	public function getRefundOrders()
