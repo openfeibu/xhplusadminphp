@@ -166,6 +166,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::put('order/update/{id}',['as' => 'admin.order.update' ,'uses' => 'OrderController@update' ]);
 	Route::DELETE('order/destroy/{id}',['as' => 'admin.order.destroy' ,'uses' => 'OrderController@destroy' ]);
 	Route::post('order/destroyall',['as'=>'admin.order.destroy.all','uses'=>'OrderController@destroyall']);
+    Route::get('order/todayRank',['as' => 'admin.order.todayRank','uses' => 'OrderController@todayRank' ]);
 
 	Route::get('order/refundIndex',['as' => 'admin.order.refundIndex','uses' => 'OrderController@refundIndex' ]);
 	Route::get('order/refund/{id}',['as' => 'admin.order.refund','uses' => 'OrderController@refund' ]);

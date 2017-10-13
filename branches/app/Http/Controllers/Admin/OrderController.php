@@ -298,4 +298,16 @@ class OrderController extends BaseController
         }
         return response()->json($result ? ['status' => 1] : ['status' => 0]);
 	}
+	public function todayRank(Request $request)
+	{
+
+		Breadcrumbs::register('admin-order-todayRank',function($breadcrumbs){
+			$breadcrumbs->parent('admin-order');
+			$breadcrumbs->push('接单排行', route('admin.order.todayRank'));
+		});
+
+		$users = $this->orderRepositoryEloquent->getTodayRank();
+
+		return view('admin.order.todayRank', compact('users'));
+	}
 }
