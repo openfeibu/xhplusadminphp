@@ -88,8 +88,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $users = Order::select(DB::raw("count('*') as count,order.courier_id,user.uid,user.nickname"))
                         ->join('user','user.uid','=','order.courier_id')
                         ->join('order_status_history as osh','osh.oid','=','order.oid')
-                        ->whereBetween('order_status_history.created_at',[$start,$end])
-                        ->where('order.status','completed')
+                        ->whereBetween('osh.created_at',[$start,$end])
+                        ->where('order.status','finish')
                         ->orderBy('count','desc')
                         ->groupBy('order.courier_id')
                         ->get();
