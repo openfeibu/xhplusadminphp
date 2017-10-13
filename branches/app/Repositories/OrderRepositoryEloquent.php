@@ -89,7 +89,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
                         ->join('user','user.uid','=','order.courier_id')
                         ->join('order_status_history as osh','osh.oid','=','order.oid')
                         ->whereBetween('osh.created_at',[$start,$end])
-                        ->where('order.status','finish')
+                        ->where('osh.status','finish')
+                        ->distinct('order.oid')
                         ->orderBy('count','desc')
                         ->groupBy('order.courier_id')
                         ->get();
