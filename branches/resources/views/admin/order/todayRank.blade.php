@@ -35,6 +35,8 @@
                                 <tr>
                                     <th>标识</th>
                                     <th>用户名</th>
+                                    <th>真实姓名</th>
+                                    <th>手机号码</th>
 									<th>接单总数</th>
 
                                 </tr>
@@ -44,6 +46,8 @@
                                     <tr>
                                          <td>{{ $user->uid }}</td>
 										 <td>{{ $user->nickname }}</td>
+                                         <td>{{ $user->realname }}</td>
+                                         <td>{{ $user->mobile_no }}</td>
 										 <td>{{ $user->count }}</td>
                                     </tr>
                                 @endforeach
