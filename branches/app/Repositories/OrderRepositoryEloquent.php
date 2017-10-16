@@ -85,8 +85,9 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     {
         $start = date('Y-m-d 00:00:00');
 		$end = date('Y-m-d H:i:s');
-        $users = Order::select(DB::raw("count('*') as count,order.courier_id,user.uid,user.nickname"))
+        $users = Order::select(DB::raw("count('*') as count,order.courier_id,user.uid,user.nickname,user_info.realname,user.mobile_no"))
                         ->join('user','user.uid','=','order.courier_id')
+                        ->join('user_info','user.uid','=','user_info.uid')
                         ->join('order_status_history as osh','osh.oid','=','order.oid')
                         ->whereBetween('osh.created_at',[$start,$end])
                         ->where('osh.new_status','finish')
