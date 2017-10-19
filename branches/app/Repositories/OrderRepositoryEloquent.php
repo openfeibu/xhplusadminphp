@@ -97,5 +97,19 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
                         ->get();
         return $users;
     }
+    public function getMonthDayRank()
+    {
+        $ranks = Order::select(DB::raw("count('*') as count,DATE_FORMAT(osh.created_at,'%Y-%m-%d') as datemd"))
+                        ->join('order_status_history as osh','osh.oid','=','order.oid')
+                        ->whereRaw("DATE_FORMAT(osh.created_at,'%Y-%m') = '2017-09' ")
+                        ->where('osh.new_status','finish')
+                        ->where('order.type','canteen')
+                        ->distinct('order.oid')
+                        ->orderBy('datemd','asc')
+                        ->groupBy('datemd')
+                        ->get()
+                        ->toArray();
+        return $ranks;
+    }
 
 }
