@@ -48,6 +48,6 @@ class OrderInfoController extends BaseController
 		});
 		$datemd = isset($request->datemd) && $request->datemd ? $request->datemd : date('Y-m');
 		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank($datemd);
-		return view('admin.order_info.canteen_month_day_rank', compact('ranks'));
+		return view('admin.order_info.canteen_month_day_rank', compact('ranks','datemd'));
 	}
 }
