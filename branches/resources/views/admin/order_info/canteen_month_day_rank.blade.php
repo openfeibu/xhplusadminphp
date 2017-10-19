@@ -1,6 +1,7 @@
 @extends('layouts.admin-app')
 
 @section('content')
+    <link rel="stylesheet" href="{{ asset('css/rome.css') }}" type="" media=""/>
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> Dashboard <span>系统设置</span></h2>
         {!! Breadcrumbs::render('admin-orderInfo-getMonthDayRank') !!}
@@ -17,7 +18,15 @@
 
                         <h5 class="subtitle mb5">饭堂每天销量列表</h5>
 
+                        <form action="{{route('admin.order_info.getMonthDayRank')}}">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="datemd" id="datemd" >
 
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
+                            </div>
+                        </form>
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
                                 <thead>
@@ -55,9 +64,12 @@
 
 @section('javascript')
     @parent
+    <script src="{{ asset('js/rome.min.js') }}"></script>
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script type="text/javascript">
-
+        rome(datemd, {
+          "inputFormat": "YYYY-MM",
+        });
     </script>
 
 @endsection
