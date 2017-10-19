@@ -20,7 +20,7 @@
 
                         <form action="{{route('admin.order_info.getMonthDayRank')}}">
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="datemd" id="datemd" >
+                                <input type="text" class="form-control" name="datemd" id="datemd" value="{{$datemd}}">
 
                             </div>
                             <div class="col-md-2">
