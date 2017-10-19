@@ -55,6 +55,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div class="col-md-12">
+                                <p>月总订单量：{{$count_sum}}；月总订单商品额：{{$goods_amount_sum}}元；月总商家出运费：{{$seller_shipping_fee_sum}}元；月总买家出运费：{{$shipping_fee_sum}}元；</p>
+                            </div>
                         </div>
 
                     </div><!-- panel-body -->
