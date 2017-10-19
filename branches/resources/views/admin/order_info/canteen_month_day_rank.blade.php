@@ -20,12 +20,17 @@
 
                         <form action="{{route('admin.order_info.getMonthDayRank')}}">
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="datemd" id="datemd" value="{{$datemd}}">
+                                <input type="text" class="form-control" name="dateym" id="dateym" value="{{$dateym}}">
 
                             </div>
                             <div class="col-md-2">
                                 <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
                             </div>
+                            <div class="pull-right">
+                                <div class="btn-group mr10">
+    								<a  class="btn btn-white tooltips" data-original-title="导出" id="download"><i class="glyphicon glyphicon-save"></i></a>
+                                </div>
+                            </div><!-- pull-right -->
                         </form>
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
@@ -41,7 +46,7 @@
                                 <tbody>
                                	@foreach($ranks as $rank)
                                     <tr>
-                                        <td>{{ $rank->datemd }}</td>
+                                        <td>{{ $rank->dateym }}</td>
                                         <td>{{ $rank->count }}</td>
                                         <td>{{ $rank->goods_amount }}</td>
                                         <td>{{ $rank->seller_shipping_fee }}</td>
@@ -67,8 +72,13 @@
     <script src="{{ asset('js/rome.min.js') }}"></script>
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script type="text/javascript">
-        rome(datemd, {
+        rome(dateym, {
           "inputFormat": "YYYY-MM",
+        });
+        $("#download").click(function(){
+            var dateym = $("#dateym").val();
+            window.location.href = "{{route('admin.order_info.monthDayRankDownload')}}"+"?dateym="+dateym;
+            return false;
         });
     </script>
 
