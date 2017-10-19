@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use Breadcrumbs, Toastr;
+use Excel;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -46,8 +47,19 @@ class OrderInfoController extends BaseController
 			$breadcrumbs->parent('admin-orderInfo');
 			$breadcrumbs->push('店铺列表', route('admin.shop.index'));
 		});
-		$datemd = isset($request->datemd) && $request->datemd ? $request->datemd : date('Y-m');
-		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank($datemd);
-		return view('admin.order_info.canteen_month_day_rank', compact('ranks','datemd'));
+		$dateym = isset($request->dateym) && $request->dateym ? $request->dateym : date('Y-m');
+		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank($dateym);
+		return view('admin.order_info.canteen_month_day_rank', compact('ranks','dateym'));
+	}
+	public function monthDayRankDownload(Request $request)
+	{
+		$dateym = isset($request->dateym) && $request->dateym ? $request->dateym : date('Y-m');
+		$ranks = app('orderInfoRepositoryEloquent')->monthDayRankDownload($dateym);
+		$name = $request->dateym.'饭堂每天销量列表';
+		Excel::create($name,function($excel) use ($ranks){
+		  $excel->sheet('score', function($sheet) use ($ranks){
+			$sheet->fromArray($ranks);
+		  });
+		})->export('xls');
 	}
 }

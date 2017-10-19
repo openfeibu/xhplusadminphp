@@ -278,6 +278,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::get('orderInfo/index',['as' => 'admin.order_info.index','uses' => 'OrderInfoController@index']);
     Route::get('orderInfo/shopCouponCount',['as' => 'admin.order_info.shopCouponCount','uses' => 'OrderInfoController@shopCouponCount']);
     Route::get('orderInfo/getMonthDayRank',['as' => 'admin.order_info.getMonthDayRank','uses' => 'OrderInfoController@getMonthDayRank' ]);
+    Route::get('orderInfo/monthDayRankDownload',['as' => 'admin.order_info.monthDayRankDownload','uses' => 'OrderInfoController@monthDayRankDownload' ]);
 
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
 
