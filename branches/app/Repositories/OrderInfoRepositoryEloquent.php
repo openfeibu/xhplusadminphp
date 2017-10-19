@@ -94,7 +94,7 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
     }
     public function getMonthDayRank($dateym)
     {
-        $ranks = OrderInfo::select(DB::raw("count('*') as count,DATE_FORMAT(order_info.created_at,'%Y-%m-%d') as dateym,SUM(order_info.seller_shipping_fee) as seller_shipping_fee ,SUM(order_info.shipping_fee) as shipping_fee,SUM(order_info.goods_amount) as goods_amount"))
+        $ranks = OrderInfo::select(DB::raw("DATE_FORMAT(order_info.created_at,'%Y-%m-%d') as dateym,count('*') as count,SUM(order_info.goods_amount) as goods_amount,SUM(order_info.seller_shipping_fee) as seller_shipping_fee ,SUM(order_info.shipping_fee) as shipping_fee"))
                         ->join('order','order.order_id','=','order_info.order_id')
                         ->join('shop','shop.shop_id','=','order_info.shop_id')
                         ->whereRaw("DATE_FORMAT(order_info.created_at,'%Y-%m') = '".$dateym."' ")
@@ -107,14 +107,14 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
     }
     public function monthDayRankDownload($dateym)
     {
-        $ranks = OrderInfo::select(DB::raw("DATE_FORMAT(order_info.created_at,'%Y-%m-%d') as dateym,count('*') as 订单量,SUM(order_info.goods_amount) as 订单总商品额,SUM(order_info.seller_shipping_fee) as 商家出总运费 ,SUM(order_info.shipping_fee) as 买家出总运费"))
+        $ranks = OrderInfo::select(DB::raw("DATE_FORMAT(order_info.created_at,'%Y-%m-%d') as 日期,count('*') as 订单量,SUM(order_info.goods_amount) as 订单总商品额,SUM(order_info.seller_shipping_fee) as 商家出总运费 ,SUM(order_info.shipping_fee) as 买家出总运费"))
                         ->join('order','order.order_id','=','order_info.order_id')
                         ->join('shop','shop.shop_id','=','order_info.shop_id')
                         ->whereRaw("DATE_FORMAT(order_info.created_at,'%Y-%m') = '".$dateym."' ")
                         ->where('order_info.order_status','2')
                         ->where('shop.shop_type',3)
-                        ->orderBy('dateym','asc')
-                        ->groupBy('dateym')
+                        ->orderBy('日期','asc')
+                        ->groupBy('日期')
                         ->get();
         return $ranks;
     }
