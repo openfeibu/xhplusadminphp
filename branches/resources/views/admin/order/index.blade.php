@@ -42,12 +42,12 @@
                                     <th>标识</th>
 									<th>订单号</th>
                                     <th>发单人</th>
-                                    <th>接单人</th> 
-									<th>任务费用</th>								
-									<th>服务费</th>  
+                                    <th>接单人</th>
+									<th>任务费用</th>
+									<th>服务费</th>
 									<th>目的地</th>
 									<th>详情</th>
-									<th>任务状态</th>  
+									<th>任务状态</th>
                                     <th>创建时间</th>
 									<th>状态改变时间</th>
                                     <th>操作</th>
@@ -64,19 +64,19 @@
                                             </div>
                                         </td>
                                          <td>{{ $order->oid }}</td>
-										 <td>{{ $order->order_sn }}</td> 
+										 <td>{{ $order->order_sn }}</td>
 										 <td>{{ $order->owner_nickname }}</td>
 										 <td>{{ $order->courier_nickname }}</td>
-										 <td>{{ $order->fee }}</td>	
+										 <td>{{ $order->fee }}</td>
 										 <td>{{ $order->service_fee }}</td>
 										 <td>{{ $order->destination }}</td>
-										 <td>{{ $order->description }}</td>										 
+										 <td>{{ $order->description }}</td>
 										 <td>{{ trans("common.task_status.$order->status") }}</td>
 										 <td>{{ $order->created_at }}</td>
 										 <td>{{ $order->updated_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.order.edit',['id'=>$order->oid]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>                                        
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
                                             <a class="btn btn-danger btn-xs order-delete"
                                                data-href="{{ route('admin.order.destroy',['id'=>$order->oid]) }}">
                                                 <i class="fa fa-trash-o"></i> 删除</a>
