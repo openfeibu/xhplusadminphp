@@ -167,6 +167,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::DELETE('order/destroy/{id}',['as' => 'admin.order.destroy' ,'uses' => 'OrderController@destroy' ]);
 	Route::post('order/destroyall',['as'=>'admin.order.destroy.all','uses'=>'OrderController@destroyall']);
     Route::get('order/todayRank',['as' => 'admin.order.todayRank','uses' => 'OrderController@todayRank' ]);
+    Route::get('order/getMonthDayRank',['as' => 'admin.order.getMonthDayRank','uses' => 'OrderController@getMonthDayRank' ]);
 
 	Route::get('order/refundIndex',['as' => 'admin.order.refundIndex','uses' => 'OrderController@refundIndex' ]);
 	Route::get('order/refund/{id}',['as' => 'admin.order.refund','uses' => 'OrderController@refund' ]);
@@ -276,6 +277,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 
 	Route::get('orderInfo/index',['as' => 'admin.order_info.index','uses' => 'OrderInfoController@index']);
     Route::get('orderInfo/shopCouponCount',['as' => 'admin.order_info.shopCouponCount','uses' => 'OrderInfoController@shopCouponCount']);
+    Route::get('orderInfo/getMonthDayRank',['as' => 'admin.order_info.getMonthDayRank','uses' => 'OrderInfoController@getMonthDayRank' ]);
 
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
 

@@ -310,4 +310,10 @@ class OrderController extends BaseController
 
 		return view('admin.order.todayRank', compact('users'));
 	}
+	public function getMonthDayRank(Request $request)
+	{
+
+		$ranks = $this->orderRepositoryEloquent->getMonthDayRank();
+		var_dump($ranks);exit;
+	}
 }

@@ -40,4 +40,13 @@ class OrderInfoController extends BaseController
 
 		return view('admin.order_info.shop_coupon_count', compact('shop_coupon_count'));
 	}
+	public function getMonthDayRank(Request $request)
+	{
+		Breadcrumbs::register('admin-orderInfo-getMonthDayRank',function($breadcrumbs){
+			$breadcrumbs->parent('admin-orderInfo');
+			$breadcrumbs->push('店铺列表', route('admin.shop.index'));
+		});
+		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank();
+		return view('admin.order_info.canteen_month_day_rank', compact('ranks'));
+	}
 }
