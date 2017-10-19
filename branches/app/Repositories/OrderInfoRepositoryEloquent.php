@@ -96,8 +96,10 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
     {
         $ranks = OrderInfo::select(DB::raw("count('*') as count,DATE_FORMAT(order_info.created_at,'%Y-%m-%d') as datemd,SUM(order_info.seller_shipping_fee) as seller_shipping_fee ,SUM(order_info.seller_shipping_fee) as seller_shipping_fee,SUM(order_info.shipping_fee) as shipping_fee,SUM(order_info.goods_amount) as goods_amount"))
                         ->join('order','order.order_id','=','order_info.order_id')
+                        ->join('shop','shop.shop_id','=','order_info.shop_id')
                         ->whereRaw("DATE_FORMAT(order_info.created_at,'%Y-%m') = '".$datemd."' ")
                         ->where('order_info.order_status','2')
+                        ->where('shop.shop_type',3)
                         ->orderBy('datemd','asc')
                         ->groupBy('datemd')
                         ->get();
