@@ -46,7 +46,8 @@ class OrderInfoController extends BaseController
 			$breadcrumbs->parent('admin-orderInfo');
 			$breadcrumbs->push('店铺列表', route('admin.shop.index'));
 		});
-		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank();
+		$datemd = isset($request->datemd) && $request->datemd ? $request->datemd : date('Y-m');
+		$ranks = app('orderInfoRepositoryEloquent')->getMonthDayRank($datemd);
 		return view('admin.order_info.canteen_month_day_rank', compact('ranks'));
 	}
 }
