@@ -100,7 +100,7 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
                         ->whereRaw("DATE_FORMAT(order_info.created_at,'%Y-%m') = '".$dateym."' ")
                         ->where('order_info.order_status','2')
                         ->where('shop.shop_type',3)
-                        ->orderBy('dateym','asc')
+                        ->orderBy('dateym','desc')
                         ->groupBy('dateym')
                         ->get();
         return $ranks;
@@ -113,7 +113,7 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
                         ->whereRaw("DATE_FORMAT(order_info.created_at,'%Y-%m') = '".$dateym."' ")
                         ->where('order_info.order_status','2')
                         ->where('shop.shop_type',3)
-                        ->orderBy('日期','asc')
+                        ->orderBy('日期','desc')
                         ->groupBy('日期')
                         ->get();
         return $ranks;
