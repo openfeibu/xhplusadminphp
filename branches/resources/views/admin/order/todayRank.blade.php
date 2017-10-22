@@ -16,7 +16,7 @@
                     <div class="panel-body">
 
                         <h5 class="subtitle mb5">列表</h5>
-                        <form action="{{route('admin.order_info.getMonthDayRank')}}">
+                        <form action="{{route('admin.order.todayRank')}}">
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="date" id="date" value="{{$date}}">
 
