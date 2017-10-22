@@ -15,19 +15,21 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <div class="pull-right">
-                            <div class="btn-group mr10">
-                                <a href="{{ route('admin.order.create') }}" class="btn btn-white tooltips"
-                                   data-toggle="tooltip" data-original-title="新增"><i
-                                            class="glyphicon glyphicon-plus"></i></a>
-                                <a class="btn btn-white tooltips deleteall" data-toggle="tooltip"
-                                   data-original-title="删除" data-href="{{ route('admin.order.destroy.all') }}"><i
-                                            class="glyphicon glyphicon-trash"></i></a>
+                        <h5 class="subtitle mb5">列表</h5>
+                        <form action="{{route('admin.order_info.getMonthDayRank')}}">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="date" id="date" value="{{$date}}">
+
                             </div>
-                        </div><!-- pull-right -->
-
-                        <h5 class="subtitle mb5">套餐列表</h5>
-
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
+                            </div>
+                            <div class="pull-right">
+                                <div class="btn-group mr10">
+    								<a  class="btn btn-white tooltips" data-original-title="导出" id="download"><i class="glyphicon glyphicon-save"></i></a>
+                                </div>
+                            </div><!-- pull-right -->
+                        </form>
 
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
@@ -68,6 +70,10 @@
 
 @section('javascript')
     @parent
-
+    <script type="text/javascript">
+        rome(date, {
+          "inputFormat": "YYYY-MM-DD",
+        });
+    </script>
 
 @endsection

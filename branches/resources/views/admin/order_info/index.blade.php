@@ -14,13 +14,13 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-	                    
+
                         <h5 class="subtitle mb5">订单列表</h5>
-                        
+
 						<form action="{{route('admin.user.searchUser')}}">
                             <div class="col-md-5">
                                 <input type="text" name="searchUser" placeholder="" style="" class="form-control" >
-                                
+
                             </div>
                             <div class="col-md-2">
                                 <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
@@ -43,9 +43,9 @@
                                     <th>收货人</th>
                                     <th>收货地址</th>
                                     <th>电话</th>
-                                    <th>总额</th>  
-                                    <th>支付方式</th>   
-                                    <th>订单状态</th>                   
+                                    <th>总额</th>
+                                    <th>支付方式</th>
+                                    <th>订单状态</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -73,7 +73,7 @@
                                         <td>{{ $order_info->created_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.shop.edit',['id'=>$order_info->order_id]) }}"
-                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 查看</a>   
+                                               class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 查看</a>
                                         </td>
                                     </tr>
                                 @endforeach
