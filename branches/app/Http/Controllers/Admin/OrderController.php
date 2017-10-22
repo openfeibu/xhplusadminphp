@@ -305,10 +305,10 @@ class OrderController extends BaseController
 			$breadcrumbs->parent('admin-order');
 			$breadcrumbs->push('接单排行', route('admin.order.todayRank'));
 		});
+		$date = isset($request->date) && $request->date ? $request->date.' 00:00:00' : date('Y-m-d');
+		$users = $this->orderRepositoryEloquent->getTodayRank($date);
 
-		$users = $this->orderRepositoryEloquent->getTodayRank();
-
-		return view('admin.order.todayRank', compact('users'));
+		return view('admin.order.todayRank', compact('users','date'));
 	}
 	public function getMonthDayRank(Request $request)
 	{
