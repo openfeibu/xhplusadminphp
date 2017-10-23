@@ -84,7 +84,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function getTodayRank($start)
     {
         $start = $start.' 00:00:00';
-		$end = date('Y-m-d H:i:s');
+		$end = $start." 23:59:59";
         $users = Order::select(DB::raw("count('*') as count,order.courier_id,user.uid,user.nickname,user_info.realname,user.mobile_no"))
                         ->join('user','user.uid','=','order.courier_id')
                         ->join('user_info','user.uid','=','user_info.uid')
