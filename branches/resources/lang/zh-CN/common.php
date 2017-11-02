@@ -4,7 +4,7 @@ return [
 	'shop_type' => [
 		'1' => '学生',
 		'2'	=> '商家',
-		'3'	=> '食堂',
+		'3' => '饭堂'
 	] ,
 	'shop_status' => [
 		'0'	=> '待审核',
@@ -39,6 +39,7 @@ return [
 		'TelecomOrder' => '电信套餐',
 		'FreeOrder' => '首单返现',
 		'System' => '系统',
+		'OrderBonus' => '任务奖励金',
 	],
 	// user   wallet 字段
 	'wallet_type' => [
@@ -154,5 +155,13 @@ return [
 	'recommend_type' => [
 		'hot_goods' => '热销商品',
 		'featured' => '精品推荐',
+	],
+	'bonus_status' => [
+		'0' => '未结算',
+		'1' => '已结算',
+	],
+	'payer' => [
+		'buyer' => '买家',
+		'seller' => '卖家',
 	],
 ];
