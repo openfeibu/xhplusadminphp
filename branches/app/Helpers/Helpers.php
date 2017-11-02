@@ -93,4 +93,6 @@ if (!function_exists('seller_check_Shipping_order_info')) {
 		return true;
 	}
 }
-
+function foo(&$v, $k, $kname) {
+    $v = array_combine($kname, array_slice($v, 1, -1));
+}

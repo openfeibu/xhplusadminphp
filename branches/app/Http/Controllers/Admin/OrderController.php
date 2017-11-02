@@ -9,12 +9,14 @@ use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\HelpService;
+use App\Services\MessageService;
+use App\Services\AdminRecordService;
 use App\Repositories\OrderRepositoryEloquent;
 use App\Repositories\TradeAccountRepositoryEloquent;
 use App\Repositories\AlipayRefundRepositoryEloquent;
 use App\Repositories\WechatRefundRepositoryEloquent;
-use App\Services\AdminRecordService;
-use App\Services\MessageService;
+use App\Repositories\OrderBonusSettingRepositoryEloquent;
+use App\Repositories\UserOrderBonusRepositoryEloquent;
 use EasyWeChat\Foundation\Application;
 
 class OrderController extends BaseController
@@ -34,6 +36,8 @@ class OrderController extends BaseController
 								HelpService $helpService,
 								AlipayRefundRepositoryEloquent $alipayRefundRepositoryEloquent,
 								WechatRefundRepositoryEloquent $wechatRefundRepositoryEloquent,
+								OrderBonusSettingRepositoryEloquent $orderBonusSettingRepositoryEloquent,
+								UserOrderBonusRepositoryEloquent $userOrderBonusRepositoryEloquent,
 								AdminRecordService $adminRecordService,
 								MessageService $messageService)
 	{
@@ -43,6 +47,8 @@ class OrderController extends BaseController
 		$this->tradeAccountRepositoryEloquent = $tradeAccountRepositoryEloquent;
 		$this->alipayRefundRepositoryEloquent = $alipayRefundRepositoryEloquent;
 		$this->wechatRefundRepositoryEloquent = $wechatRefundRepositoryEloquent;
+		$this->userOrderBonusRepositoryEloquent = $userOrderBonusRepositoryEloquent;
+		$this->orderBonusSettingRepositoryEloquent = $orderBonusSettingRepositoryEloquent;
 		$this->adminRecordService = $adminRecordService;
 		$this->messageService = $messageService;
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
@@ -315,5 +321,45 @@ class OrderController extends BaseController
 
 		$ranks = $this->orderRepositoryEloquent->getMonthDayRank();
 		var_dump($ranks);exit;
+	}
+	public function orderBonusSetting(Request $request)
+    {
+
+		Breadcrumbs::register('admin-order-orderBonusSetting',function($breadcrumbs){
+			$breadcrumbs->parent('admin-order');
+			$breadcrumbs->push('奖励金列表', route('admin.order.orderBonusSetting'));
+		});
+
+		$order_bonus_settings = $this->orderBonusSettingRepositoryEloquent->orderBy('id','asc')->all();
+
+        return view('admin.order.order_bonus_setting', compact('order_bonus_settings'));
+    }
+	public function orderBonusSettingEdit($id)
+	{
+		Breadcrumbs::register('admin-order-orderBonusSettingEdit',function($breadcrumbs){
+			$breadcrumbs->parent('admin-order');
+			$breadcrumbs->push('奖励金列表', route('admin.order.orderBonusSettingEdit'));
+		});
+		$order_bonus_setting = $this->orderBonusSettingRepositoryEloquent->find($id);
+		return view('admin.order.order_bonus_setting_edit', compact('order_bonus_setting'));
+	}
+	public function orderBonusSettingUpdate(Request $request)
+    {
+        $result = $this->orderBonusSettingRepositoryEloquent->update($request->all(), $request->id);
+        if(!$result) {
+            Toastr::error('更新失败');
+        } else {
+            Toastr::success('更新成功');
+        }
+        return redirect(route('admin.order.orderBonusSetting'));
+    }
+	public function userOrderBonuses()
+	{
+		Breadcrumbs::register('admin-order-userOrderBonuses',function($breadcrumbs){
+			$breadcrumbs->parent('admin-order');
+			$breadcrumbs->push('奖励金获取记录', route('admin.order.userOrderBonuses'));
+		});
+		$user_order_bonuses = $this->userOrderBonusRepositoryEloquent->getUserOrderBonuses();
+		return view('admin.order.user_order_bonuses', compact('user_order_bonuses'));
 	}
 }

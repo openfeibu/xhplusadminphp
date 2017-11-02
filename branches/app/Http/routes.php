@@ -175,7 +175,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 	Route::put('order/refundHandle',['as' => 'admin.order.refundHandle','uses' => 'OrderController@refundHandle' ]);
 	Route::DELETE('order/destroyRefund/{id}',['as' => 'admin.order.destroyRefund' ,'uses' => 'OrderController@destroyRefund' ]);
 	Route::post('orderRefund/destroyRefundAll',['as'=>'admin.order.destroyRefund.all','uses'=>'OrderController@destroyRefundAll']);
-
+    Route::get('order/orderBonusSetting',['as' => 'admin.order.orderBonusSetting','uses' => 'OrderController@orderBonusSetting' ]);
+    Route::get('order/orderBonusSettingEdit/{id}',['as' => 'admin.order.orderBonusSettingEdit','uses' => 'OrderController@orderBonusSettingEdit' ]);
+    Route::put('order/orderBonusSettingUpdate',['as' => 'admin.order.orderBonusSettingUpdate' ,'uses' => 'OrderController@orderBonusSettingUpdate' ]);
+    Route::get('order/userOrderBonuses',['as' => 'admin.order.userOrderBonuses','uses' => 'OrderController@userOrderBonuses' ]);
 
 	Route::get('topic',['as' => 'admin.topic.index' ,'uses' => 'TopicController@index' ]);
 	Route::get('topic/create',['as' => 'admin.topic.create' ,'uses' => 'TopicController@create' ]);
@@ -282,6 +285,16 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
 
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
 
+    Route::get('setting/settings',['as' => 'admin.setting.settings','uses' => 'SettingController@settings']);
+    Route::get('setting/setting/{id}',['as' => 'admin.setting.setting','uses' => 'SettingController@setting']);
+    Route::put('setting/settingUpdate',['as' => 'admin.setting.settingUpdate' ,'uses' => 'SettingController@settingUpdate' ]);
+    Route::get('setting/canteenShippingConfigs',['as' => 'admin.setting.canteenShippingConfigs' ,'uses' => 'SettingController@canteenShippingConfigs' ]);
+    Route::get('setting/CanteenShippingConfig/{id}',['as' => 'admin.setting.canteenShippingConfig' ,'uses' => 'SettingController@canteenShippingConfig' ]);
+    Route::put('setting/canteenShippingConfigUpdate',['as' => 'admin.setting.canteenShippingConfigUpdate' ,'uses' => 'SettingController@canteenShippingConfigUpdate' ]);
+
+    Route::get('setting/shippingConfigs',['as' => 'admin.setting.shippingConfigs' ,'uses' => 'SettingController@shippingConfigs' ]);
+    Route::get('setting/shippingConfig/{id}',['as' => 'admin.setting.shippingConfig' ,'uses' => 'SettingController@shippingConfig' ]);
+    Route::put('setting/shippingConfigUpdate',['as' => 'admin.setting.shippingConfigUpdate' ,'uses' => 'SettingController@shippingConfigUpdate' ]);
 
 });
 

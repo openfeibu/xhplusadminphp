@@ -5,9 +5,9 @@ namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingConfig extends Model
+class CanteenShippingConfig extends Model
 {
-    protected $table = 'shipping_config';
+    protected $table = 'canteen_shipping_config';
 
     protected $primaryKey = 'cid';
 
@@ -19,6 +19,6 @@ class ShippingConfig extends Model
         'weight',
         'outweight',
         'shipping_fee',
-        'payer'
+        'payer',
     ];
 }
