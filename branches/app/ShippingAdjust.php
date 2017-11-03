@@ -11,6 +11,8 @@ class ShippingAdjust extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+    
     protected $fillable = [
     	'status',
         'name',
