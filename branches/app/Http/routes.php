@@ -296,6 +296,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::get('setting/shippingConfig/{id}',['as' => 'admin.setting.shippingConfig' ,'uses' => 'SettingController@shippingConfig' ]);
     Route::put('setting/shippingConfigUpdate',['as' => 'admin.setting.shippingConfigUpdate' ,'uses' => 'SettingController@shippingConfigUpdate' ]);
 
+    Route::get('setting/shippingAdjusts',['as' => 'admin.setting.shippingAdjusts' ,'uses' => 'SettingController@shippingAdjusts' ]);
+    Route::get('setting/shippingAdjust/{id}',['as' => 'admin.setting.shippingAdjust' ,'uses' => 'SettingController@shippingAdjust' ]);
+    Route::put('setting/shippingAdjustUpdate',['as' => 'admin.setting.shippingAdjustUpdate' ,'uses' => 'SettingController@shippingAdjustUpdate' ]);
+
 });
 
 

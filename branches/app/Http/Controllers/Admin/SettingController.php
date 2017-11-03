@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Services\HelpService;
 use App\Http\Controllers\Controller;
 use App\Repositories\SettingRepositoryEloquent;
+use App\Repositories\ShippingAdjustRepositoryEloquent;
 use App\Repositories\ShippingConfigRepositoryEloquent;
 use App\Repositories\CanteenShippingConfigRepositoryEloquent;
 
@@ -19,6 +20,7 @@ class SettingController extends BaseController
 
 	public function __construct(HelpService $helpService,
                                 SettingRepositoryEloquent $settingRepositoryEloquent,
+                                ShippingAdjustRepositoryEloquent $shippingAdjustRepositoryEloquent,
                                 ShippingConfigRepositoryEloquent $shippingConfigRepositoryEloquent,
                                 CanteenShippingConfigRepositoryEloquent $canteenShippingConfigRepositoryEloquent)
 	{
@@ -26,6 +28,7 @@ class SettingController extends BaseController
 		$this->helpService = $helpService;
         $this->settingRepositoryEloquent = $settingRepositoryEloquent;
         $this->shippingConfigRepositoryEloquent = $shippingConfigRepositoryEloquent;
+        $this->shippingAdjustRepositoryEloquent = $shippingAdjustRepositoryEloquent;
         $this->canteenShippingConfigRepositoryEloquent = $canteenShippingConfigRepositoryEloquent;
 		Breadcrumbs::setView('admin._partials.breadcrumbs');
 		Breadcrumbs::register('admin-setting',function($breadcrumbs){
@@ -117,5 +120,34 @@ class SettingController extends BaseController
             Toastr::success('更新成功');
         }
         return redirect(route('admin.setting.shippingConfigs'));
+    }
+
+    public function shippingAdjusts(Request $request)
+    {
+        Breadcrumbs::register('admin-setting-shippingAdjusts',function($breadcrumbs){
+            $breadcrumbs->parent('admin-setting');
+            $breadcrumbs->push('调价设置', route('admin.setting.shippingAdjusts'));
+        });
+        $settings = $this->shippingAdjustRepositoryEloquent->orderBy('id','asc')->all();
+        return view('admin.setting.shipping_adjusts', compact('settings'));
+    }
+    public function shippingAdjust($id)
+    {
+        Breadcrumbs::register('admin-setting-shippingAdjust',function($breadcrumbs){
+			$breadcrumbs->parent('admin-setting');
+			$breadcrumbs->push('调价设置', route('admin.setting.shippingAdjust'));
+		});
+        $setting = $this->shippingAdjustRepositoryEloquent->find($id);
+        return view('admin.setting.shipping_adjust', compact('setting'));
+    }
+    public function shippingAdjustUpdate(Request $request)
+    {
+        $result = $this->shippingAdjustRepositoryEloquent->update($request->all(), $request->id);
+        if(!$result) {
+            Toastr::error('更新失败');
+        } else {
+            Toastr::success('更新成功');
+        }
+        return redirect(route('admin.setting.shippingAdjusts'));
     }
 }
