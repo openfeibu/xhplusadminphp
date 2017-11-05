@@ -282,6 +282,10 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::get('orderInfo/shopCouponCount',['as' => 'admin.order_info.shopCouponCount','uses' => 'OrderInfoController@shopCouponCount']);
     Route::get('orderInfo/getMonthDayRank',['as' => 'admin.order_info.getMonthDayRank','uses' => 'OrderInfoController@getMonthDayRank' ]);
     Route::get('orderInfo/monthDayRankDownload',['as' => 'admin.order_info.monthDayRankDownload','uses' => 'OrderInfoController@monthDayRankDownload' ]);
+    Route::get('orderInfo/refundIndex',['as' => 'admin.order_info.refundIndex','uses' => 'OrderInfoController@refundIndex' ]);
+	Route::get('orderInfo/refund/{id}',['as' => 'admin.order_info.refund','uses' => 'OrderInfoController@refund' ]);
+	Route::get('orderInfo/refundAll/{ids}',['as' => 'admin.order_info.refundAll','uses' => 'OrderInfoController@refundAll' ]);
+	Route::put('orderInfo/refundHandle',['as' => 'admin.order_info.refundHandle','uses' => 'OrderInfoController@refundHandle' ]);
 
 	Route::post('/home/getOrderInfosCharts', 'HomeController@getOrderInfosCharts');
 

@@ -118,4 +118,26 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
                         ->get();
         return $ranks;
     }
+    public function getRefundOrderInfos()
+    {
+        return OrderInfo::select(DB::raw('order_info.order_id,order_info.order_sn,order_info.total_fee,order_info.pay_id,order_info.order_status,order_info.pay_name,order_info.cancelling_time,user.nickname,user.uid,trade.fee,trade.trade_no'))
+						->join('user','order_info.uid','=','user.uid')
+						->join('trade_account as trade','order_info.order_sn','=','trade.out_trade_no')
+						->where('order_info.pay_id','<>',3)
+						->whereIn('order_info.order_status', ['3'])
+						->orderBy('order_info.order_id', 'desc')
+						->paginate(config('admin_config.page'));
+    }
+    public function getRefundOrderInfo($id)
+    {
+        return OrderInfo::select(DB::raw('order_info.order_id,order_info.order_sn,order_info.total_fee,order_info.pay_id,order_info.order_status,order_info.pay_name,order_info.cancelling_time,user.nickname,user.uid,trade.fee,trade.trade_no'))
+						->join('user','order_info.uid','=','user.uid')
+						->join('trade_account as trade','order_info.order_sn','=','trade.out_trade_no')
+                        ->where('order_info.order_id', $id)
+						->first();
+    }
+    public function updateBySn($update,$order_sn)
+	{
+		return OrderInfo::where('order_sn',$order_sn)->update($update);
+	}
 }

@@ -91,7 +91,12 @@ class AlipayController extends Controller
 				if($update){
 					$this->messageService->SystemMessage2SingleOne($trade->uid, "任务金额 " . $trade->fee . "元 已原路退回，请注意查收");
 				}
-
+			}
+			if($trade->from == 'shop'){
+				$update = app('orderInfoRepositoryEloquent')->updateBySn(['order_status'=>'4'],$trade->out_trade_no);
+				if($update){
+					$this->messageService->SystemMessage2SingleOne($trade->uid, "订单金额 " . $trade->fee . "元 已原路退回，请留意。");
+				}
 			}
 		}
 	}
