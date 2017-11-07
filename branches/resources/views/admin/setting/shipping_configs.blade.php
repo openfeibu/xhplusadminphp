@@ -15,7 +15,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <h5 class="subtitle mb5">饭堂配送费配置</h5>
+                        <h5 class="subtitle mb5">商家配送费配置</h5>
 
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
