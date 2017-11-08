@@ -16,7 +16,7 @@
                     <div class="panel-body">
 
                         <h5 class="subtitle mb5">奖励金记录</h5>
-
+                        @include('admin._partials.show-page-status',['result'=>$user_order_bonuses])
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
                                 <thead>
@@ -45,7 +45,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        {!! $user_order_bonuses->render() !!}
                     </div><!-- panel-body -->
                 </div><!-- panel -->
 
