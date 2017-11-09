@@ -304,6 +304,9 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::get('setting/shippingAdjust/{id}',['as' => 'admin.setting.shippingAdjust' ,'uses' => 'SettingController@shippingAdjust' ]);
     Route::put('setting/shippingAdjustUpdate',['as' => 'admin.setting.shippingAdjustUpdate' ,'uses' => 'SettingController@shippingAdjustUpdate' ]);
 
+    Route::get('statistics/goodsSaleRank',['as' => 'admin.statistics.goodsSaleRank' ,'uses' => 'StatisticsController@goodsSaleRank' ]);
+
+
 });
 
 
