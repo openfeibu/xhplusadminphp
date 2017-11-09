@@ -39,7 +39,7 @@ class StatisticsController extends BaseController
                         ->leftJoin('shop','shop.shop_id','=','goods.shop_id')
                         ->leftJoin('goods_category','goods_category.cat_id','=','goods.cat_id')
                         ->orderBy('goods.goods_sale_count','desc')
-                        ->take(20)
+                        ->take(50)
                         ->get();
         return view('admin.statistics.goods_sale_rank', compact('goodses'));
     }
