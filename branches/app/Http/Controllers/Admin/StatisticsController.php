@@ -37,7 +37,7 @@ class StatisticsController extends BaseController
 		});
         $goodses = Goods::select(DB::raw('goods.goods_name,goods.goods_sale_count,goods_price,shop.shop_name,goods_category.cat_name'))
                         ->leftJoin('shop','shop.shop_id','=','goods.shop_id')
-                        ->leftJoin('goods_category','goods_category.cat_id','=','goods.shop_id')
+                        ->leftJoin('goods_category','goods_category.cat_id','=','goods.cat_id')
                         ->orderBy('goods.goods_sale_count','desc')
                         ->take(20)
                         ->get();
