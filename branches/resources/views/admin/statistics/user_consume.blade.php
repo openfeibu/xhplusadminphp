@@ -56,8 +56,8 @@
                                         <td>{{ $keep_data['count'] }}</td>
                                         <td>{{ $keep_data['keep_1_count'] }}</td>
                                         <td>{{ $keep_data['keep_1_rate'] }}</td>
-                                        <td>{{ $keep_data['keep_3_count'] }}</td>
-                                        <td>{{ $keep_data['keep_3_rate'] }}</td>
+                                        <td>{{ $keep_data['keep_2_count'] }}</td>
+                                        <td>{{ $keep_data['keep_2_rate'] }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
