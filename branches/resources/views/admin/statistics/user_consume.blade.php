@@ -31,11 +31,12 @@
                             <div class="col-md-2">
                                 <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
                             </div>
-                            <div class="pull-right">
+                            <!-- <div class="pull-right">
                                 <div class="btn-group mr10">
     								<a  class="btn btn-white tooltips" data-original-title="导出" id="download"><i class="glyphicon glyphicon-save"></i></a>
                                 </div>
-                            </div><!-- pull-right -->
+                            </div> -->
+                            <!-- pull-right -->
                         </form>
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
