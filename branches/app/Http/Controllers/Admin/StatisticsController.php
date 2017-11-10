@@ -87,6 +87,10 @@ class StatisticsController extends BaseController
             $keep_3 = $consumes[date('Y-m-d',strtotime("$consume_date -3 day"))];
             $keep_datas[$k]['keep_1_count'] = count(array_intersect($keep_1,$consumes[$consume_date]));
             $keep_datas[$k]['keep_3_count'] = count(array_intersect($keep_1,$keep_2,$consumes[$consume_date]));
+            $keep_1_rate = count($keep_1) ? $keep_datas[$k]['keep_1_count']/count($keep_1) : 0;
+            $keep_datas[$k]['keep_1_rate'] = $keep_1_rate ? (sprintf("%.6f",$keep_1_rate) * 100) .'%' : '0%';
+            $keep_3_rate = count($keep_3) ? $keep_datas[$k]['keep_3_count']/count($keep_3) : 0;
+            $keep_datas[$k]['keep_3_rate'] = $keep_1_rate ? (sprintf("%.6f",$keep_3_rate) * 100) .'%' : '0%';
         }
         krsort($keep_datas);
         return view('admin.statistics.user_consume', compact('keep_datas','datemy'));
