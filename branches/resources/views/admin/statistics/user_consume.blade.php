@@ -17,6 +17,12 @@
                     <div class="panel-body">
 
                         <h5 class="subtitle mb5">店铺用户消费留存</h5>
+                        <div>
+                            <h4>说明：</h4>
+                            <p>消费用户总数包括退款用户；</p>
+                            <p>次日留存 = 前一天(t-1)消费今天(t)依然消费的用户量；3日留存 = 前两天(t-1)(t-2)均有消费今天依然消费的用户量；</p>
+                            <p>次日留存率 = 次日留存／前一天(t-1)消费用户；3日留存率 = 3日留存／(t-2)总消费用户；</p>
+                        </div>
                         <form action="{{route('admin.statistics.userConsume')}}">
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="datemy" id="datemy" value="{{$datemy}}">
@@ -36,7 +42,7 @@
                                 <thead>
                                 <tr>
                                     <th>日期</th>
-                                    <th>消费用户总数(包括退款)</th>
+                                    <th>消费用户总数</th>
                                     <th>次日留存</th>
                                     <th>次日留存率</th>
                                     <th>3日留存</th>
