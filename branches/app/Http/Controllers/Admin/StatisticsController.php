@@ -79,15 +79,16 @@ class StatisticsController extends BaseController
             $consumes[$value] = $datas ? $datas->toArray() : [];
         }
         foreach ($consume_dates as $k => $consume_date) {
-            $keep_datas[$consume_date]['uid'] = $consumes[$consume_date];
-            $keep_datas[$consume_date]['date'] = $consume_date;
-            $keep_datas[$consume_date]['count'] = count($consumes[$consume_date]);
+            $keep_datas[$k]['uid'] = $consumes[$consume_date];
+            $keep_datas[$k]['date'] = $consume_date;
+            $keep_datas[$k]['count'] = count($consumes[$consume_date]);
             $keep_1 = $consumes[date('Y-m-d',strtotime("$consume_date -1 day"))];
             $keep_2 = $consumes[date('Y-m-d',strtotime("$consume_date -2 day"))];
             $keep_3 = $consumes[date('Y-m-d',strtotime("$consume_date -3 day"))];
-            $keep_datas[$consume_date]['keep_1_count'] = count(array_intersect($keep_1,$consumes[$consume_date]));
-            $keep_datas[$consume_date]['keep_3_count'] = count(array_intersect($keep_1,$keep_2,$consumes[$consume_date]));
+            $keep_datas[$k]['keep_1_count'] = count(array_intersect($keep_1,$consumes[$consume_date]));
+            $keep_datas[$k]['keep_3_count'] = count(array_intersect($keep_1,$keep_2,$consumes[$consume_date]));
         }
+        krsort($keep_datas);
         return view('admin.statistics.user_consume', compact('keep_datas','datemy'));
     }
 }
