@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pageheader">
-        <h2><i class="fa fa-home"></i> Dashboard <span>系统设置</span></h2>
+        <h2><i class="fa fa-home"></i> Dashboard <span>统计</span></h2>
         {!! Breadcrumbs::render('admin-statistics-goodsSaleRank') !!}
     </div>
 
