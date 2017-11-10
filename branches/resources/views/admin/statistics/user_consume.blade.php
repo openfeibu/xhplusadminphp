@@ -38,7 +38,9 @@
                                     <th>日期</th>
                                     <th>消费用户总数(包括退款)</th>
                                     <th>次日留存</th>
+                                    <th>次日留存率</th>
                                     <th>3日留存</th>
+                                    <th>3日留存率</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -47,7 +49,9 @@
                                         <td>{{ $keep_data['date'] }}</td>
                                         <td>{{ $keep_data['count'] }}</td>
                                         <td>{{ $keep_data['keep_1_count'] }}</td>
+                                        <td>{{ $keep_data['keep_1_rate'] }}</td>
                                         <td>{{ $keep_data['keep_3_count'] }}</td>
+                                        <td>{{ $keep_data['keep_3_rate'] }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
