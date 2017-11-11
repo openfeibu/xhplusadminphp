@@ -138,7 +138,7 @@ class OrderInfoController extends BaseController
 			];
 			$app = new Application($options);
 			$payment = $app->payment;
-			$batch_no = $this->helpService->buildBatchNo();
+			$batch_no = $order_info->trade_no;
 			$result = $payment->refund($order_info->order_sn, $batch_no, $order_info->fee * 100);
 
 			//有结果
