@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Input;
 use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
+use Log;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -172,9 +173,9 @@ class OrderController extends BaseController
 			];
 			$app = new Application($options);
 			$payment = $app->payment;
-			$batch_no = $this->helpService->buildBatchNo();
+			$batch_no = $order->order_sn;
 			$result = $payment->refund($order->order_sn, $batch_no, $order->fee * 100);
-
+			Log::debug('refund_result_1'.serialize($result));
 			//有结果
 			if($result)
 			{
@@ -200,6 +201,7 @@ class OrderController extends BaseController
 						$app = new Application($app_options);
 						$payment = $app->payment;
 						$result = $payment->refund($order->order_sn, $batch_no, $order->fee * 100);
+						Log::debug('refund_result_2'.serialize($result));
 						if($result['result_code'] == 'SUCCESS')
 						{
 							$refundData = array(
