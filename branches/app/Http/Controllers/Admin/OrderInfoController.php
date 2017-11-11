@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
 use Excel;
 use Input;
+use Log;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\HelpService;
@@ -140,7 +141,7 @@ class OrderInfoController extends BaseController
 			$payment = $app->payment;
 			$batch_no = $order_info->trade_no;
 			$result = $payment->refund($order_info->order_sn, $batch_no, $order_info->fee * 100);
-
+			Log::debug('refund_result_1'.serialize($result));
 			//有结果
 			if($result)
 			{
@@ -166,6 +167,7 @@ class OrderInfoController extends BaseController
 						$app = new Application($app_options);
 						$payment = $app->payment;
 						$result = $payment->refund($order_info->order_sn, $batch_no, $order_info->fee * 100);
+						Log::debug('refund_result_2'.serialize($result));
 						if($result['result_code'] == 'SUCCESS')
 						{
 							$refundData = array(
