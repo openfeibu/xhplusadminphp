@@ -25,7 +25,7 @@ class WalletAccountRepositoryEloquent extends BaseRepository implements WalletAc
         return WalletAccount::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -38,20 +38,20 @@ class WalletAccountRepositoryEloquent extends BaseRepository implements WalletAc
     {
     	return WalletAccount::where('out_trade_no',$out_trade_no)->update($data);
     }
-    /*Ç®°üÃ÷Ï¸*/
+    /*Ç®ï¿½ï¿½ï¿½ï¿½Ï¸*/
 	public function getWalletAccount ($uid)
 	{
 		$accounts =  WalletAccount::select(DB::raw('id,uid,description,trade_type,wallet_type,fee,service_fee,wallet,updated_at,out_trade_no,created_at'))
 					->where('uid',$uid)
 					->orderBy('id','desc')
 					->paginate(config('admin_config.page'));
-					
+
 		foreach( $accounts as $key => $account )
 		{
 			$account->trade_type = trans("common.trade_type.$account->trade_type");
 			$account->wallet_type_trans = trans("common.wallet_type.$account->wallet_type");
 			$account->fee = $account->wallet_type == 1 ? '+'.$account->fee : '-'.$account->fee;
-		}	
+		}
 
 		return $accounts;
 	}

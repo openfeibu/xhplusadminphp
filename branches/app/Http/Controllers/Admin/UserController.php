@@ -10,6 +10,7 @@ use App\UserInfo;
 use Breadcrumbs, Toastr;
 use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\WalletAccountRepositoryEloquent;
+use App\Services\MessageService;
 use App\Services\AdminRecordService;
 
 class UserController extends BaseController
@@ -19,6 +20,7 @@ class UserController extends BaseController
 
     public function __construct(UserRepositoryEloquent $userRepositoryEloquent,
     							AdminRecordService $adminRecordService,
+								MessageService $messageService,
     							WalletAccountRepositoryEloquent $walletAccountRepositoryEloquent)
     {
         parent::__construct();
@@ -27,6 +29,7 @@ class UserController extends BaseController
             $breadcrumbs->parent('dashboard');
             $breadcrumbs->push('用户管理', route('admin.user.index'));
         });
+		$this->messageService = $messageService;
        	$this->userRepositoryEloquent = $userRepositoryEloquent;
        	$this->walletAccountRepositoryEloquent = $walletAccountRepositoryEloquent;
        	$this->adminRecordService = $adminRecordService;
@@ -81,31 +84,49 @@ class UserController extends BaseController
 	}
 
 	public function store(Request $request){
-		if($request->ban_flag == 10){
-			$ban_flag = $request->old_ban_flag;
-		}else{
-			$ban_flag = $request->ban_flag;
-		}
+		$user = $this->userRepositoryEloquent->find($request->uid);
 
-		if($request->is_author == 10){
-			$is_author = $request->old_author;
-		}else{
-			$is_author = $request->is_author;
-		}
 		DB::table('user')
 			->where('uid',$request->uid)
 			->update([
 				'nickname' => $request->nickname,
-				'ban_flag' => $ban_flag,
+				'ban_flag' => $request->ban_flag,
 			]);
 		DB::table('user_info')
 			->where('uid',$request->uid)
 			->update([
-				'is_author' => $is_author,
+				'is_author' => $request->is_author,
 			]);
-        $record = "用户管理，更新用户资料,用户id为：".$request->uid;
+        $record = "用户管理，更新用户资料,用户id为：".$request->uid.';';
+
+		if($request->change_wallet && $request->change_wallet != 0 && !empty($request->change_wallet)) {
+			$out_trade_no = buildOrderSn('SYSTEM');
+			$fee = intval($request->change_wallet) + $user->wallet;
+			$data = [
+				'uid' => $user->uid,
+				'wallet' => $fee,
+				'fee'	=> abs($request->change_wallet),
+				'service_fee' => 0,
+				'out_trade_no' => $out_trade_no,
+				'pay_id' => 5,
+				'wallet_type' => $request->change_wallet > 0 ? 1 : -1,
+				'trade_type' => 'System',
+				'description' => $request->change_wallet_reason,
+			];
+			DB::table('user')
+				->where('uid',$user->uid)
+				->update([
+					'wallet' => $fee,
+				]);
+			$this->walletAccountRepositoryEloquent->create($data);
+			$content = $request->change_wallet_message;
+			$this->messageService->SystemMessage2SingleOne($user->uid, $content);
+			$record .= "修改用户金额:".$request->change_wallet;
+		}
+
         $this->adminRecordService->record($record);
-		header("Location:/admin/user");
+		Toastr::success('操作成功');
+		return redirect(route('admin.user.edit', ['id' => $user->uid]));
 	}
 	public function walletAccount (Request $request)
 	{

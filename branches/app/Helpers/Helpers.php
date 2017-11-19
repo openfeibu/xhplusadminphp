@@ -1,5 +1,6 @@
 <?php
 
+use App\TradeAccount;
 /*
  * This file is part of Hifone.
  *
