@@ -23,8 +23,8 @@
                     <form class="form-horizontal form-bordered" action="{{ route('admin.applyWallet.update',['id'=>$applyWallet->apply_id]) }}" method="POST">
 
                         <div class="panel-body panel-body-nopadding">
-                            
-							
+
+
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="checkbox">提现状态</label>
                                 <div class="col-sm-6">
@@ -32,15 +32,15 @@
 
                                     {!! $applyWalletPresenter->applyWalletStatusSelect($applyWallet->status) !!}
                                 </div>
-                            </div>  
+                            </div>
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="checkbox">管理员备注</label>
                                 <div class="col-sm-6">
 									<input type="text"  data-toggle="tooltip" name="description"
                                            data-trigger="hover" class="form-control tooltips"
-                                           value="{{ $applyWallet->description }}">    
+                                           value="{{ $applyWallet->description }}">
                                 </div>
-                            </div> 
+                            </div>
                             <input type="hidden" name="_method" value="PUT">
                             {{ csrf_field() }}
                         </div><!-- panel-body -->

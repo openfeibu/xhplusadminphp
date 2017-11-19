@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-			
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-btns">
@@ -81,9 +81,8 @@
                                 <label class="col-sm-3 control-label">是否封号<span class="asterisk"></span></label>
                                 <div class="col-sm-2">
                                     <select class="form-control input-sm" name="ban_flag" >
-                                        <option value="10">请选择</option>
-                                        <option value="0">正常</option>
-										<option value="1">封号</option>
+                                        <option value="0" >正常</option>
+										<option value="1" @if($user['ban_flag'] == 1) selected @endif>封号</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,28 +90,42 @@
                                 <label class="col-sm-3 control-label">是否设置为小编<span class="asterisk"></span></label>
                                 <div class="col-sm-2">
                                     <select class="form-control input-sm" name="is_author" >
-                                        <option value="10">请选择</option>
-                                        @if($user['is_author'] != 0)
-                                            <option value="0">贬为庶民</option>
-                                        @endif
-                                        <option value="1">小编</option>
-                                        <option value="2">管理员</option>
+                                        <option value="0" @if($user['is_author'] == 0) selected @endif>普通用户</option>
+                                        <option value="1" @if($user['is_author'] == 1) selected @endif>小编</option>
+                                        <option value="2" @if($user['is_author'] == 2) selected @endif>管理员</option>
                                     </select>
                                 </div>
-                                <span class="asterisk">当前为：
-                                @if($user['is_author'] == 0)
-                                    平民
-                                @elseif($user['is_author'] == 1)
-                                    小编
-                                @elseif($user['is_author'] == 2)
-                                    管理员
-                                @else
-                                    未知
-                                @endif
-                                </span>
                             </div>
-                            <input type="hidden" name="old_author" value="{{$user['is_author']}}">
-                            <input type="hidden" name="old_ban_flag" value="{{$user['ban_flag']}}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">余额</label>
+                                <div class="col-sm-6">
+                                    <p>{{$user['wallet']}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">余额修改（可以为负）</label>
+                                <div class="col-sm-6">
+                                    <input type="text"  data-toggle="tooltip" name="change_wallet"
+                                           data-trigger="hover" class="form-control tooltips"
+                                           data-original-title="" value="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">余额修改说明</label>
+                                <div class="col-sm-6">
+                                    <input type="text"  data-toggle="tooltip" name="change_wallet_reason"
+                                           data-trigger="hover" class="form-control tooltips"
+                                           data-original-title="" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">余额修改通知（将发送给用户）</label>
+                                <div class="col-sm-6">
+                                    <input type="text"  data-toggle="tooltip" name="change_wallet_message"
+                                           data-trigger="hover" class="form-control tooltips"
+                                           data-original-title="" value="">
+                                </div>
+                            </div>
                              <!-- <div class="form-group">
                                 <label class="col-sm-3 control-label">总积分<span class="asterisk">*</span></label>
                                 <div class="col-sm-6">

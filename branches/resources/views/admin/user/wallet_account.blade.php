@@ -3,7 +3,7 @@
 @section('content')
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> Dashboard <span>系统设置</span></h2>
-        
+
     </div>
 
     <div class="contentpanel panel-email">
@@ -30,7 +30,7 @@
                                     <th>订单号</th>
                                     <th>交易金额(元)</th>
                                     <th>服务费(元)</th>
-                                    <th>钱包余额(元)</th>                             
+                                    <th>钱包余额(元)</th>
                                     <th>日期</th>
                                 </tr>
                                 </thead>
@@ -46,7 +46,7 @@
                                         <td>{{ $account->created_at }}</td>
                                     </tr>
                                 @endforeach
-			
+
 
                                 </tbody>
                             </table>
