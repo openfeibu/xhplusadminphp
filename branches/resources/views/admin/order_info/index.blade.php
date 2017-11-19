@@ -47,6 +47,7 @@
                                     <th>支付方式</th>
                                     <th>订单状态</th>
                                     <th>创建时间</th>
+                                    <th>退款时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -71,6 +72,7 @@
                                         <td>{{ $order_info->pay_name}}</td>
                                         <td>{{ $order_info->status_desc}}</td>
                                         <td>{{ $order_info->created_at }}</td>
+                                        <td>{{ $order_info->cancelling_time }}</td>
                                         <td>
                                             <a href="{{ route('admin.shop.edit',['id'=>$order_info->order_id]) }}"
                                                class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 查看</a>
