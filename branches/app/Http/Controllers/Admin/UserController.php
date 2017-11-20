@@ -101,7 +101,7 @@ class UserController extends BaseController
 
 		if($request->change_wallet && $request->change_wallet != 0 && !empty($request->change_wallet)) {
 			$out_trade_no = buildOrderSn('SYSTEM');
-			$fee = intval($request->change_wallet) + $user->wallet;
+			$fee = $request->change_wallet + $user->wallet;
 			$data = [
 				'uid' => $user->uid,
 				'wallet' => $fee,
