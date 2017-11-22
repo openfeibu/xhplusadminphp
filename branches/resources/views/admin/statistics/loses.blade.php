@@ -15,7 +15,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h5 class="subtitle mb5">升价后未下单用户</h5>
+                        <h5 class="subtitle mb5">升价后未下单用户（{{$count}}人）</h5>
 
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
