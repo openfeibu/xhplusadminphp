@@ -7,6 +7,7 @@ use Input;
 use Illuminate\Http\Request;
 use Breadcrumbs, Toastr;
 use Redirect;
+use App\User;
 use App\Goods;
 use App\OrderInfo;
 use App\Http\Requests;
@@ -96,4 +97,15 @@ class StatisticsController extends BaseController
         krsort($keep_datas);
         return view('admin.statistics.user_consume', compact('keep_datas','datemy'));
     }
+	public function inactives(Request $request)
+	{
+		Breadcrumbs::register('admin-statistics-inactives',function($breadcrumbs){
+			$breadcrumbs->parent('admin-statistics');
+			$breadcrumbs->push('店铺用户消费留存', route('admin.statistics.inactives'));
+		});
+		$number = isset($request->number) && $request->number ? $request->number : 50;
+		$date = date("Y-m-d H:i:s", strtotime("-1 month"));
+		$users  = User::where('last_visit','<',$date)->where('password','<>','')->orderBy('last_visit','desc')->take($number)->get();
+		return view('admin.statistics.inactives', compact('users','number'));
+	}
 }

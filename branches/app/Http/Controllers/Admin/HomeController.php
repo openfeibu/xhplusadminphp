@@ -66,7 +66,7 @@ class HomeController extends BaseController
     }
 	public function getOrderInfosCharts()
 	{
-		
+
 		return [
 			'rows1' => [
 				'name' => '第一条',
