@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/rome.css') }}" type="" media=""/>
     <div class="pageheader">
         <h2><i class="fa fa-home"></i> Dashboard <span>统计</span></h2>
-        {!! Breadcrumbs::render('admin-statistics-inactives') !!}
+        {!! Breadcrumbs::render('admin-statistics-loseOrderInfoUser') !!}
     </div>
 
     <div class="contentpanel panel-email">
@@ -15,22 +15,8 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h5 class="subtitle mb5">近期不活跃用户</h5>
-                        <form class="form-horizontal" action="{{route('admin.statistics.inactives')}}" role="form">
-                            <label class="col-sm-1 control-label" for="number">人数：</label>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="number" id="number" value="{{$number}}" placeholder="人数">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="submit" class="btn btn-primary" name="submit" value="搜索" style="height:40px">
-                            </div>
-                            <!-- <div class="pull-right">
-                                <div class="btn-group mr10">
-    								<a  class="btn btn-white tooltips" data-original-title="导出" id="download"><i class="glyphicon glyphicon-save"></i></a>
-                                </div>
-                            </div> -->
-                            <!-- pull-right -->
-                        </form>
+                        <h5 class="subtitle mb5">升价后未下单用户</h5>
+
                         <div class="table-responsive col-md-12">
                             <table class="table mb30">
                                 <thead>
