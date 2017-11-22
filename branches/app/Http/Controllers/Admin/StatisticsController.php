@@ -81,6 +81,8 @@ class StatisticsController extends BaseController
         foreach ($consume_dates as $k => $consume_date) {
             $keep_datas[$k]['uid'] = $consumes[$consume_date];
             $keep_datas[$k]['date'] = $consume_date;
+			$weekarray = array("日","一","二","三","四","五","六");
+			$keep_datas[$k]['week'] = $weekarray[date('w',strtotime($consume_date))];
             $keep_datas[$k]['count'] = count($consumes[$consume_date]);
             $keep_1 = $consumes[date('Y-m-d',strtotime("$consume_date -1 day"))];
             $keep_2 = $consumes[date('Y-m-d',strtotime("$consume_date -2 day"))];
