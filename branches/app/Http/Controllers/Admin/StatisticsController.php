@@ -101,11 +101,28 @@ class StatisticsController extends BaseController
 	{
 		Breadcrumbs::register('admin-statistics-inactives',function($breadcrumbs){
 			$breadcrumbs->parent('admin-statistics');
-			$breadcrumbs->push('店铺用户消费留存', route('admin.statistics.inactives'));
+			$breadcrumbs->push('近期不活跃用户', route('admin.statistics.inactives'));
 		});
 		$number = isset($request->number) && $request->number ? $request->number : 50;
 		$date = date("Y-m-d H:i:s", strtotime("-1 month"));
 		$users  = User::where('last_visit','<',$date)->where('password','<>','')->orderBy('last_visit','desc')->take($number)->get();
 		return view('admin.statistics.inactives', compact('users','number'));
+	}
+	public function loseOrderInfoUser(Request $request)
+	{
+		Breadcrumbs::register('admin-statistics-loseOrderInfoUser',function($breadcrumbs){
+			$breadcrumbs->parent('admin-statistics');
+			$breadcrumbs->push('升价后未下单用户', route('admin.statistics.lose_order_info_user'));
+		});
+		$last_date = '2017-10-01 00:00:00';
+		$last_end_date = date("Y-m-d H:i:s", strtotime("$last_date +1 month"));
+		//十月份下单用户
+		$last_uids = OrderInfo::whereBetween('created_at',[$last_date,$last_end_date])->where('pay_status',1)->distinct('uid')->pluck('uid')->toArray();
+		//十月份下单十一月份不下单的用户
+		$date = date('Y-m-d H:i:s');
+		$uids  = OrderInfo::whereBetween('created_at',[$last_end_date,$date])->where('pay_status',1)->whereIn('uid',$last_uids)->distinct('uid')->pluck('uid')->toArray();
+		$lose_uids = array_diff($uids,$last_uids);
+		$users = User::whereIn('uid',$lose_uids)->get();
+		return view('admin.statistics.loses', compact('users'));
 	}
 }

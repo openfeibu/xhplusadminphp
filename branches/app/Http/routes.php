@@ -307,6 +307,7 @@ Route::group(['middleware' => ['web'], 'namespace' => 'Admin', 'prefix' => 'admi
     Route::get('statistics/goodsSaleRank',['as' => 'admin.statistics.goodsSaleRank' ,'uses' => 'StatisticsController@goodsSaleRank' ]);
     Route::get('statistics/userConsume',['as' => 'admin.statistics.userConsume' ,'uses' => 'StatisticsController@userConsume' ]);
     Route::get('statistics/inactives',['as' => 'admin.statistics.inactives' ,'uses' => 'StatisticsController@inactives' ]);
+    Route::get('statistics/loseOrderInfoUser',['as' => 'admin.statistics.lose_order_info_user' ,'uses' => 'StatisticsController@loseOrderInfoUser' ]);
 });
 
 
