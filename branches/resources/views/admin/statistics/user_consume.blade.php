@@ -53,7 +53,7 @@
                                 <tbody>
                                	@foreach($keep_datas as $keep_data)
                                     <tr>
-                                        <td>{{ $keep_data['date'] }}</td>
+                                        <td>{{ $keep_data['date'] }}(周{{$keep_data['week']}})</td>
                                         <td>{{ $keep_data['count'] }}</td>
                                         <td>{{ $keep_data['keep_1_count'] }}</td>
                                         <td>{{ $keep_data['keep_1_rate'] }}</td>
