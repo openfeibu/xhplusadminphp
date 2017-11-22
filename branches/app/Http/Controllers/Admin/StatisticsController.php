@@ -123,6 +123,7 @@ class StatisticsController extends BaseController
 		$uids  = OrderInfo::whereBetween('created_at',[$last_end_date,$date])->where('pay_status',1)->whereIn('uid',$last_uids)->distinct('uid')->pluck('uid')->toArray();
 		$lose_uids = array_diff($last_uids,$uids);
 		$users = User::whereIn('uid',$lose_uids)->get();
-		return view('admin.statistics.loses', compact('users'));
+		$count = count($users->toArray());
+		return view('admin.statistics.loses', compact('users','count'));
 	}
 }
