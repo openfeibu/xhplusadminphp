@@ -121,7 +121,7 @@ class StatisticsController extends BaseController
 		//十月份下单十一月份不下单的用户
 		$date = date('Y-m-d H:i:s');
 		$uids  = OrderInfo::whereBetween('created_at',[$last_end_date,$date])->where('pay_status',1)->whereIn('uid',$last_uids)->distinct('uid')->pluck('uid')->toArray();
-		$lose_uids = array_diff($uids,$last_uids);
+		$lose_uids = array_diff($last_uids,$uids);
 		$users = User::whereIn('uid',$lose_uids)->get();
 		return view('admin.statistics.loses', compact('users'));
 	}
