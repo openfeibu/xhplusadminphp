@@ -38,8 +38,8 @@
                                     <th>用户id</th>
                                     <th>用户昵称</th>
                                     <th>用户手机号码</th>
-                                    <th>注册时间</th>
                                     <th>上次访问时间</th>
+                                    <th>注册时间</th>
                                     <th>上次登录时间</th>
                                 </tr>
                                 </thead>
@@ -49,8 +49,8 @@
                                         <td>{{ $user->uid }}</td>
                                         <td>{{ $user->nickname }}</td>
                                         <td>{{ $user->mobile_no }}</td>
-                                        <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->last_visit }}</td>
+                                        <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->last_login }}</td>
                                     </tr>
                                 @endforeach
