@@ -122,8 +122,10 @@ class OrderInfoRepositoryEloquent extends BaseRepository implements OrderInfoRep
     {
         return OrderInfo::select(DB::raw('order_info.order_id,order_info.order_sn,order_info.total_fee,order_info.pay_id,order_info.order_status,order_info.pay_name,order_info.cancelling_time,user.nickname,user.uid,trade.fee,trade.trade_no'))
 						->join('user','order_info.uid','=','user.uid')
+                        ->join('shop','shop.shop_id','=','order_info.shop_id')
 						->join('trade_account as trade','order_info.order_sn','=','trade.out_trade_no')
 						->where('order_info.pay_id','<>',3)
+                        ->where('shop.shop_id','=',3)
 						->whereIn('order_info.order_status', ['3'])
 						->orderBy('order_info.order_id', 'desc')
 						->paginate(config('admin_config.page'));
